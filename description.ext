@@ -8,14 +8,14 @@ overviewText = "";
 // path to image that appears when in the mission select screen
 overviewPicture = "";
 
-//Displays a message while the mission is loading
-onLoadMission = "";
-onLoadName = "";
+onLoadName = ""; // Mission title during load
 // sub text during load screen
-onLoadIntro = "";
-// path to image that appears in load screens
+onLoadMission = "";
+// Relative path to image that appears in load screens
 loadScreen = "";
 
+
+saving = OFF;
 
 /* ----------------------------------------------------------------------------
 	Respawns
@@ -23,7 +23,14 @@ loadScreen = "";
 respawn = RESPAWN_TYPE_BASE;
 respawnOnStart = RESPAWN_ON_START_NONE;
 respawnDialog = ON;
-
+respawnTemplates[] = {};
+/*
+respawnTemplatesWest[] = {  };
+respawnTemplatesEast[] = {  };
+respawnTemplatesGuer[] = {  };
+respawnTemplatesCiv[] = {  };
+respawnTemplatesVirtual[] = {}; // Virtual players, used mainly in Curator (Zeus) missions
+*/
 
 /* ----------------------------------------------------------------------------
 	Garbage Collector
@@ -41,7 +48,7 @@ wreckRemovalMaxTime = 600;
 minPlayerDistance = 50;
 
 
-saving = OFF;
+
 
 
 class Header
@@ -74,7 +81,7 @@ class CfgCommunicationMenu
 
 class CfgTasks
 {
-/*
+	/*
 	class Default
 	{
 		name = "";
@@ -84,7 +91,7 @@ class CfgTasks
 		destination = "";
 		resources[] = {};
 	};
-*/
+	*/
 };
 
 
@@ -102,7 +109,6 @@ class CfgDebriefing
 	};
 	*/
 };
-
 
 
 class CfgNotifications

@@ -1,4 +1,6 @@
-// corpse & wreck manager modes
+/* ----------------------------------------------------------------------------
+	Corpse & Wreck Manager Modes
+---------------------------------------------------------------------------- */
 #define CW_MANAGER_MODE_NONE 0
 #define CW_MANAGER_MODE_ALL 1
 #define CW_MANAGER_MODE_ONLY_RESPAWNED 2
@@ -37,6 +39,23 @@
 #define RESPAWN_TYPE_BASE 3
 #define RESPAWN_TYPE_GROUP 4
 #define RESPAWN_TYPE_SIDE 5
+
+/* ----------------------------------------------------------------------------
+	Respawn Templates
+---------------------------------------------------------------------------- */
+#define RESPAWN_TEMPLATE_NONE "None"
+#define RESPAWN_TEMPLATE_SPECTATOR "Spectator"
+#define RESPAWN_TEMPLATE_INSTANT "Instant"
+#define RESPAWN_TEMPLATE_BASE "Base"
+#define RESPAWN_TEMPLATE_GROUP "Group"
+#define RESPAWN_TEMPLATE_SIDE "Side"
+#define RESPAWN_TEMPLATE_SEAGULL "Seagull"
+#define RESPAWN_TEMPLATE_WAVE "Wave"
+#define RESPAWN_TEMPLATE_TICKETS "Tickets"
+#define RESPAWN_TEMPLATE_COUNTER "Counter"
+#define RESPAWN_TEMPLATE_END_MISSION "EndMission"
+#define RESPAWN_TEMPLATE_MENU_POSITION "MenuPosition"
+#define RESPAWN_TEMPLATE_MENU_INVENTORY "MenuInventory"
 
 /* ----------------------------------------------------------------------------
 	respawnOnStart Modes
