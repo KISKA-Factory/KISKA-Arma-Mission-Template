@@ -1,21 +1,20 @@
 #include "Headers\descriptionEXT\defines.hpp"
 
+/* ----------------------------------------------------------------------------
+	Strings (image paths and text)
+---------------------------------------------------------------------------- */
 // Mission name displayed in the mission selection menu.
 briefingName = "";
-
 //Text to be displayed below the overviewPicture on the mission selection screen when the mission is available to play
 overviewText = "";
 // path to image that appears when in the mission select screen
 overviewPicture = "";
-
-onLoadName = ""; // Mission title during load
+// Mission title during load
+onLoadName = "";
 // sub text during load screen
 onLoadMission = "";
 // Relative path to image that appears in load screens
 loadScreen = "";
-
-
-saving = OFF;
 
 /* ----------------------------------------------------------------------------
 	Respawns
@@ -23,8 +22,8 @@ saving = OFF;
 respawn = RESPAWN_TYPE_BASE;
 respawnOnStart = RESPAWN_ON_START_NONE;
 respawnDialog = ON;
-respawnTemplates[] = {};
 /*
+respawnTemplates[] = {};
 respawnTemplatesWest[] = {  };
 respawnTemplatesEast[] = {  };
 respawnTemplatesGuer[] = {  };
@@ -47,10 +46,14 @@ wreckRemovalMaxTime = 600;
 // min distance from a corps or a wreck to delete
 minPlayerDistance = 50;
 
+/* ----------------------------------------------------------------------------
+	Misc
+---------------------------------------------------------------------------- */
+saving = OFF;
 
-
-
-
+/* ----------------------------------------------------------------------------
+	Configs
+---------------------------------------------------------------------------- */
 class Header
 {
 	gameType = GAME_TYPE_COOP;

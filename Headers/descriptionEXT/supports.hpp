@@ -1,3 +1,23 @@
+//import KISKA_basicSupport_baseClass
+//import KISKA_artillery_baseClass
+//import KISKA_CAS_baseClass
+//import KISKA_attackHelicopterCAS_baseClass
+//import KISKA_helicopterCAS_baseClass
+//import KISKA_arsenalSupplyDrop_baseClass
+
+//#include "\KISKA_Functions\Supports\Support Framework\Headers\Support Type IDs.hpp";
+//#include "\KISKA_Functions\Supports\Support Framework\Headers\Support Icons.hpp";
+//#include "\KISKA_Functions\Supports\Support Framework\Headers\CAS Type IDs.hpp";
+//#include "\KISKA_Functions\Supports\Support Framework\Headers\Arty Ammo Type IDs.hpp";
+
+/*
+    This master function for supports is used as go between for error cases such as when
+     a player provides an invalid position (looking at the sky). It will then refund the
+     support back to the player.
+*/
+#define CALL_SUPPORT_MASTER(CLASS) "["#CLASS",_this,%1] call KISKA_fnc_callingForSupportMaster"
+#define EXPRESSION_CALL_MASTER(CLASS) CALL_SUPPORT_MASTER(CLASS);
+
 /*
 // expression arguments
 
@@ -14,17 +34,16 @@
 	 somewhere in the class name so that it can be excluded from being added to the shop
 */
 /*
-class basicSupport_baseClass
+class KISKA_basicSupport_baseClass
 {
-    text = "I'm a support!"; // text in support menu and Shop (DO NOT INCLUDE PRICE HERE, IT IS ADDED IN BLWK_fnc_shop_populateSupportTree)
-    subMenu = "";
+    text = "I'm a support!"; // text in support menu
     expression = ""; // code to compile upon call of menu item
     icon = CALL_ICON; // icon in support menu
-    curosr = SUPPORT_CURSOR;
-    enable = "1";
     removeAfterExpressionCall = 1;
 
-	// used for support selection menu
+    supportTypeId = SUPPORT_TYPE_CUSTOM;
+
+    // used for support selection menu
     // _this select 0 is the classname
     managerCondition = "";
 };
