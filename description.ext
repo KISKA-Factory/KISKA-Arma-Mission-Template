@@ -50,6 +50,8 @@ minPlayerDistance = 50;
 	Misc
 ---------------------------------------------------------------------------- */
 saving = OFF;
+disabledAI = ON;
+enableDebugConsole = ENABLE_DEBUG_CONSOLE_ADMIN_HOSTS;
 
 /* ----------------------------------------------------------------------------
 	Configs

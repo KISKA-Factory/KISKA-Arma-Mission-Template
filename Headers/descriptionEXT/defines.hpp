@@ -7,6 +7,13 @@
 #define CW_MANAGER_MODE_ALL_BUT_RESPAWNED 3
 
 /* ----------------------------------------------------------------------------
+	Debug Console Settings
+---------------------------------------------------------------------------- */
+#define ENABLE_DEBUG_CONSOLE_EDITOR 0
+#define ENABLE_DEBUG_CONSOLE_ADMIN_HOSTS 1
+#define ENABLE_DEBUG_CONSOLE_ALL 2
+
+/* ----------------------------------------------------------------------------
 	Game Types
 ---------------------------------------------------------------------------- */
 #define GAME_TYPE_UNKNOWN Unknown
