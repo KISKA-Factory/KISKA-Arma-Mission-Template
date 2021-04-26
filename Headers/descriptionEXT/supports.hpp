@@ -1,9 +1,9 @@
-//import KISKA_basicSupport_baseClass
-//import KISKA_artillery_baseClass
-//import KISKA_CAS_baseClass
-//import KISKA_attackHelicopterCAS_baseClass
-//import KISKA_helicopterCAS_baseClass
-//import KISKA_arsenalSupplyDrop_baseClass
+//import KISKA_basicSupport_baseClass from CfgCommunicationMenu;
+//import KISKA_artillery_baseClass from CfgCommunicationMenu;
+//import KISKA_CAS_baseClass from CfgCommunicationMenu;
+//import KISKA_attackHelicopterCAS_baseClass from CfgCommunicationMenu;
+//import KISKA_helicopterCAS_baseClass from CfgCommunicationMenu;
+//import KISKA_arsenalSupplyDrop_baseClass from CfgCommunicationMenu;
 
 //#include "\KISKA_Functions\Supports\Support Framework\Headers\Support Type IDs.hpp";
 //#include "\KISKA_Functions\Supports\Support Framework\Headers\Support Icons.hpp";
