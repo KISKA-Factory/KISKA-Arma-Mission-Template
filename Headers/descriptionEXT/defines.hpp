@@ -60,8 +60,11 @@
 /* ----------------------------------------------------------------------------
 	respawnOnStart Modes
 ---------------------------------------------------------------------------- */
+// players do not respawn on mission start and onPlayerRespawn is NOT run
 #define RESPAWN_ON_START_NONE -1
+// players do NOT respawn on mission start but onPlayerRespawn IS run at start
 #define RESPAWN_ON_START_NONE_RUN_SCRIPT 0
+// players do respawn on mission start and onPlayerRespawn is run
 #define RESPAWN_ON_START_RUN_SCRIPT 1
 
 /* ----------------------------------------------------------------------------
