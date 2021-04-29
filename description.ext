@@ -1,4 +1,4 @@
-#include "Headers\descriptionEXT\defines.hpp"
+#include "Headers\descriptionEXT\descriptionEXT defines.hpp"
 
 /* ----------------------------------------------------------------------------
 	Strings (image paths and text)
@@ -22,6 +22,9 @@ loadScreen = "";
 respawn = RESPAWN_TYPE_BASE;
 respawnOnStart = RESPAWN_ON_START_NONE;
 respawnDialog = ON;
+respawnDelay = 10;
+respawnButton = ON;
+
 /*
 respawnTemplates[] = {};
 respawnTemplatesWest[] = {  };
