@@ -22,11 +22,11 @@ loadScreen = "";
 respawn = RESPAWN_TYPE_BASE;
 respawnOnStart = RESPAWN_ON_START_NONE;
 respawnDialog = ON;
-respawnDelay = 10;
+respawnDelay = 15;
 respawnButton = ON;
 
+respawnTemplates[] = {RESPAWN_TEMPLATE_MENU_POSITION};
 /*
-respawnTemplates[] = {};
 respawnTemplatesWest[] = {  };
 respawnTemplatesEast[] = {  };
 respawnTemplatesGuer[] = {  };
@@ -102,6 +102,10 @@ class CfgTasks
 	*/
 };
 
+class CfgTaskDescriptions
+{
+	#include "Headers\descriptionEXT\taskDescriptions.hpp"
+};
 
 class CfgDebriefing
 {
