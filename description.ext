@@ -87,21 +87,6 @@ class CfgCommunicationMenu
 	#include "Headers\descriptionEXT\supports.hpp"
 };
 
-class CfgTasks
-{
-	/*
-	class Default
-	{
-		name = "";
-		fsm = "";		// relative path to fsm file
-		condition = "";	// relative path to sqf file (compiled and stored for the duration of run time, executed frequently)
-		description = "";
-		destination = "";
-		resources[] = {};
-	};
-	*/
-};
-
 class CfgTaskDescriptions
 {
 	#include "Headers\descriptionEXT\taskDescriptions.hpp"
