@@ -63,7 +63,7 @@ class Header
 {
 	gameType = GAME_TYPE_COOP;
 	minPlayers =  	 1;
-	maxPlayers = 	 26;
+	maxPlayers = 	 14;
 };
 
 class CfgFunctions
@@ -121,3 +121,6 @@ class CfgNotifications
 	};
 	*/
 };
+
+
+#include "Headers\descriptionEXT\KISKA Tasks.hpp"
