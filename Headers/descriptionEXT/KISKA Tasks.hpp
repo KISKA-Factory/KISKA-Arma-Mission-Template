@@ -16,7 +16,7 @@ class KISKA_Tasks
         // 1: config path (CONFIG)
         // 2: task state (STRING)
         onComplete = ""; // code that runs upon completion of task when using KISKA_fnc_endTask
-        onCreate = ""; // code that runs on creation of task
+        onCreate = ""; // code that runs on creation of task when using KISKA_fnc_createTaskFromConfig
 
         destination[] = {};
 
