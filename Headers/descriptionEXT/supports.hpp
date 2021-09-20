@@ -4,6 +4,10 @@
 //import KISKA_attackHelicopterCAS_baseClass from CfgCommunicationMenu;
 //import KISKA_helicopterCAS_baseClass from CfgCommunicationMenu;
 //import KISKA_arsenalSupplyDrop_baseClass from CfgCommunicationMenu;
+//import KISKA_ARTY_155_templateClass from CfgCommunicationMenu;
+//import KISKA_ARTY_82_templateClass from CfgCommunicationMenu;
+//import KISKA_ARTY_230_templateClass from CfgCommunicationMenu;
+//import KISKA_supplyDrop_aircraft_baseClass from CfgCommunicationMenu;
 
 //#include "\KISKA_Functions\Supports\Support Framework\Headers\Support Type IDs.hpp";
 //#include "\KISKA_Functions\Supports\Support Framework\Headers\Support Icons.hpp";
