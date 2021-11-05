@@ -12,7 +12,7 @@ class KISKA_Bases
     {
         side = SIDE_OPFOR;
         infantryClasses[] = { // these arrays can be weigthed or unweighted
-            "someClass"
+            //"someClass"
         };
 
         class turrets
