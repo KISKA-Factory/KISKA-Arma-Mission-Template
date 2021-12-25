@@ -25,6 +25,18 @@ class KISKA_Bases
                 turrets = ""; // Searches for mission layer objects
                 //infantryClasses[] = {};
                 dynamicSim = ON;
+
+                // script that is compiled once and called on each unit after all units are created for this set
+                // params: 0: <OBJECT> - the created unit
+                onUnitCreated = "";
+
+                // script that is compiled once and called on each unit after it is created
+                // params: 0: <OBJECT> - the created unit
+                onUnitCreated = "";
+
+                // script that is compiled once and called on each unit and turret after the unit has been moved in as gunner
+                // params: 0: <OBJECT> - the created unit   1: <OBJECT> - the turret the unit's in
+                onUnitMovedInGunner = "";
             };
         };
 
@@ -37,6 +49,10 @@ class KISKA_Bases
                 // side = SIDE_OPFOR;
                 numberOfUnits = -1; // if -1, number of available positions is used this can only max out at the number of available positions
                 unitsPerGroup = 1;
+
+                // script that is compiled once and called on each unit after all units are created for this set
+                // params: 0: <OBJECT> - the created unit
+                onUnitCreated = "";
 
                 positions = ""; // will search for objects in mission layer
                 //positions[] = {};
@@ -57,6 +73,9 @@ class KISKA_Bases
                 spawnPosition = ""; // used with object, needs to be object's variable name
                 //spawnPosition[] = {}; //positions in ATL format
                 numberOfUnits = 5;
+                // script that is compiled and run on the patrol group after they are spawned and given patrol route
+                // params are 0: <GROUP> - the patrol group
+                onGroupCreated = "";
 
                 // same as strings for corresponding waypoint commands
                 behaviour = "SAFE";
