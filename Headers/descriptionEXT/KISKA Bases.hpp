@@ -109,14 +109,19 @@ class KISKA_Bases
 
         class simples
         {
+            followTerrain = 1;  // follow terrain when placed
+            superSimple = 1; // use super simple objects
+
             class someClass
             {
+                followTerrain = 1;  // overrides default setting above for this class
+                superSimple = 1; // overrides default setting above for this class
                 objectClasses[] = {
 
                 };
 
                 //positions = ""; // use with mission layer objects
-                positions[] = {
+                positions[] = { // expects positionWorld positions
 
                 };
             };
