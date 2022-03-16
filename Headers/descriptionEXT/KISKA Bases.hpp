@@ -30,10 +30,6 @@ class KISKA_Bases
                 // params: 0: <OBJECT> - the created unit
                 onUnitCreated = "";
 
-                // script that is compiled once and called on each unit after it is created
-                // params: 0: <OBJECT> - the created unit
-                onUnitCreated = "";
-
                 // script that is compiled once and called on each unit and turret after the unit has been moved in as gunner
                 // params: 0: <OBJECT> - the created unit   1: <OBJECT> - the turret the unit's in
                 onUnitMovedInGunner = "";
