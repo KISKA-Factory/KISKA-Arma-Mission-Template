@@ -3,18 +3,24 @@
 /* ----------------------------------------------------------------------------
 	Strings (image paths and text)
 ---------------------------------------------------------------------------- */
+// IF BRIEFINGNAME IS AN EMPTY STRING MISSION WILL NOT SHOW IN SELECTOR
 // Mission name displayed in the mission selection menu.
-briefingName = "";
+// briefingName = "";
+
 //Text to be displayed below the overviewPicture on the mission selection screen when the mission is available to play
-overviewText = "";
+// overviewText = "";
+
 // path to image that appears when in the mission select screen
-overviewPicture = "";
+// overviewPicture = "";
+
 // Mission title during load
-onLoadName = "";
+// onLoadName = "";
+
 // sub text during load screen
-onLoadMission = "";
+// onLoadMission = "";
+
 // Relative path to image that appears in load screens
-loadScreen = "";
+// loadScreen = "";
 
 /* ----------------------------------------------------------------------------
 	Respawns
