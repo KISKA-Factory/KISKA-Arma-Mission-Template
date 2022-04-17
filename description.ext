@@ -30,7 +30,7 @@ respawnOnStart = RESPAWN_ON_START_NONE;
 respawnDialog = ON;
 respawnDelay = 15;
 respawnButton = ON;
-respawn = 3;
+respawn = RESPAWN_TYPE_BASE;
 respawnTemplates[] = {RESPAWN_TEMPLATE_MENU_POSITION,RESPAWN_TEMPLATE_SPECTATOR};
 /*
 respawnTemplatesWest[] = {  };
