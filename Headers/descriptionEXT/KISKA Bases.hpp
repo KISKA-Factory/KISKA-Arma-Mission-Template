@@ -46,9 +46,9 @@ class KISKA_Bases
                 numberOfUnits = -1; // if -1, number of available positions is used this can only max out at the number of available positions
                 unitsPerGroup = 1;
 
-                // script that is compiled once and called on each unit after all units are created for this set
-                // params: 0: <OBJECT> - the created unit
-                onUnitCreated = "";
+                // script that is compiled once and called with all units after all are created
+                    // params: 0: <ARRAY> - the created units
+                onUnitsCreated = "";
 
                 positions = ""; // will search for objects in mission layer
                 //positions[] = {};
@@ -67,7 +67,7 @@ class KISKA_Bases
                 // side = SIDE_OPFOR;
                 //infantryClasses[] = {};
                 spawnPosition = ""; // used with object, needs to be object's variable name
-                //spawnPosition[] = {}; //positions in ATL format
+                //spawnPosition[] = {}; // position in ATL format
                 numberOfUnits = 5;
                 // script that is compiled and run on the patrol group after they are spawned and given patrol route
                 // params are 0: <GROUP> - the patrol group
