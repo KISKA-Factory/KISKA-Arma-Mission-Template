@@ -5,14 +5,15 @@
 //import KISKA_helicopterCAS_baseClass from CfgCommunicationMenu;
 //import KISKA_arsenalSupplyDrop_baseClass from CfgCommunicationMenu;
 //import KISKA_ARTY_155_templateClass from CfgCommunicationMenu;
+//import KISKA_ARTY_120_templateClass from CfgCommunicationMenu;
 //import KISKA_ARTY_82_templateClass from CfgCommunicationMenu;
 //import KISKA_ARTY_230_templateClass from CfgCommunicationMenu;
 //import KISKA_supplyDrop_aircraft_baseClass from CfgCommunicationMenu;
 
-//#include "\KISKA_Functions\Supports\Support Framework\Headers\Support Type IDs.hpp";
-//#include "\KISKA_Functions\Supports\Support Framework\Headers\Support Icons.hpp";
-//#include "\KISKA_Functions\Supports\Support Framework\Headers\CAS Type IDs.hpp";
-//#include "\KISKA_Functions\Supports\Support Framework\Headers\Arty Ammo Type IDs.hpp";
+//#include "\KISKA_Functions\Supports\Support Framework\Headers\Support Type IDs.hpp"
+//#include "\KISKA_Functions\Supports\Support Framework\Headers\Support Icons.hpp"
+//#include "\KISKA_Functions\Supports\Support Framework\Headers\CAS Type IDs.hpp"
+//#include "\KISKA_Functions\Supports\Support Framework\Headers\Arty Ammo Type IDs.hpp"
 
 /*
     This master function for supports is used as go between for error cases such as when
