@@ -120,6 +120,8 @@ class KISKA_Bases
         {
             class aVehicle
             {
+                vehicleClass = "some_vehicle_class_name";
+                
                 position[] = {0,0,0};
                 // position[] = {0,0,0, 300}; // alternative to give direction to face
                 // position = ""; // alternative for with an object
