@@ -55,6 +55,7 @@ class KISKA_Bases
 
                 dynamicSim = ON;
                 canPath = ON;
+                ambientAnim = OFF;
             };
 
         };
@@ -99,8 +100,57 @@ class KISKA_Bases
                     waypointType = "MOVE";
                 };
 
+                class reinforce
+                {
+                    id = "patrolUnit";
+                    // see KISKA_fnc_bases_triggerReaction
+                    // Must return bool, whether or not to prevent KISKA_fnc_bases_triggerReaction after
+                    // this script completes (e.g. return false to run KISKA_fnc_bases_triggerReaction)
+                    onEnteredCombat = "hint str _this; false";
+                    canCall[] = {
+                        "armorReinforcement"
+                    };
+                };
+
             };
 
+        };
+
+        class landVehicles
+        {
+            class aVehicle
+            {
+                position[] = {0,0,0};
+                // position[] = {0,0,0, 300}; // alternative to give direction to face
+                // position = ""; // alternative for with an object
+
+                // see KISKA_fnc_spawnVehicle _crewInstructions param
+                // used with moveInAny in order of appearance
+                // overflow is deleted
+                crew[] = {
+                    "B_crew_F", // driver class
+                    "B_crew_F", // commander class
+                    "B_crew_F" // gunner class
+                    //... etc.
+                };
+
+                onVehicleCreated = ""; // code to compile after vehicle is created and properties set
+
+                canPath = ON; // PATH ai will be disabled on driver
+                dynamicSim = ON; // vehicle and created groups will be dynamically simmed on all machines
+
+                class reinforce
+                {
+                    id = "armorReinforcement";
+                    // see KISKA_fnc_bases_triggerReaction
+                    // Must return bool, whether or not to prevent KISKA_fnc_bases_triggerReaction after
+                    // this script completes (e.g. return false to run KISKA_fnc_bases_triggerReaction)
+                    onEnteredCombat = "hint str _this; false";
+                    canCall[] = {
+                        "patrolUnit"
+                    };
+                };
+            };
         };
 
         class simples
