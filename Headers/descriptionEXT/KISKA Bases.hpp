@@ -134,7 +134,11 @@ class KISKA_Bases
                     //... etc.
                 };
 
+
                 onVehicleCreated = ""; // code to compile after vehicle is created and properties set
+                    // params: 0: <OBJECT> - the created vehicle
+                    // params: 1: <ARRAY> - An array containing the vehicle's crew
+                    // params: 2: <GROUP> - The crew's group
 
                 canPath = ON; // PATH ai will be disabled on driver
                 dynamicSim = ON; // vehicle and created groups will be dynamically simmed on all machines
