@@ -174,23 +174,24 @@ class KISKA_Bases
                     // vectorDir[] = {}; // vectorDir to apply to vehicles upon creation
                     // offset[] = {0,0,0.1}; // an offset to apply to the spawn position of the object with "vectorAdd" (defaults to {0,0,0.1})
 
-                    /*
+                /*
                     // an array of animations and their phase to apply to the vehicle upon creation
                     animations[] = {
                         {"someAnimation",15}
                     };
-                    */
+                */
 
-                    /*
+                /*
                     // an array of hidden selection arrays to adjust upon creation with "hideSelection"
                     // if right number is greater than 0, hideSelection will be given "true"
                     selections[] = {
                         // (_simpleObject hideSelection ["hiddenSelectionToHide", true])
                         {"hiddenSelectionToHide",1},
+
                         // (_simpleObject hideSelection ["otherHiddenSelectionToHide", false])
                         {"otherHiddenSelectionToHide",0}
                     };
-                    */
+                */
 
                     // a function that runs upon creation of each simple object for this class
                     // parameters: 0: <OBJECT> - the simple object created
