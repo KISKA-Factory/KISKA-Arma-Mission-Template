@@ -121,7 +121,7 @@ class KISKA_Bases
             class aVehicle
             {
                 vehicleClass = "some_vehicle_class_name";
-                
+
                 position[] = {0,0,0};
                 // position[] = {0,0,0, 300}; // alternative to give direction to face
                 // position = ""; // alternative for with an object
@@ -161,22 +161,49 @@ class KISKA_Bases
 
         class simples
         {
-            followTerrain = 1;  // follow terrain when placed
-            superSimple = 1; // use super simple objects
-
-            class someClass
+            class setOfVehicles
             {
-                followTerrain = 1;  // overrides default setting above for this class
-                superSimple = 1; // overrides default setting above for this class
-                objectClasses[] = {
 
+                positions = ""; // mission layer of objects to get positions from
+                // positions[] = { /* expects array positionWorld positions */ };
+                class vehicleClass_1
+                {
+                    // followTerrain = ON;  // Should object try to adjust to the terrain angle (ON by default)
+                    // superSimple = ON; // Should object be super simple, which offers slightly more performance for vehicles (ON by default)
+                    // vectorUp[] = {}; // vectorUp to apply to vehicles upon creation
+                    // vectorDir[] = {}; // vectorDir to apply to vehicles upon creation
+                    // offset[] = {0,0,0.1}; // an offset to apply to the spawn position of the object with "vectorAdd" (defaults to {0,0,0.1})
+
+                    /*
+                    // an array of animations and their phase to apply to the vehicle upon creation
+                    animations[] = {
+                        {"someAnimation",15}
+                    };
+                    */
+
+                    /*
+                    // an array of hidden selection arrays to adjust upon creation with "hideSelection"
+                    // if right number is greater than 0, hideSelection will be given "true"
+                    selections[] = {
+                        // (_simpleObject hideSelection ["hiddenSelectionToHide", true])
+                        {"hiddenSelectionToHide",1},
+                        // (_simpleObject hideSelection ["otherHiddenSelectionToHide", false])
+                        {"otherHiddenSelectionToHide",0}
+                    };
+                    */
+
+                    // a function that runs upon creation of each simple object for this class
+                    // parameters: 0: <OBJECT> - the simple object created
+                    // onObjectCreated = "hint str _this";
+                    type = "vehicle_1_classname";
                 };
 
-                //positions = ""; // use with mission layer objects
-                positions[] = { // expects positionWorld positions
-
+                class vehicleClass_2 : vehicleClass_1
+                {
+                    type = "vehicle_2_classname";
                 };
             };
+
         };
     };
 };
