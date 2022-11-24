@@ -129,7 +129,18 @@ class CfgNotifications
 };
 
 
+#if __has_include("Headers\descriptionEXT\loadouts.hpp")
+	#include "Headers\descriptionEXT\loadouts.hpp"
+#endif
 
-#include "Headers\descriptionEXT\Tasks\KISKA Tasks.hpp"
-#include "Headers\descriptionEXT\KISKA Traits.hpp"
-#include "Headers\descriptionEXT\Bases\KISKA Bases.hpp"
+#if __has_include("Headers\descriptionEXT\Tasks\KISKA Tasks.hpp")
+	#include "Headers\descriptionEXT\Tasks\KISKA Tasks.hpp"
+#endif
+
+#if __has_include("Headers\descriptionEXT\KISKA Traits.hpp")
+	#include "Headers\descriptionEXT\KISKA Traits.hpp"
+#endif
+
+#if __has_include("Headers\descriptionEXT\Bases\KISKA Bases.hpp")
+	#include "Headers\descriptionEXT\Bases\KISKA Bases.hpp"
+#endif
