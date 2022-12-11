@@ -1,4 +1,6 @@
-#include "Headers\descriptionEXT\descriptionEXT defines.hpp"
+#if __has_include("Headers\descriptionEXT\descriptionEXT defines.hpp")
+	#include "Headers\descriptionEXT\descriptionEXT defines.hpp"
+#endif
 
 /* ----------------------------------------------------------------------------
 	Strings (image paths and text)
@@ -74,28 +76,40 @@ class Header
 
 class CfgFunctions
 {
-	#include "Headers\descriptionEXT\functions.hpp"
-	#include "KISKA Systems\KISKA Functions.hpp"
+	#if __has_include("KISKA Systems\KISKA Functions.hpp")
+		#include "KISKA Systems\KISKA Functions.hpp"
+	#endif
+	#if __has_include("Headers\descriptionEXT\functions.hpp")
+		#include "Headers\descriptionEXT\functions.hpp"
+	#endif
 };
 
 class CfgSounds
 {
-	#include "Headers\descriptionEXT\sounds.hpp"
+	#if __has_include("Headers\descriptionEXT\sounds.hpp")
+		#include "Headers\descriptionEXT\sounds.hpp"
+	#endif
 };
 
 class Params
 {
-	#include "Headers\descriptionEXT\missionParams.hpp"
+	#if __has_include("Headers\descriptionEXT\missionParams.hpp")
+		#include "Headers\descriptionEXT\missionParams.hpp"
+	#endif
 };
 
 class CfgCommunicationMenu
 {
-	#include "Headers\descriptionEXT\supports.hpp"
+	#if __has_include("Headers\descriptionEXT\supports.hpp")
+		#include "Headers\descriptionEXT\supports.hpp"
+	#endif
 };
 
 class CfgTaskDescriptions
 {
-	#include "Headers\descriptionEXT\taskDescriptions.hpp"
+	#if __has_include("Headers\descriptionEXT\taskDescriptions.hpp")
+		#include "Headers\descriptionEXT\taskDescriptions.hpp"
+	#endif
 };
 
 class CfgDebriefing
@@ -126,6 +140,24 @@ class CfgNotifications
 		duration = 5;
 	};
 	*/
+};
+
+class KISKA_dynamicSimulation
+{
+	enableDynamicSimulation = ON;
+
+	class Coef
+	{
+		IsMoving = 1;
+	};
+
+	class ActivationDistance
+	{
+		Group = 1000;
+		Vehicle = 1000;
+		EmptyVehicle = 50;
+		Prop = 50;
+	};
 };
 
 
