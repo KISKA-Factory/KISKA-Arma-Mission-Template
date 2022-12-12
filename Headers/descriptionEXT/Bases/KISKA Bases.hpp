@@ -36,12 +36,25 @@ class KISKA_Bases
             };
         };
 
+        // agents use most of the same properties, classes, and structures as infantry
+        // except for unitsPerGroup and canPath
+        // numberOfUnits is instead numberOfAgents
+        // and onUnitsCreated is instead onAgentsCreated
+        class agents
+        {
+             // if -1, number of available positions is used this can only max out at the number of available positions
+            numberOfAgents = -1;
+            // script that is compiled once and called with all units after all are created
+                // params: 0: <ARRAY> - the created units
+            onAgentsCreated = ""
+        };
+
         class infantry
         {
-            //infantryClasses[] = {};
+            // infantryClasses[] = {};
             class infantrySpawnSet_1
             {
-                //infantryClasses[] = {};
+                // infantryClasses[] = {};
                 // side = SIDE_OPFOR;
                 numberOfUnits = -1; // if -1, number of available positions is used this can only max out at the number of available positions
                 unitsPerGroup = 1;
@@ -55,7 +68,46 @@ class KISKA_Bases
 
                 dynamicSim = ON;
                 canPath = ON;
-                ambientAnim = OFF;
+
+                // see KISKA_fnc_ambientAnim for functional details as that is the function
+                // used to creat the animation affects
+                class AmbientAnim
+                {
+                    // an array of animation sets to randomly choose from
+                    // or a single string animation set
+                    // Default animation sets are defined in the configFile >> "KISKA_AmbientAnimations" class
+                    animationSet[] = {};
+                    // animationSet = "";
+
+                    // Adjustements to equipment of unit to fit the animation
+                    // these adjustments are temporary and full equipment will be restored
+                    // upon stopping the animation with KISKA_fnc_ambientAnim_stop
+                    // - "": no changes
+                    // - "NONE": no goggles, headgear, vest, weapon, nvgs, backpack
+                    // - "LIGHT": no goggles, headgear, vest, backpack
+                    // - "MEDIUM": no goggles, headgear
+                    // - "FULL": no goggles
+                    equipmentLevel = "";
+
+                    // Certain animation sets (mostly sitting in chair ones)
+                    // will automatically snap to objects of certain classes
+                    // should they be in this radius
+                    snapToRange = 5;
+
+                    // if units get into combat, they will stop their animations
+                    // and have their loadouts restored
+                    exitOnCombat = ON;
+
+                    // should a unit fail to fina a nearby object to snap to
+                    // this function will be run
+                    // see KISKA_fnc_ambientAnim for params
+                    fallbackFunction = "";
+
+                    // if your animation sets do not fall into the default configFile >> "KISKA_AmbientAnimations" class
+                    // this function can provide a custom animation set map
+                    // see KISKA_fnc_ambientAnim_createMapFromConfig
+                    getAnimationMapFunction = "";
+                };
             };
 
         };
