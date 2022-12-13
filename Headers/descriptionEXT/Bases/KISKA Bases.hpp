@@ -207,6 +207,9 @@ class KISKA_Bases
                     canCall[] = {
                         "patrolUnit"
                     };
+                    // mission priority will determine if a canCall unit should break off
+                    // from a lesser priority call in order to support this one
+                    priority = 1;
                 };
             };
         };
