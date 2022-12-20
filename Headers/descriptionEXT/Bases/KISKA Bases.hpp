@@ -12,16 +12,16 @@ class KISKA_Bases
     {
         side = SIDE_OPFOR;
         infantryClasses[] = { // these arrays can be weigthed or unweighted
-            //"someClass"
+            // "someClass"
         };
 
         class turrets
         {
-            //infantryClasses[] = {};
+            // infantryClasses[] = {};
             class turretSet_1
             {
-                //side = SIDE_OPFOR;
-                //turrets[] = {}; // fill with variable names of turrets
+                // side = SIDE_OPFOR;
+                // turrets[] = {}; // fill with variable names of turrets
                 turrets = ""; // Searches for mission layer objects
                 //infantryClasses[] = {};
                 dynamicSim = ON;
@@ -42,7 +42,7 @@ class KISKA_Bases
         // and onUnitsCreated is instead onAgentsCreated
         class agents
         {
-             // if -1, number of available positions is used this can only max out at the number of available positions
+            // if -1, number of available positions is used this can only max out at the number of available positions
             numberOfAgents = -1;
             // script that is compiled once and called with all units after all are created
                 // params: 0: <ARRAY> - the created units
@@ -199,7 +199,9 @@ class KISKA_Bases
 
                 class reinforce
                 {
-                    id = "armorReinforcement";
+                    // id will default to the configName if no present (e.g. this would mean id = "aVehicle")
+                    // id = "armorReinforcement";
+
                     // see KISKA_fnc_bases_triggerReaction
                     // Must return bool, whether or not to prevent KISKA_fnc_bases_triggerReaction after
                     // this script completes (e.g. return false to run KISKA_fnc_bases_triggerReaction)
