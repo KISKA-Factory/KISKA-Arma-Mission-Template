@@ -19,7 +19,9 @@ class KISKA_cfgTasks
         onCreate = ""; // code that runs on creation of task when using KISKA_fnc_createTaskFromConfig
 
         destination[] = {}; // position of task
-        compiledDestination = ""; // uncompiled code that needs to return an object, this will overwrite the destination[] property which will only be used if the object returned is null
+        // uncompiled code that needs to return an object or array in format [X,Y,Z] or [OBJECT,precision]
+        // this will overwrite the destination[] property which will only be used if the returned value is invalid
+        compiledDestination = "";  
 
         defaultState = ""; // "CREATED", "ASSIGNED", "AUTOASSIGNED" (default), "SUCCEEDED", "FAILED", or "CANCELED"
         priority = -1;
