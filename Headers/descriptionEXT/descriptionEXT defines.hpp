@@ -38,6 +38,16 @@
 #define GAME_TYPE_WARLORDS Warlords
 
 /* ----------------------------------------------------------------------------
+	Channels
+---------------------------------------------------------------------------- */
+#define GLOBAL_CHANNEL_ID 0
+#define SIDE_CHANNEL_ID 1
+#define COMMAND_CHANNEL_ID 2
+#define GROUP_CHANNEL_ID 3
+#define VEHICLE_CHANNEL_ID 4
+#define DIRECT_CHANNEL_ID 5
+
+/* ----------------------------------------------------------------------------
 	Respawn Types
 ---------------------------------------------------------------------------- */
 #define RESPAWN_TYPE_NONE 0
