@@ -76,8 +76,24 @@ class KISKA_Bases
                     // an array of animation sets to randomly choose from
                     // or a single string animation set
                     // Default animation sets are defined in the configFile >> "KISKA_AmbientAnimations" class
-                    animationSet[] = {};
+                    // animationSet[] = {};
                     // animationSet = "";
+                    class animationSet
+                    {
+                        // snapToAnimations = "";
+                        snapToAnimations[] = {
+                            ""
+                        };
+                        // backupAnimations = "";
+                        backupAnimations[] = {
+                            "", 1 // both backupAnimations and snapToAnimations can be weighted arrays
+                        };
+                        snapToRange = 10;
+                        // should a unit fail to find a nearby object to snap to and no 
+                        // backupAnimations are present this function will be run
+                        // see KISKA_fnc_ambientAnim for params
+                        fallbackFunction = "";
+                    };
 
                     // Adjustements to equipment of unit to fit the animation
                     // these adjustments are temporary and full equipment will be restored
@@ -97,11 +113,6 @@ class KISKA_Bases
                     // if units get into combat, they will stop their animations
                     // and have their loadouts restored
                     exitOnCombat = ON;
-
-                    // should a unit fail to fina a nearby object to snap to
-                    // this function will be run
-                    // see KISKA_fnc_ambientAnim for params
-                    fallbackFunction = "";
 
                     // if your animation sets do not fall into the default configFile >> "KISKA_AmbientAnimations" class
                     // this function can provide a custom animation set map
