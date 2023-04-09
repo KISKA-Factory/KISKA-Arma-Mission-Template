@@ -11,6 +11,8 @@ class KISKA_Bases
     class aBase
     {
         side = SIDE_OPFOR;
+        // infantryClasses will be either an array of classnames of possible infantry to spawn
+        // or a string that will be compiled into a function that needs to return an array of classnames
         infantryClasses[] = { // these arrays can be weigthed or unweighted
             // "someClass"
         };
