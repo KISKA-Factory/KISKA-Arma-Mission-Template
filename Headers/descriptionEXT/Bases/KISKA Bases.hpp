@@ -273,7 +273,7 @@ class KISKA_Bases
                     // If both `type` and `getTypeFunction` properties are present, getTypeFunction's return will be used
                     // parameters: 0: <CONFIG> - the config class of the simple object 
                     /// (e.g. the class this `getTypeFunction` property is defined in)
-                    getTypeFunction = "";
+                    // getTypeFunction = "";
                 };
 
                 class vehicleClass_2 : vehicleClass_1
