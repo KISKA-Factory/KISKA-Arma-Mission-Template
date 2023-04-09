@@ -266,7 +266,14 @@ class KISKA_Bases
                     // a function that runs upon creation of each simple object for this class
                     // parameters: 0: <OBJECT> - the simple object created
                     // onObjectCreated = "hint str _this";
+
                     type = "vehicle_1_classname";
+
+                    // A function that when compiled will return the classname to use for this simple object
+                    // If both `type` and `getTypeFunction` properties are present, getTypeFunction's return will be used
+                    // parameters: 0: <CONFIG> - the config class of the simple object 
+                    /// (e.g. the class this `getTypeFunction` property is defined in)
+                    getTypeFunction = "";
                 };
 
                 class vehicleClass_2 : vehicleClass_1
