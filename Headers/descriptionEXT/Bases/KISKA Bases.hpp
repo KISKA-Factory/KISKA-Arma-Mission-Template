@@ -13,7 +13,8 @@ class KISKA_Bases
         side = SIDE_OPFOR;
         // infantryClasses will be either an array of classnames of possible infantry to spawn
         // or a string that will be compiled into a function that needs to return an array of classnames
-        infantryClasses[] = { // these arrays can be weigthed or unweighted
+        infantryClasses[] = { 
+            // these arrays can be weigthed or unweighted
             // "someClass"
         };
 
@@ -39,7 +40,7 @@ class KISKA_Bases
         };
 
         // agents use most of the same properties, classes, and structures as infantry
-        // except for unitsPerGroup and canPath
+        // except for unitsPerGroup, stancess, and canPath
         // numberOfUnits is instead numberOfAgents
         // and onUnitsCreated is instead onAgentsCreated
         class agents
@@ -48,7 +49,7 @@ class KISKA_Bases
             numberOfAgents = -1;
             // script that is compiled once and called with all units after all are created
                 // params: 0: <ARRAY> - the created units
-            onAgentsCreated = ""
+            onAgentsCreated = "";
         };
 
         class infantry
@@ -70,6 +71,16 @@ class KISKA_Bases
 
                 dynamicSim = ON;
                 canPath = ON;
+
+                // A weighted or unweighted array of values that will be randomly selected for unit positions
+                // the positions need to be compatible with setUnitPos
+                // An empty array or undefined property will be replaced with ["up",0.7,"middle",0.3]
+                stances[] = {
+                    "up",
+                    0.7,
+                    "middle",
+                    0.3
+                };
 
                 // see KISKA_fnc_ambientAnim for functional details as that is the function
                 // used to creat the animation affects
