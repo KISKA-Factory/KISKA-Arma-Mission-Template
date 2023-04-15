@@ -45,12 +45,14 @@ class KISKA_Bases
         // and onUnitsCreated is instead onAgentsCreated
         class agents
         {
-            // if -1, number of available positions is used this can only max out at the number of available positions
-            numberOfAgents = -1;
-            // script that is compiled once and called with all units after all are created
-                // params: 0: <ARRAY> - the created units
-            onAgentsCreated = "";
-        };
+            class agentGroup_1
+            {
+                // if -1, number of available positions is used this can only max out at the number of available positions
+                numberOfAgents = -1;
+                // script that is compiled once and called with all units after all are created
+                    // params: 0: <ARRAY> - the created units
+                onAgentsCreated = "";
+            };        };
 
         class infantry
         {
