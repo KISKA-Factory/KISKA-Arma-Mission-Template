@@ -111,12 +111,16 @@ class KISKA_Bases
                         snapToAnimations[] = {
                             ""
                         };
+                        // "backupAnimations" are used in lieu of the unit successfully being able to snap to an object
                         // backupAnimations = "";
                         backupAnimations[] = {
                             // both backupAnimations and snapToAnimations can be weighted arrays
                             "", 1 
                         };
+                        // "snapToRange" is the radius to search around the unit for potential objects to snap to
+                        // the max radius is 5.
                         snapToRange = 10;
+
                         // should a unit fail to find a nearby object to snap to and no 
                         // backupAnimations are present this function will be run
                         // see KISKA_fnc_ambientAnim for params
