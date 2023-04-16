@@ -136,6 +136,8 @@ class KISKA_Bases
                     // - "MEDIUM": no goggles, headgear
                     // - "FULL": no goggles
                     equipmentLevel = "";
+                    // "equipmentLevel" can also be a weighted or unweighted array to randomly select from
+                    // equipmentLevel[] = {"NONE",1};
 
                     // Certain animation sets (mostly sitting in chair ones)
                     // will automatically snap to objects of certain classes
