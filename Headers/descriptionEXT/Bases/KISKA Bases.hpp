@@ -270,6 +270,12 @@ class KISKA_Bases
                 // positions[] = { /* expects array positionWorld positions */ };
                 class vehicleClass_1
                 {
+                    // "includeCondition" can be used to dynamically filter out a given 
+                    /// class from being available for random selection; (`true` to include, `false` to exclude)
+                    // an undefined "includeCondition" or empty ("") one will always be available sor selection
+                        // parameters: 0: <CONFIG> - this config class
+                    includeCondition = "";
+
                     // followTerrain = ON;  // Should object try to adjust to the terrain angle (ON by default)
                     // superSimple = ON; // Should object be super simple, which offers slightly more performance for vehicles (ON by default)
                     // vectorUp[] = {}; // vectorUp to apply to vehicles upon creation
@@ -296,15 +302,15 @@ class KISKA_Bases
                 */
 
                     // a function that runs upon creation of each simple object for this class
-                    // parameters: 0: <OBJECT> - the simple object created
+                        // parameters: 0: <OBJECT> - the simple object created
                     // onObjectCreated = "hint str _this";
 
                     type = "vehicle_1_classname";
 
                     // A function that when compiled will return the classname to use for this simple object
                     // If both `type` and `getTypeFunction` properties are present, getTypeFunction's return will be used
-                    // parameters: 0: <CONFIG> - the config class of the simple object 
                     /// (e.g. the class this `getTypeFunction` property is defined in)
+                        // parameters: 0: <CONFIG> - this config class
                     // getTypeFunction = "";
                 };
 
