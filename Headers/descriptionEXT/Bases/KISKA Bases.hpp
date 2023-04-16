@@ -270,11 +270,11 @@ class KISKA_Bases
                 // positions[] = { /* expects array positionWorld positions */ };
                 class vehicleClass_1
                 {
-                    // "includeCondition" can be used to dynamically filter out a given 
+                    // "filterCondition" can be used to dynamically filter out a given 
                     /// class from being available for random selection; (`true` to include, `false` to exclude)
-                    // an undefined "includeCondition" or empty ("") one will always be available sor selection
+                    // an undefined "filterCondition" or empty ("") one will always be available sor selection
                         // parameters: 0: <CONFIG> - this config class
-                    includeCondition = "";
+                    filterCondition = "";
 
                     // followTerrain = ON;  // Should object try to adjust to the terrain angle (ON by default)
                     // superSimple = ON; // Should object be super simple, which offers slightly more performance for vehicles (ON by default)
