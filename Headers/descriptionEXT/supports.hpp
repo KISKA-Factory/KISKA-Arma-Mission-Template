@@ -10,10 +10,18 @@
 //import KISKA_ARTY_230_templateClass from CfgCommunicationMenu;
 //import KISKA_supplyDrop_aircraft_baseClass from CfgCommunicationMenu;
 
-//#include "\KISKA_Functions\Supports\Support Framework\Headers\Support Type IDs.hpp"
-//#include "\KISKA_Functions\Supports\Support Framework\Headers\Support Icons.hpp"
-//#include "\KISKA_Functions\Supports\Support Framework\Headers\CAS Type IDs.hpp"
-//#include "\KISKA_Functions\Supports\Support Framework\Headers\Arty Ammo Type IDs.hpp"
+// #if __has_include("\KISKA_Functions\Supports\Support Framework\Headers\Support Type IDs.hpp")
+//     #include "\KISKA_Functions\Supports\Support Framework\Headers\Support Type IDs.hpp"
+// #endif
+// #if __has_include("\KISKA_Functions\Supports\Support Framework\Headers\Support Icons.hpp")
+//     #include "\KISKA_Functions\Supports\Support Framework\Headers\Support Icons.hpp"
+// #endif
+// #if __has_include("\KISKA_Functions\Supports\Support Framework\Headers\CAS Type IDs.hpp")
+//     #include "\KISKA_Functions\Supports\Support Framework\Headers\CAS Type IDs.hpp"
+// #endif
+// #if __has_include("\KISKA_Functions\Supports\Support Framework\Headers\Arty Ammo Type IDs.hpp")
+//     #include "\KISKA_Functions\Supports\Support Framework\Headers\Arty Ammo Type IDs.hpp"
+// #endif
 
 /*
     This master function for supports is used as go between for error cases such as when
