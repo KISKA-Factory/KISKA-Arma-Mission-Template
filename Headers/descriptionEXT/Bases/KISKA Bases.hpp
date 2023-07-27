@@ -52,7 +52,8 @@ class KISKA_Bases
                 // script that is compiled once and called with all units after all are created
                     // params: 0: <ARRAY> - the created units
                 onAgentsCreated = "";
-            };        };
+            };        
+        };
 
         class infantry
         {
