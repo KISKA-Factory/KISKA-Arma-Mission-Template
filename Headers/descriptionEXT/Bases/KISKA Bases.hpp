@@ -40,7 +40,7 @@ class KISKA_Bases
         };
 
         // agents use most of the same properties, classes, and structures as infantry
-        // except for unitsPerGroup, stancess, and canPath
+        // except for unitsPerGroup, stanceses, and canPath
         // numberOfUnits is instead numberOfAgents
         // and onUnitsCreated is instead onAgentsCreated
         class agents
@@ -182,7 +182,7 @@ class KISKA_Bases
                 //spawnPosition[] = {}; 
 
                 numberOfUnits = 5;
-                
+
                 // script that is compiled and run on the patrol group after they are spawned and given patrol route
                 // params are 0: <GROUP> - the patrol group
                 onGroupCreated = "";
