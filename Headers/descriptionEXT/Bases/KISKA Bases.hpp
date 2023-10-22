@@ -62,7 +62,16 @@ class KISKA_Bases
             {
                 // infantryClasses[] = {};
                 // side = SIDE_OPFOR;
-                numberOfUnits = -1; // if -1, number of available positions is used this can only max out at the number of available positions
+
+
+                // Both `numberOfUnits` and `unitsPerGroup` can also take a string that will be code that must return a number for the property
+                    // params: 0: <PositionATL[] | Object[]> - All the positions available for units to spawn at
+                
+                // example: have 50% of available positions spawn a unit
+                // numberOfUnits = "params ["_spawnPositions"]; (count _spawnPositions) / 2"; 
+                // unitsPerGroup = ""; 
+                // if -1, number of available positions is used this can only max out at the number of available positions
+                numberOfUnits = -1; 
                 unitsPerGroup = 1;
 
                 // script that is compiled once and called with all units after all are created
