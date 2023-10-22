@@ -174,9 +174,15 @@ class KISKA_Bases
             {
                 // side = SIDE_OPFOR;
                 //infantryClasses[] = {};
-                spawnPosition = ""; // used with object, needs to be object's variable name
-                //spawnPosition[] = {}; // position in ATL format
+
+                // used with object, needs to be object's variable name
+                spawnPosition = ""; 
+
+                // position in ATL format
+                //spawnPosition[] = {}; 
+
                 numberOfUnits = 5;
+                
                 // script that is compiled and run on the patrol group after they are spawned and given patrol route
                 // params are 0: <GROUP> - the patrol group
                 onGroupCreated = "";
@@ -191,19 +197,29 @@ class KISKA_Bases
                 // SpecificPatrol will be used over RandomPatrol. Remove it if using RandomPatrol
             /*
                 class SpecificPatrol
-                {
-                    patrolPoints = ""; // used with mission layer
+                {   
+                    // used with mission layer
+                    patrolPoints = ""; 
                     //patrolPoints[] = {};
-                    random = 1; // patrol randomly around the points or in order defined
-                    numberOfPoints = -1; // patrol every provided positon if -1
+
+                    // randomly around the points or in order defined
+                    random = 1; // patrol 
+                    // patrol every provided positon if -1
+                    numberOfPoints = -1; 
                 };
             */
-
-                class RandomPatrol // uses CBA_fnc_taskPatrol
+                // uses CBA_fnc_taskPatrol
+                class RandomPatrol 
                 {
-                    //center[] = {}; // leave empty or remove to patrol around spawnPosition
-                    numberOfPoints = 3; // number of waypoints
-                    radius = 500; // max radius waypoints will be created around the area
+                    // leave empty or remove to patrol around spawnPosition
+                    //center[] = {}; 
+
+                    // number of waypoints
+                    numberOfPoints = 3;
+
+                    // max radius waypoints will be created around the area
+                    radius = 500; 
+
                     waypointType = "MOVE";
                 };
 
