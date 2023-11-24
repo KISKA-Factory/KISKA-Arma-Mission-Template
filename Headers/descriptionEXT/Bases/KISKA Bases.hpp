@@ -229,7 +229,7 @@ class KISKA_Bases
                     // see KISKA_fnc_bases_triggerReaction
                     // Must return bool, whether or not to prevent KISKA_fnc_bases_triggerReaction after
                     // this script completes (e.g. return false to run KISKA_fnc_bases_triggerReaction)
-                    onEnteredCombat = "hint str _this; false";
+                    onEnemyDetected = "hint str _this; false";
                     canCall[] = {
                         "armorReinforcement"
                     };
@@ -276,7 +276,7 @@ class KISKA_Bases
                     // see KISKA_fnc_bases_triggerReaction
                     // Must return bool, whether or not to prevent KISKA_fnc_bases_triggerReaction after
                     // this script completes (e.g. return false to run KISKA_fnc_bases_triggerReaction)
-                    onEnteredCombat = "hint str _this; false";
+                    onEnemyDetected = "hint str _this; false";
                     canCall[] = {
                         "patrolUnit"
                     };
