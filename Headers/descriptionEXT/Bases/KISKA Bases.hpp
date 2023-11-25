@@ -24,9 +24,25 @@ class KISKA_Bases
             class turretSet_1
             {
                 // side = SIDE_OPFOR;
-                // turrets[] = {}; // fill with variable names of turrets
-                turrets = ""; // Searches for mission layer objects
-                //infantryClasses[] = {};
+                
+                // Searches for mission layer objects to spawn at
+                turretSpawnPositions = ""; 
+                // Instead of layer format, an array of positions in format of Position2D[]/PositionATL[] or PositionAGL[] (if over water)
+                // turretSpawnPositions[] = {}; 
+
+                // script that is compiled once and must return an array of classnames (weighted or unweighted) that will be randomly selected from
+                turretTypes = "";
+                // An array of turret classnames
+                // turretTypes[] = {};
+
+                numberOfTurrets = -1; // -1 means all turrets will be spawned and filled
+                // numberOfTurrets can also be a string that is compiled and run to get the number of turrets to spawn
+                // params:
+                    // 0: <NUMBER> - the total number of available positions to create a turret in this set
+                // numberOfTurrets = "params ["_totalAvailableTurretCount"]; (count _totalAvailableTurretCount) / 2"; 
+
+                // infantryClasses[] = {};
+                
                 dynamicSim = ON;
 
                 // script that is compiled once and called on each unit after all units are created for this set
@@ -34,7 +50,9 @@ class KISKA_Bases
                 onUnitCreated = "";
 
                 // script that is compiled once and called on each unit and turret after the unit has been moved in as gunner
-                // params: 0: <OBJECT> - the created unit   1: <OBJECT> - the turret the unit's in
+                // params: 
+                    // 0: <OBJECT> - the created unit
+                    // 1: <OBJECT> - the turret the unit's in
                 onUnitMovedInGunner = "";
             };
         };
@@ -77,9 +95,10 @@ class KISKA_Bases
                 // script that is compiled once and called with all units after all are created
                     // params: 0: <ARRAY> - the created units
                 onUnitsCreated = "";
-
-                positions = ""; // will search for objects in mission layer
-                //positions[] = {};
+                
+                // will search for objects in mission layer
+                positions = ""; 
+                // positions[] = {};
 
                 dynamicSim = ON;
                 canPath = ON;
