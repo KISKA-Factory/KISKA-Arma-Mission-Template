@@ -11,49 +11,161 @@ class KISKA_Bases
     class aBase
     {
         side = SIDE_OPFOR;
-        // infantryClasses will be either an array of classnames of possible infantry to spawn
-        // or a string that will be compiled into a function that needs to return an array of classnames
-        infantryClasses[] = { 
-            // these arrays can be weigthed or unweighted
-            // "someClass"
-        };
 
         class turrets
         {
-            // infantryClasses[] = {};
-            class turretSet_1
+            class sets
             {
-                // side = SIDE_OPFOR;
-                
-                // Searches for mission layer objects to spawn at
-                turretSpawnPositions = ""; 
-                // Instead of layer format, an array of positions in format of Position2D[]/PositionATL[] or PositionAGL[] (if over water)
-                // turretSpawnPositions[] = {}; 
+                class turret_1
+                {
+                    /* -------------------------------------------------------------------------------
+                    Property: 
+                        - spawnPositions: <STRING | (PositionATL[] | PositionAGL[])[]> - The positions 
+                        that the turret can spawn at. Final positions will be randomly selected from the results.
+                        
+                        STRING:
+                            The name of a mission layer that contains objects that will be used as possible 
+                            spawn positions for the turrets. Turrets will face the same direction as a given 
+                            object if selected from the layer as a spawn position.
 
-                // script that is compiled once and must return an array of classnames (weighted or unweighted) that will be randomly selected from
-                turretTypes = "";
-                // An array of turret classnames
-                // turretTypes[] = {};
+                        ARRAY:
+                            Array must be of positions in the format PositionATL[] or PositionAGL[] 
+                            (if over water). Optionally, a fourth number in the position array may be
+                            added that will designate what direction the turret will face after spawning.
+                            This array can also be weighted or unweighted.
 
-                numberOfTurrets = -1; // -1 means all turrets will be spawned and filled
-                // numberOfTurrets can also be a string that is compiled and run to get the number of turrets to spawn
-                // params:
-                    // 0: <NUMBER> - the total number of available positions to create a turret in this set
-                // numberOfTurrets = "params ["_totalAvailableTurretCount"]; (count _totalAvailableTurretCount) / 2"; 
+                    Required: 
+                        - YES
 
-                // infantryClasses[] = {};
-                
-                dynamicSim = ON;
+                    Examples:
+                        (begin example)
+                            spawnPositions = "myLayerWithObjects";
+                        (end)
+                        
+                        (begin example)
+                            // unweighted 
+                            spawnPositions[] = {
+                                {0,0,0},
+                                {0,0,0,180} // turret will face 180 degrees
+                            };
+                        (end)
+                        
+                        (begin example)
+                            // weighted 
+                            spawnPositions[] = {
+                                {0,0,0}, 1
+                                {0,0,0,180}, 0.5
+                            };
+                        (end)
+                    ------------------------------------------------------------------------------- */
+                    spawnPositions = "";
 
-                // script that is compiled once and called on each unit after all units are created for this set
-                // params: 0: <OBJECT> - the created unit
-                onUnitCreated = "";
 
-                // script that is compiled once and called on each unit and turret after the unit has been moved in as gunner
-                // params: 
-                    // 0: <OBJECT> - the created unit
-                    // 1: <OBJECT> - the turret the unit's in
-                onUnitMovedInGunner = "";
+                    /* -------------------------------------------------------------------------------
+                    Property: 
+                        - className: <STRING | STRING[]> - The classnames of turrets that can be spawned.
+
+                        STRING:
+                            A script that is compiled once and must return an array of classNames 
+                            (weighted or unweighted) to choose from.
+
+                            Parameters:
+                                0: <CONFIG> - The config path of the infantry set
+
+                        STRING[]:
+                            An array of classNames to randomly select from. Array can be weighted or
+                            unweighted.
+
+                    Required: 
+                        - YES
+
+                    Examples:
+                        (begin example)
+                            className = "['B_HMG_01_high_F', 'B_GMG_01_high_F']";
+                        (end)
+
+                        (begin example)
+                            // will select randomly from two classNames
+                            className[] = {"B_HMG_01_high_F", "B_GMG_01_high_F"};
+                        (end)
+
+                        (begin example)
+                            // weighted
+                            className[] = {"B_HMG_01_high_F", 1, "B_GMG_01_high_F", 0.5};
+                        (end)
+                    ------------------------------------------------------------------------------- */
+                    className[] = {};
+
+
+                    /* -------------------------------------------------------------------------------
+                    Property: 
+                        - numberOfTurrets: <NUMBER | STRING> - The number of turrets to spawn. Can't exceed the
+                        number of `spawnPositions`. If a negative number, all turret positions will be used.
+
+                        NUMBER:
+                            The number of turrets.
+                        
+                        STRING:
+                            Uncompiled code that will be compiled and executed. Must return a number.
+
+                            Parameters:
+                                0: <CONFIG> - The config path of the infantry set
+                                1: <OBJECT[] | (PositionATL[] | PositionAGL[])[]> - The possible spawn positions
+
+                    Required: 
+                        - YES
+
+                    Examples:
+                        (begin example)
+                            numberOfTurrets = -1;
+                        (end)
+
+                        (begin example)
+                            numberOfTurrets = -1;
+                        (end)
+
+                        (begin example)
+                            numberOfTurrets = "params ['_config','_spawnPositions']; count _spawnPositions";
+                        (end)
+                    ------------------------------------------------------------------------------- */
+                    numberOfTurrets = -1;
+                    
+                    // TODO
+                    dynamicSim = ON;
+
+                    // script that is compiled once and called on each unit after all units are created for this set
+                    // params: 0: <OBJECT> - the created unit
+                    onUnitCreated = "";
+
+                    // script that is compiled once and called on each unit and turret after the unit has been moved in as gunner
+                    // params: 
+                        // 0: <OBJECT> - the created unit
+                        // 1: <OBJECT> - the turret the unit's in
+                    onUnitMovedInGunner = "";
+
+                    /* -------------------------------------------------------------------------------
+                    Property: 
+                        - side: <NUMBER> - A more granular side setting for this specific turret
+                        if it is different than the default base side.
+
+                    Required: 
+                        - NO
+
+                    Examples:
+                        (begin example)
+                            side = 0; // OPFOR
+                        (end)
+                        
+                        (begin example)
+                            side = 1; // BLUFOR
+                        (end)
+                        
+                        (begin example)
+                            side = SIDE_INDEP; // INDEPENDENT
+                        (end)
+                    ------------------------------------------------------------------------------- */
+                    // side = SIDE_INDEP;
+                };
             };
         };
 
