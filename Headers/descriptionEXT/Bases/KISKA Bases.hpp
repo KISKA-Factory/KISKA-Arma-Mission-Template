@@ -63,7 +63,7 @@ class KISKA_Bases
 
                     /* -------------------------------------------------------------------------------
                     Property: 
-                        - className: <STRING | STRING[]> - The classnames of turrets that can be spawned.
+                        - turretClassNames: <STRING | STRING[]> - The classNames of turrets that can be spawned.
 
                         STRING:
                             A script that is compiled once and must return an array of classNames 
@@ -81,20 +81,20 @@ class KISKA_Bases
 
                     Examples:
                         (begin example)
-                            className = "['B_HMG_01_high_F', 'B_GMG_01_high_F']";
+                            turretClassNames = "['B_HMG_01_high_F', 'B_GMG_01_high_F']";
                         (end)
 
                         (begin example)
                             // will select randomly from two classNames
-                            className[] = {"B_HMG_01_high_F", "B_GMG_01_high_F"};
+                            turretClassNames[] = {"B_HMG_01_high_F", "B_GMG_01_high_F"};
                         (end)
 
                         (begin example)
                             // weighted
-                            className[] = {"B_HMG_01_high_F", 1, "B_GMG_01_high_F", 0.5};
+                            turretClassNames[] = {"B_HMG_01_high_F", 1, "B_GMG_01_high_F", 0.5};
                         (end)
                     ------------------------------------------------------------------------------- */
-                    className[] = {};
+                    turretClassNames[] = {};
 
 
                     /* -------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ class KISKA_Bases
                             Uncompiled code that will be compiled and executed. Must return a number.
 
                             Parameters:
-                                0: <CONFIG> - The config path of the infantry set
+                                0: <CONFIG> - The config path of the turret base set
                                 1: <OBJECT[] | (PositionATL[] | PositionAGL[])[]> - The possible spawn positions
 
                     Required: 
@@ -129,19 +129,74 @@ class KISKA_Bases
                         (end)
                     ------------------------------------------------------------------------------- */
                     numberOfTurrets = -1;
+
+
+                    /* -------------------------------------------------------------------------------
+                    Property: 
+                        - dynamicSim: <`0` | `1`> - Adjusts whether the turret and its gunner are dynamically
+                        simulated after being spawned. `0` to turn off, `1` to turn on.
+
+                    Required: 
+                        - NO
+
+                    Default: 
+                        - `0`
+
+                    Examples:
+                        (begin example)
+                            dynamicSim = 1;
+                        (end)
+                    ------------------------------------------------------------------------------- */                    
+                    // dynamicSim = ON;
+
+
+                    /* -------------------------------------------------------------------------------
+                    Property: 
+                        - onGunnerCreated: <STRING> - Uncompiled code that will be compiled and executed
+                        immediatley after the gunner is created BEFORE they are moved into the turret.
+
+                        Parameters:
+                            0: <CONFIG> - The config path of the turret base set
+                            1: <OBJECT> - The gunner created
+                            2: <OBJECT> - The turret the gunner will be moved into
+
+                    Required: 
+                        - NO
                     
-                    // TODO
-                    dynamicSim = ON;
+                    Default:
+                        - `""`
 
-                    // script that is compiled once and called on each unit after all units are created for this set
-                    // params: 0: <OBJECT> - the created unit
-                    onUnitCreated = "";
+                    Examples:
+                        (begin example)
+                            onGunnerCreated = "params ['_config','_gunner','_turret']; hint str _gunner";
+                        (end)
+                    ------------------------------------------------------------------------------- */
+                    // onGunnerCreated = "";
 
-                    // script that is compiled once and called on each unit and turret after the unit has been moved in as gunner
-                    // params: 
-                        // 0: <OBJECT> - the created unit
-                        // 1: <OBJECT> - the turret the unit's in
-                    onUnitMovedInGunner = "";
+
+                    /* -------------------------------------------------------------------------------
+                    Property: 
+                        - onUnitMovedInGunner: <STRING> - Uncompiled code that will be compiled and executed
+                        immediatley after the gunner is moved into the turret.
+
+                        Parameters:
+                            0: <CONFIG> - The config path of the turret base set
+                            1: <OBJECT> - The gunner created
+                            2: <OBJECT> - The turret the gunner will be moved into
+
+                    Required: 
+                        - NO
+                    
+                    Default:
+                        - `""`
+
+                    Examples:
+                        (begin example)
+                            onUnitMovedInGunner = "params ['_config','_gunner','_turret']; hint str _gunner";
+                        (end)
+                    ------------------------------------------------------------------------------- */
+                    // onUnitMovedInGunner = "";
+
 
                     /* -------------------------------------------------------------------------------
                     Property: 
@@ -165,6 +220,8 @@ class KISKA_Bases
                         (end)
                     ------------------------------------------------------------------------------- */
                     // side = SIDE_INDEP;
+
+                    // TODO: how to get gunner classes?
                 };
             };
         };
