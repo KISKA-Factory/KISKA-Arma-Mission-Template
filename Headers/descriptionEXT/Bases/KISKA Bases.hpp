@@ -19,209 +19,209 @@ class KISKA_Bases
                 class turret_1
                 {
                     /* -------------------------------------------------------------------------------
-                    Property: 
-                        - spawnPositions: <STRING | (PositionATL[] | PositionAGL[])[]> - The positions 
-                        that the turret can spawn at. Final positions will be randomly selected from the results.
-                        
-                        STRING:
-                            The name of a mission layer that contains objects that will be used as possible 
-                            spawn positions for the turrets. Turrets will face the same direction as a given 
-                            object if selected from the layer as a spawn position.
+                        Property: 
+                            - spawnPositions: <STRING | (PositionATL[] | PositionAGL[])[]> - The positions 
+                            that the turret can spawn at. Final positions will be randomly selected from the results.
+                            
+                            STRING:
+                                The name of a mission layer that contains objects that will be used as possible 
+                                spawn positions for the turrets. Turrets will face the same direction as a given 
+                                object if selected from the layer as a spawn position.
 
-                        ARRAY:
-                            Array must be of positions in the format PositionATL[] or PositionAGL[] 
-                            (if over water). Optionally, a fourth number in the position array may be
-                            added that will designate what direction the turret will face after spawning.
-                            This array can also be weighted or unweighted.
+                            ARRAY:
+                                Array must be of positions in the format PositionATL[] or PositionAGL[] 
+                                (if over water). Optionally, a fourth number in the position array may be
+                                added that will designate what direction the turret will face after spawning.
+                                This array can also be weighted or unweighted.
 
-                    Required: 
-                        - YES
+                        Required: 
+                            - YES
 
-                    Examples:
-                        (begin example)
-                            spawnPositions = "myLayerWithObjects";
-                        (end)
-                        
-                        (begin example)
-                            // unweighted 
-                            spawnPositions[] = {
-                                {0,0,0},
-                                {0,0,0,180} // turret will face 180 degrees
-                            };
-                        (end)
-                        
-                        (begin example)
-                            // weighted 
-                            spawnPositions[] = {
-                                {0,0,0}, 1
-                                {0,0,0,180}, 0.5
-                            };
-                        (end)
+                        Examples:
+                            (begin example)
+                                spawnPositions = "myLayerWithObjects";
+                            (end)
+                            
+                            (begin example)
+                                // unweighted 
+                                spawnPositions[] = {
+                                    {0,0,0},
+                                    {0,0,0,180} // turret will face 180 degrees
+                                };
+                            (end)
+                            
+                            (begin example)
+                                // weighted 
+                                spawnPositions[] = {
+                                    {0,0,0}, 1
+                                    {0,0,0,180}, 0.5
+                                };
+                            (end)
                     ------------------------------------------------------------------------------- */
                     spawnPositions = "";
 
 
                     /* -------------------------------------------------------------------------------
-                    Property: 
-                        - turretClassNames: <STRING | STRING[]> - The classNames of turrets that can be spawned.
+                        Property: 
+                            - turretClassNames: <STRING | STRING[]> - The classNames of turrets that can be spawned.
 
-                        STRING:
-                            A script that is compiled once and must return an array of classNames 
-                            (weighted or unweighted) to choose from.
+                            STRING:
+                                A script that is compiled once and must return an array of classNames 
+                                (weighted or unweighted) to choose from.
 
-                            Parameters:
-                                0: <CONFIG> - The config path of the infantry set
+                                Parameters:
+                                    0: <CONFIG> - The config path of the infantry set
 
-                        STRING[]:
-                            An array of classNames to randomly select from. Array can be weighted or
-                            unweighted.
+                            STRING[]:
+                                An array of classNames to randomly select from. Array can be weighted or
+                                unweighted.
 
-                    Required: 
-                        - YES
+                        Required: 
+                            - YES
 
-                    Examples:
-                        (begin example)
-                            turretClassNames = "['B_HMG_01_high_F', 'B_GMG_01_high_F']";
-                        (end)
+                        Examples:
+                            (begin example)
+                                turretClassNames = "['B_HMG_01_high_F', 'B_GMG_01_high_F']";
+                            (end)
 
-                        (begin example)
-                            // will select randomly from two classNames
-                            turretClassNames[] = {"B_HMG_01_high_F", "B_GMG_01_high_F"};
-                        (end)
+                            (begin example)
+                                // will select randomly from two classNames
+                                turretClassNames[] = {"B_HMG_01_high_F", "B_GMG_01_high_F"};
+                            (end)
 
-                        (begin example)
-                            // weighted
-                            turretClassNames[] = {"B_HMG_01_high_F", 1, "B_GMG_01_high_F", 0.5};
-                        (end)
+                            (begin example)
+                                // weighted
+                                turretClassNames[] = {"B_HMG_01_high_F", 1, "B_GMG_01_high_F", 0.5};
+                            (end)
                     ------------------------------------------------------------------------------- */
                     turretClassNames[] = {};
 
 
                     /* -------------------------------------------------------------------------------
-                    Property: 
-                        - numberOfTurrets: <NUMBER | STRING> - The number of turrets to spawn. Can't exceed the
-                        number of `spawnPositions`. If a negative number, all turret positions will be used.
+                        Property: 
+                            - numberOfTurrets: <NUMBER | STRING> - The number of turrets to spawn. Can't exceed the
+                            number of `spawnPositions`. If a negative number, all turret positions will be used.
 
-                        NUMBER:
-                            The number of turrets.
-                        
-                        STRING:
-                            Uncompiled code that will be compiled and executed. Must return a number.
+                            NUMBER:
+                                The number of turrets.
+                            
+                            STRING:
+                                Uncompiled code that will be compiled and executed. Must return a number.
 
-                            Parameters:
-                                0: <CONFIG> - The config path of the turret base set
-                                1: <OBJECT[] | (PositionATL[] | PositionAGL[])[]> - The possible spawn positions
+                                Parameters:
+                                    0: <CONFIG> - The config path of the turret base set
+                                    1: <OBJECT[] | (PositionATL[] | PositionAGL[])[]> - The possible spawn positions
 
-                    Required: 
-                        - YES
+                        Required: 
+                            - YES
 
-                    Examples:
-                        (begin example)
-                            numberOfTurrets = -1;
-                        (end)
+                        Examples:
+                            (begin example)
+                                numberOfTurrets = -1;
+                            (end)
 
-                        (begin example)
-                            numberOfTurrets = -1;
-                        (end)
+                            (begin example)
+                                numberOfTurrets = -1;
+                            (end)
 
-                        (begin example)
-                            numberOfTurrets = "params ['_config','_spawnPositions']; count _spawnPositions";
-                        (end)
+                            (begin example)
+                                numberOfTurrets = "params ['_config','_spawnPositions']; count _spawnPositions";
+                            (end)
                     ------------------------------------------------------------------------------- */
                     numberOfTurrets = -1;
 
 
                     /* -------------------------------------------------------------------------------
-                    Property: 
-                        - dynamicSim: <`0` | `1`> - Adjusts whether the turret and its gunner are dynamically
-                        simulated after being spawned. `0` to turn off, `1` to turn on.
+                        Property: 
+                            - dynamicSim: <`0` | `1`> - Adjusts whether the turret and its gunner are dynamically
+                            simulated after being spawned. `0` to turn off, `1` to turn on.
 
-                    Required: 
-                        - NO
+                        Required: 
+                            - NO
 
-                    Default: 
-                        - `0`
+                        Default: 
+                            - `0`
 
-                    Examples:
-                        (begin example)
-                            dynamicSim = 1;
-                        (end)
+                        Examples:
+                            (begin example)
+                                dynamicSim = 1;
+                            (end)
                     ------------------------------------------------------------------------------- */                    
                     // dynamicSim = ON;
 
 
                     /* -------------------------------------------------------------------------------
-                    Property: 
-                        - onGunnerCreated: <STRING> - Uncompiled code that will be compiled and executed
-                        immediatley after the gunner is created BEFORE they are moved into the turret.
+                        Property: 
+                            - onGunnerCreated: <STRING> - Uncompiled code that will be compiled and executed
+                            immediatley after the gunner is created BEFORE they are moved into the turret.
 
-                        Parameters:
-                            0: <CONFIG> - The config path of the turret base set
-                            1: <OBJECT> - The gunner created
-                            2: <OBJECT> - The turret the gunner will be moved into
+                            Parameters:
+                                0: <CONFIG> - The config path of the turret base set
+                                1: <OBJECT> - The gunner created
+                                2: <OBJECT> - The turret the gunner will be moved into
 
-                    Required: 
-                        - NO
-                    
-                    Default:
-                        - `""`
+                        Required: 
+                            - NO
+                        
+                        Default:
+                            - `""`
 
-                    Examples:
-                        (begin example)
-                            onGunnerCreated = "params ['_config','_gunner','_turret']; hint str _gunner";
-                        (end)
+                        Examples:
+                            (begin example)
+                                onGunnerCreated = "params ['_config','_gunner','_turret']; hint str _gunner";
+                            (end)
                     ------------------------------------------------------------------------------- */
                     // onGunnerCreated = "";
 
 
                     /* -------------------------------------------------------------------------------
-                    Property: 
-                        - onUnitMovedInGunner: <STRING> - Uncompiled code that will be compiled and executed
-                        immediatley after the gunner is moved into the turret.
+                        Property: 
+                            - onUnitMovedInGunner: <STRING> - Uncompiled code that will be compiled and executed
+                            immediatley after the gunner is moved into the turret.
 
-                        Parameters:
-                            0: <CONFIG> - The config path of the turret base set
-                            1: <OBJECT> - The gunner created
-                            2: <OBJECT> - The turret the gunner will be moved into
+                            Parameters:
+                                0: <CONFIG> - The config path of the turret base set
+                                1: <OBJECT> - The gunner created
+                                2: <OBJECT> - The turret the gunner will be moved into
 
-                    Required: 
-                        - NO
-                    
-                    Default:
-                        - `""`
+                        Required: 
+                            - NO
+                        
+                        Default:
+                            - `""`
 
-                    Examples:
-                        (begin example)
-                            onUnitMovedInGunner = "params ['_config','_gunner','_turret']; hint str _gunner";
-                        (end)
+                        Examples:
+                            (begin example)
+                                onUnitMovedInGunner = "params ['_config','_gunner','_turret']; hint str _gunner";
+                            (end)
                     ------------------------------------------------------------------------------- */
                     // onUnitMovedInGunner = "";
 
 
                     /* -------------------------------------------------------------------------------
-                    Property: 
-                        - side: <NUMBER> - A more granular side setting for this specific turret
-                        if it is different than the default base side.
+                        Property: 
+                            - side: <NUMBER> - A more granular side setting for this specific turret
+                            if it is different than the default base side.
 
-                    Required: 
-                        - NO
+                        Required: 
+                            - NO
 
-                    Examples:
-                        (begin example)
-                            side = 0; // OPFOR
-                        (end)
-                        
-                        (begin example)
-                            side = 1; // BLUFOR
-                        (end)
-                        
-                        (begin example)
-                            side = SIDE_INDEP; // INDEPENDENT
-                        (end)
+                        Examples:
+                            (begin example)
+                                side = 0; // OPFOR
+                            (end)
+                            
+                            (begin example)
+                                side = 1; // BLUFOR
+                            (end)
+                            
+                            (begin example)
+                                side = 2; // INDEPENDENT
+                            (end)
                     ------------------------------------------------------------------------------- */
                     // side = SIDE_INDEP;
 
-                    // TODO: how to get gunner classes?
+                    // TODO: add unitClasses doc
                 };
             };
         };
