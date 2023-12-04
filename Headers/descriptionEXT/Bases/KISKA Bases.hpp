@@ -244,9 +244,20 @@ class KISKA_Bases
 
         class infantry
         {
-            // infantryClasses[] = {};
             class infantrySpawnSet_1
             {
+                // TODO:
+                // - unitClasses
+                // - side
+                // - numberOfUnits
+                // - unitsPerGroup
+                // - onUnitsCreated
+                // - spawnPositions
+                // - dynamicSim
+                // - canPath
+                // - stances
+                // - AmbientAnim class
+
                 // infantryClasses[] = {};
                 // side = SIDE_OPFOR;
 
