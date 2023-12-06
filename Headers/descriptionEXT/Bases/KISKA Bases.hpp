@@ -10,7 +10,112 @@ class KISKA_Bases
 {
     class aBase
     {
+        /* -------------------------------------------------------------------------------
+            Property: 
+                - side: <NUMBER> - Sets the side of units that spawn in the base.
+
+            Required: 
+                - NO
+            
+            Sections:
+                - infantry
+                - agents
+                - turrets
+                - vehicles
+
+            Definition Levels:
+                - Base Root
+                - Base Section
+                - Section Set
+
+            Examples:
+                (begin example)
+                    side = 0; // OPFOR
+                (end)
+                
+                (begin example)
+                    side = 1; // BLUFOR
+                (end)
+                
+                (begin example)
+                    side = 2; // INDEPENDENT
+                (end)
+        ------------------------------------------------------------------------------- */
         side = SIDE_OPFOR;
+
+        /* -------------------------------------------------------------------------------
+            Property: 
+                - unitClasses: <STRING | STRING[]> - The classNames of units that can be spawned
+
+                STRING:
+                    A script that is compiled once and must return an array of classNames 
+                    (weighted or unweighted) to choose from.
+
+                    Parameters:
+                        0: <CONFIG> - The config path of the set that is being parsed
+
+                STRING[]:
+                    An array of classNames to randomly select from. Array can be weighted or
+                    unweighted.
+
+            Required: 
+                - YES
+
+            Sections:
+                - infantry
+                - agents
+                - turrets
+
+            Definition Levels:
+                - Base Root
+                - Base Section
+                - Section Set
+
+            Examples:
+                (begin example)
+                    unitClasses = "['B_soldier_AR_F', 'B_Soldier_GL_F']";
+                (end)
+
+                (begin example)
+                    // will select randomly from two classNames
+                    unitClasses[] = {"B_soldier_AR_F", "B_Soldier_GL_F"};
+                (end)
+
+                (begin example)
+                    // weighted
+                    unitClasses[] = {"B_soldier_AR_F", 1, "B_Soldier_GL_F", 0.5};
+                (end)
+        ------------------------------------------------------------------------------- */
+        unitClasses[] = {};
+        
+        /* -------------------------------------------------------------------------------
+            Property: 
+                - dynamicSim: <`0` | `1`> - Adjusts whether the turret and its gunner are dynamically
+                simulated after being spawned. `0` to turn off, `1` to turn on.
+
+            Required: 
+                - NO
+
+            Definition Levels:
+                - Base Root
+                - Base Section
+                - Section Set
+            
+            Sections:
+                - infantry
+                - agents
+                - turrets
+                - vehicles
+
+            Default: 
+                - `0`
+
+            Examples:
+                (begin example)
+                    dynamicSim = 1;
+                (end)
+        ------------------------------------------------------------------------------- */                    
+        dynamicSim = ON;
 
         class turrets
         {
@@ -36,6 +141,9 @@ class KISKA_Bases
 
                         Required: 
                             - YES
+
+                        Definition Levels:
+                            - Section Set
 
                         Examples:
                             (begin example)
@@ -79,6 +187,11 @@ class KISKA_Bases
                         Required: 
                             - YES
 
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
+
                         Examples:
                             (begin example)
                                 turretClassNames = "['B_HMG_01_high_F', 'B_GMG_01_high_F']";
@@ -115,6 +228,11 @@ class KISKA_Bases
                         Required: 
                             - YES
 
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
+
                         Examples:
                             (begin example)
                                 numberOfTurrets = -1;
@@ -133,25 +251,6 @@ class KISKA_Bases
 
                     /* -------------------------------------------------------------------------------
                         Property: 
-                            - dynamicSim: <`0` | `1`> - Adjusts whether the turret and its gunner are dynamically
-                            simulated after being spawned. `0` to turn off, `1` to turn on.
-
-                        Required: 
-                            - NO
-
-                        Default: 
-                            - `0`
-
-                        Examples:
-                            (begin example)
-                                dynamicSim = 1;
-                            (end)
-                    ------------------------------------------------------------------------------- */                    
-                    // dynamicSim = ON;
-
-
-                    /* -------------------------------------------------------------------------------
-                        Property: 
                             - onGunnerCreated: <STRING> - Uncompiled code that will be compiled and executed
                             immediatley after the gunner is created BEFORE they are moved into the turret.
 
@@ -162,6 +261,11 @@ class KISKA_Bases
 
                         Required: 
                             - NO
+
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
                         
                         Default:
                             - `""`
@@ -186,6 +290,11 @@ class KISKA_Bases
 
                         Required: 
                             - NO
+
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
                         
                         Default:
                             - `""`
@@ -196,32 +305,6 @@ class KISKA_Bases
                             (end)
                     ------------------------------------------------------------------------------- */
                     // onUnitMovedInGunner = "";
-
-
-                    /* -------------------------------------------------------------------------------
-                        Property: 
-                            - side: <NUMBER> - A more granular side setting for this specific turret
-                            if it is different than the default base side.
-
-                        Required: 
-                            - NO
-
-                        Examples:
-                            (begin example)
-                                side = 0; // OPFOR
-                            (end)
-                            
-                            (begin example)
-                                side = 1; // BLUFOR
-                            (end)
-                            
-                            (begin example)
-                                side = 2; // INDEPENDENT
-                            (end)
-                    ------------------------------------------------------------------------------- */
-                    // side = SIDE_INDEP;
-
-                    // TODO: add unitClasses doc
                 };
             };
         };
@@ -244,19 +327,143 @@ class KISKA_Bases
 
         class infantry
         {
+            class sets
+            {
+                class infantrySpawnSet_1
+                {
+                    /* -------------------------------------------------------------------------------
+                        Property: 
+                            - numberOfUnits: <NUMBER | STRING> - The number of units in total to spawn. Can't exceed the
+                            number of `spawnPositions`. If a negative number, all positions will be used.
+
+                            NUMBER:
+                                The number of units.
+                            
+                            STRING:
+                                Uncompiled code that will be compiled and executed. Must return a number.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the infantry base set
+                                    1: <OBJECT[] | (PositionATL[] | PositionAGL[])[]> - The possible spawn positions
+
+                        Required: 
+                            - YES
+
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                numberOfUnits = -1;
+                            (end)
+
+                            (begin example)
+                                numberOfUnits = -1;
+                            (end)
+
+                            (begin example)
+                                numberOfUnits = "params ['_config','_spawnPositions']; count _spawnPositions";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    numberOfUnits = -1;
+
+
+                    /* -------------------------------------------------------------------------------
+                        Property: 
+                            - unitsPerGroup: <NUMBER | STRING> - The number of units per each group.
+                            this will determine how the total number of units created for the set are
+                            divided between each group.
+
+                            NUMBER:
+                                The number of units that will be in each group.
+                            
+                            STRING:
+                                Uncompiled code that will be compiled and executed. Must return a number.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the infantry base set
+                                    1: <OBJECT[] | (PositionATL[] | PositionAGL[])[]> - The possible spawn positions
+
+                        Required: 
+                            - YES
+
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                unitsPerGroup = -1;
+                            (end)
+
+                            (begin example)
+                                unitsPerGroup = -1;
+                            (end)
+
+                            (begin example)
+                                unitsPerGroup = "params ['_setConfig','_numberOfUnits','_spawnPositions']; (count _numberOfUnits) / 2";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    unitsPerGroup = -1;
+
+
+                    /* -------------------------------------------------------------------------------
+                        Property: 
+                            - spawnPositions: <STRING | (PositionATL[] | PositionAGL[])[]> - The positions 
+                            that the units can spawn at. Final positions will be randomly selected from the results.
+                            
+                            STRING:
+                                The name of a mission layer that contains objects that will be used as possible 
+                                spawn positions for the units. Units will face the same direction as a given 
+                                object if selected from the layer as a spawn position.
+
+                            ARRAY:
+                                Array must be of positions in the format PositionATL[] or PositionAGL[] 
+                                (if over water). Optionally, a fourth number in the position array may be
+                                added that will designate what direction the turret will face after spawning.
+                                This array can also be weighted or unweighted.
+
+                        Required: 
+                            - YES
+
+                        Definition Levels:
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                spawnPositions = "myLayerWithObjects";
+                            (end)
+                            
+                            (begin example)
+                                // unweighted 
+                                spawnPositions[] = {
+                                    {0,0,0},
+                                    {0,0,0,180} // turret will face 180 degrees
+                                };
+                            (end)
+                            
+                            (begin example)
+                                // weighted 
+                                spawnPositions[] = {
+                                    {0,0,0}, 1
+                                    {0,0,0,180}, 0.5
+                                };
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    spawnPositions = "";
+
+                    // TODO:
+                    // - onUnitsCreated
+                    // - canPath
+                    // - stances
+                    // - AmbientAnim class
+                };
+            };
             class infantrySpawnSet_1
             {
-                // TODO:
-                // - unitClasses
-                // - side
-                // - numberOfUnits
-                // - unitsPerGroup
-                // - onUnitsCreated
-                // - spawnPositions
-                // - dynamicSim
-                // - canPath
-                // - stances
-                // - AmbientAnim class
 
                 // infantryClasses[] = {};
                 // side = SIDE_OPFOR;
