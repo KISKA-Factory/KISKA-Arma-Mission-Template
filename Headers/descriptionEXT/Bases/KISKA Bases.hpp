@@ -232,6 +232,9 @@ class KISKA_Bases
                             - Base Root
                             - Base Section
                             - Section Set
+                        
+                        Default:
+                            - `-1`
 
                         Examples:
                             (begin example)
@@ -267,9 +270,6 @@ class KISKA_Bases
                             - Base Section
                             - Section Set
                         
-                        Default:
-                            - `""`
-
                         Examples:
                             (begin example)
                                 onGunnerCreated = "params ['_config','_gunner','_turret']; hint str _gunner";
@@ -295,9 +295,6 @@ class KISKA_Bases
                             - Base Root
                             - Base Section
                             - Section Set
-                        
-                        Default:
-                            - `""`
 
                         Examples:
                             (begin example)
@@ -347,12 +344,15 @@ class KISKA_Bases
                                     1: <OBJECT[] | (PositionATL[] | PositionAGL[])[]> - The possible spawn positions
 
                         Required: 
-                            - YES
+                            - NO
 
                         Definition Levels:
                             - Base Root
-                            - Base Section
+                            - Infantry Section
                             - Section Set
+
+                        Default:
+                            - `-1`
 
                         Examples:
                             (begin example)
@@ -387,12 +387,14 @@ class KISKA_Bases
                                     1: <OBJECT[] | (PositionATL[] | PositionAGL[])[]> - The possible spawn positions
 
                         Required: 
-                            - YES
+                            - NO
 
                         Definition Levels:
-                            - Base Root
-                            - Base Section
+                            - Infantry Section
                             - Section Set
+
+                        Default: 
+                            - `-1`
 
                         Examples:
                             (begin example)
@@ -455,50 +457,90 @@ class KISKA_Bases
                     ------------------------------------------------------------------------------- */
                     spawnPositions = "";
 
+
+                    /* -------------------------------------------------------------------------------
+                        Property: 
+                            - canPath: <`0` | `1`> - Adjusts whether the units spawned can walk away from
+                            their spawn position.
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Base Section
+                            - Section Set
+                        
+                        Default: 
+                            - `1`
+
+                        Examples:
+                            (begin example)
+                                // pathing enabled
+                                canPath = 1;
+                            (end)
+                    ------------------------------------------------------------------------------- */ 
+                    // canPath = 1;
+
+
+                    /* -------------------------------------------------------------------------------
+                        Property: 
+                            - onUnitsCreated: <STRING> - Code that will be compiled and run after units
+                            in the set have been initialized.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the infantry base set
+                                    1: <OBJECT[]> - The units created for the infantry set
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Base Section
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                onUnitsCreated = "params ["_infantrySetConfig","_units"]; hint str _this;";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // onUnitsCreated = "";
+
+
+                    /* -------------------------------------------------------------------------------
+                        Property: 
+                            - stances: <STRING[]> - The the stances that units will be able to randomly
+                            take. See `setUnitPos` command for options. Array can be weighted or unweighted.
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Base Section
+                            - Section Set
+
+                        Default:
+                            - `{"up", 0.7, "MIDDLE", 0.3}`
+
+                        Examples:
+                            (begin example)
+                                // will select randomly list
+                                stances[] = {"DOWN", "UP", "MIDDLE"};
+                            (end)
+
+                            (begin example)
+                                // weighted
+                                stances[] = {"up", 0.5, "middle", 0.3};
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // stances[] = {};
+
+
                     // TODO:
-                    // - onUnitsCreated
-                    // - canPath
-                    // - stances
                     // - AmbientAnim class
                 };
             };
             class infantrySpawnSet_1
             {
-
-                // infantryClasses[] = {};
-                // side = SIDE_OPFOR;
-
-
-                // Both `numberOfUnits` and `unitsPerGroup` can also take a string that will be code that must return a number for the property
-                    // params: 0: <PositionATL[] | Object[]> - All the positions available for units to spawn at
-                
-                // example: have 50% of available positions spawn a unit
-                // numberOfUnits = "params ["_spawnPositions"]; (count _spawnPositions) / 2"; 
-                // unitsPerGroup = ""; 
-                // if -1, number of available positions is used this can only max out at the number of available positions
-                numberOfUnits = -1; 
-                unitsPerGroup = 1;
-
-                // script that is compiled once and called with all units after all are created
-                    // params: 0: <ARRAY> - the created units
-                onUnitsCreated = "";
-                
-                // will search for objects in mission layer
-                positions = ""; 
-                // positions[] = {};
-
-                dynamicSim = ON;
-                canPath = ON;
-
-                // A weighted or unweighted array of values that will be randomly selected for unit positions
-                // the positions need to be compatible with setUnitPos
-                // An empty array or undefined property will be replaced with ["up",0.7,"middle",0.3]
-                stances[] = {
-                    "up",
-                    0.7,
-                    "middle",
-                    0.3
-                };
 
                 // see KISKA_fnc_ambientAnim for functional details as that is the function
                 // used to creat the animation affects
