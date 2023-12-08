@@ -508,7 +508,7 @@ class KISKA_Bases
 
                     /* -------------------------------------------------------------------------------
                         Property: 
-                            - stances: <STRING[]> - The the stances that units will be able to randomly
+                            - stances: <STRING[]> - The stances that units will be able to randomly
                             take. See `setUnitPos` command for options. Array can be weighted or unweighted.
 
                         Required: 
@@ -535,6 +535,61 @@ class KISKA_Bases
                     // stances[] = {};
 
 
+                    /* -------------------------------------------------------------------------------
+                        Property: 
+                            - AmbientAnim: <class> - Handles automatically animating units that are spawned
+                            for the given set. See KISKA_fnc_ambientAnim for implementation details.
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Section Set
+                    ------------------------------------------------------------------------------- */
+                    class AmbientAnim
+                    {
+                        /* -------------------------------------------------------------------------------
+                            Property: 
+                                - animationSet: <STRING | class | STRING[]> - Determines what animation set
+                                the spawned units can use. And animation set is a collection of animations that
+                                a unit will be able to cycle through. Default animation sets are defined in 
+                                the `configFile >> "KISKA_AmbientAnimations"` class.
+
+                                STRING:
+                                    - A string for animationSet will mean that every unit will have this 
+                                    animation set applied to them.
+                                
+                                STRING[]:
+                                    - An array means that an animation set will be randomly selected from 
+                                    the array on a per unit basis. This array can be weighted or unweighted.
+
+                                class:
+                                    - Class provides the most detailed and allows the use of snap-to animation
+                                    sets such as those for sitting animations.
+
+                            Required: 
+                                - YES
+
+                            Examples:
+                                (begin example)
+                                    animationSet[] = {"STAND_ARMED_1","STAND_ARMED_2"};
+                                (end)
+
+                                (begin example)
+                                    // weighted
+                                    animationSet[] = {"STAND_ARMED_1",0.5,"STAND_ARMED_2",0.5};
+                                (end)
+
+                                (begin example)
+                                    // single animation set
+                                    animationSet = "STAND_ARMED_1";
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        class animationSet
+                        {
+
+                        };
+                    };
                     // TODO:
                     // - AmbientAnim class
                 };
@@ -542,8 +597,6 @@ class KISKA_Bases
             class infantrySpawnSet_1
             {
 
-                // see KISKA_fnc_ambientAnim for functional details as that is the function
-                // used to creat the animation affects
                 class AmbientAnim
                 {
                     // The "animationSet" property will determine what animations may play on the unit
