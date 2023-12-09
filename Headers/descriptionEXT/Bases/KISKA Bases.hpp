@@ -11,7 +11,7 @@ class KISKA_Bases
     class aBase
     {
         /* -------------------------------------------------------------------------------
-            Property: 
+            Description: 
                 - side: <NUMBER> - Sets the side of units that spawn in the base.
 
             Required: 
@@ -44,7 +44,7 @@ class KISKA_Bases
         side = SIDE_OPFOR;
 
         /* -------------------------------------------------------------------------------
-            Property: 
+            Description: 
                 - unitClasses: <STRING | STRING[]> - The classNames of units that can be spawned
 
                 STRING:
@@ -89,7 +89,7 @@ class KISKA_Bases
         unitClasses[] = {};
         
         /* -------------------------------------------------------------------------------
-            Property: 
+            Description: 
                 - dynamicSim: <`0` | `1`> - Adjusts whether the turret and its gunner are dynamically
                 simulated after being spawned. `0` to turn off, `1` to turn on.
 
@@ -124,7 +124,7 @@ class KISKA_Bases
                 class turret_1
                 {
                     /* -------------------------------------------------------------------------------
-                        Property: 
+                        Description: 
                             - spawnPositions: <STRING | (PositionATL[] | PositionAGL[])[]> - The positions 
                             that the turret can spawn at. Final positions will be randomly selected from the results.
                             
@@ -170,7 +170,7 @@ class KISKA_Bases
 
 
                     /* -------------------------------------------------------------------------------
-                        Property: 
+                        Description: 
                             - turretClassNames: <STRING | STRING[]> - The classNames of turrets that can be spawned.
 
                             STRING:
@@ -211,7 +211,7 @@ class KISKA_Bases
 
 
                     /* -------------------------------------------------------------------------------
-                        Property: 
+                        Description: 
                             - numberOfTurrets: <NUMBER | STRING> - The number of turrets to spawn. Can't exceed the
                             number of `spawnPositions`. If a negative number, all turret positions will be used.
 
@@ -253,7 +253,7 @@ class KISKA_Bases
 
 
                     /* -------------------------------------------------------------------------------
-                        Property: 
+                        Description: 
                             - onGunnerCreated: <STRING> - Uncompiled code that will be compiled and executed
                             immediatley after the gunner is created BEFORE they are moved into the turret.
 
@@ -279,7 +279,7 @@ class KISKA_Bases
 
 
                     /* -------------------------------------------------------------------------------
-                        Property: 
+                        Description: 
                             - onUnitMovedInGunner: <STRING> - Uncompiled code that will be compiled and executed
                             immediatley after the gunner is moved into the turret.
 
@@ -329,7 +329,7 @@ class KISKA_Bases
                 class infantrySpawnSet_1
                 {
                     /* -------------------------------------------------------------------------------
-                        Property: 
+                        Description: 
                             - numberOfUnits: <NUMBER | STRING> - The number of units in total to spawn. Can't exceed the
                             number of `spawnPositions`. If a negative number, all positions will be used.
 
@@ -371,7 +371,7 @@ class KISKA_Bases
 
 
                     /* -------------------------------------------------------------------------------
-                        Property: 
+                        Description: 
                             - unitsPerGroup: <NUMBER | STRING> - The number of units per each group.
                             this will determine how the total number of units created for the set are
                             divided between each group.
@@ -413,7 +413,7 @@ class KISKA_Bases
 
 
                     /* -------------------------------------------------------------------------------
-                        Property: 
+                        Description: 
                             - spawnPositions: <STRING | (PositionATL[] | PositionAGL[])[]> - The positions 
                             that the units can spawn at. Final positions will be randomly selected from the results.
                             
@@ -459,7 +459,7 @@ class KISKA_Bases
 
 
                     /* -------------------------------------------------------------------------------
-                        Property: 
+                        Description: 
                             - canPath: <`0` | `1`> - Adjusts whether the units spawned can walk away from
                             their spawn position.
 
@@ -483,7 +483,7 @@ class KISKA_Bases
 
 
                     /* -------------------------------------------------------------------------------
-                        Property: 
+                        Description: 
                             - onUnitsCreated: <STRING> - Code that will be compiled and run after units
                             in the set have been initialized.
 
@@ -507,7 +507,7 @@ class KISKA_Bases
 
 
                     /* -------------------------------------------------------------------------------
-                        Property: 
+                        Description: 
                             - stances: <STRING[]> - The stances that units will be able to randomly
                             take. See `setUnitPos` command for options. Array can be weighted or unweighted.
 
@@ -536,9 +536,11 @@ class KISKA_Bases
 
 
                     /* -------------------------------------------------------------------------------
-                        Property: 
+                        Description: 
                             - AmbientAnim: <class> - Handles automatically animating units that are spawned
-                            for the given set. See KISKA_fnc_ambientAnim for implementation details.
+                            for the given set. See KISKA_fnc_ambientAnim for implementation details. 
+                            This is relatively slow to initialize and should really be done at mission start up. 
+                            Dyamic simulation does work with these animations.
 
                         Required: 
                             - NO
@@ -549,7 +551,7 @@ class KISKA_Bases
                     class AmbientAnim
                     {
                         /* -------------------------------------------------------------------------------
-                            Property: 
+                            Description: 
                                 - animationSet: <STRING | class | STRING[]> - Determines what animation set
                                 the spawned units can use. And animation set is a collection of animations that
                                 a unit will be able to cycle through. Default animation sets are defined in 
@@ -587,11 +589,138 @@ class KISKA_Bases
                         ------------------------------------------------------------------------------- */
                         class animationSet
                         {
+                            /* -------------------------------------------------------------------------------
+                                Description: 
+                                    - snapToAnimations: <STRING | STRING[]> - Used specifically assigning snap-to
+                                    animation sets to units. If defined, `snapToAnimations` will be selected over
+                                    other properties. A snap-to animation is one that will automatically orient
+                                    a unit to a compatible object within a given distance, such as a sitting 
+                                    animation for a chair.
+                                    
+                                    !!IMPORTANT!! All `snapToAnimations` will be tried (in a random order) until 
+                                    an object to snap to has been found. Should every provided snap animation 
+                                    be tried and no objects found, the order of precedence is:
+                                        1. `backupAnimations`
+                                        2. `fallbackFunction`
+                                        3. No ambient animation applied
 
+                                    STRING:
+                                        - Every unit will have this snap-to animation set applied to them.
+                                    
+                                    STRING[]:
+                                        - An array of (snap-to) animation sets to randomly play on units in the base
+                                        spawn set. This array can be weighted or unweighted. Each animation is randomly
+                                        selected per unit.
+
+                                Required: 
+                                    - YES
+
+                                Examples:
+                                    (begin example)
+                                        snapToAnimations = "SIT_CHAIR_ARMED_1";
+                                    (end)
+
+                                    (begin example)
+                                        // unweighted
+                                        snapToAnimations[] = {"SIT_CHAIR_ARMED_1","SIT_CHAIR_ARMED_1"};
+                                    (end)
+
+                                    (begin example)
+                                        // weighted
+                                        snapToAnimations[] = {"SIT_CHAIR_ARMED_1",0.5,"SIT_CHAIR_ARMED_1",0.5};
+                                    (end)
+                            ------------------------------------------------------------------------------- */
+                            snapToAnimations[] = {};
+
+
+                            /* -------------------------------------------------------------------------------
+                                Description: 
+                                    - backupAnimations: <STRING | STRING[]> - Backup animations are used when
+                                    no object can be found to snap to for the `snapToAnimations`.
+
+                                    STRING:
+                                        - Any unit that fails to find a suitable snap-to animation will have this
+                                        backup animation applied to them.
+                                    
+                                    STRING[]:
+                                        - An array of non-snap-to animation sets to randomly play on units in the base
+                                        spawn set. This array can be weighted or unweighted. Each animation is randomly
+                                        selected per unit.
+
+                                Required: 
+                                    - NO
+
+                                Examples:
+                                    (begin example)
+                                        backupAnimations[] = {"STAND_ARMED_1","STAND_ARMED_2"};
+                                    (end)
+
+                                    (begin example)
+                                        // weighted
+                                        backupAnimations[] = {"STAND_ARMED_1",0.5,"STAND_ARMED_2",0.5};
+                                    (end)
+
+                                    (begin example)
+                                        // single animation set
+                                        backupAnimations = "STAND_ARMED_1";
+                                    (end)
+                            ------------------------------------------------------------------------------- */
+                            // backupAnimations[] = {};
+
+
+                            /* -------------------------------------------------------------------------------
+                                Description: 
+                                    - snapToRange: <NUMBER> - The radius to search for a compatible object 
+                                    within for every animation set in `snapToAnimations`. The search center is
+                                    the given unit's position. Higher number is more performance intensive. 
+                                    Ultimately the closest compatible object will be used. Max radius is `10`.
+
+                                Required: 
+                                    - NO
+
+                                Default:
+                                    - `5`
+
+                                Examples:
+                                    (begin example)
+                                        snapToRange = 10;
+                                    (end)
+                            ------------------------------------------------------------------------------- */
+                            // snapToRange = 5;
+
+
+                            /* -------------------------------------------------------------------------------
+                                Description: 
+                                    - fallbackFunction: <STRING> - A function that will be compiled (once) and
+                                    called if no `backupAnimations` are present and no suitable `snapToAnimations` 
+                                    can be found. The idea of this funciton is that it gives you all the values you
+                                    would need to make specific adjustments to how you want a unit to be animated
+                                    should no snap animations be found, and therefore allow you to call `KISKA_fnc_ambientAnim`
+                                    manually.
+
+                                    Parameters:
+                                        - 0: _unit <OBJECT> - The unit that was trying to be animated.
+                                        - 1: _animationParams <STRING[], (STRING,NUMBER)[], or STRING> - The parsed
+                                        input value for `KISKA_fnc_ambientAnim`. This will essentially be the `animationSet`
+                                        property.
+                                        - 2: _exitOnCombat <BOOL> - Whether or not units will stop ambient animations
+                                        upon detecting an enemy.
+                                        - 3: _equipmentLevel <STRING[], (STRING,NUMBER)[], or STRING> - The `equipmentLevel` 
+                                        property value.
+                                        - 4: _animationMap <HASHMAP or CONFIG> - This is a hashmap that will searched for 
+                                        information for a specific animation set.
+
+                                Required: 
+                                    - NO
+
+                                Examples:
+                                    (begin example)
+                                        fallbackFunction = "params ["_unit","_animationParams","_exitOnCombat","_equipmentLevel","_animationMap"]; hint str _this;"
+                                    (end)
+                            ------------------------------------------------------------------------------- */
+                            // fallbackFunction = "";
                         };
                     };
-                    // TODO:
-                    // - AmbientAnim class
                 };
             };
             class infantrySpawnSet_1
@@ -618,27 +747,16 @@ class KISKA_Bases
                     /// something to snap to
                     class animationSet
                     {
-                        // snapToAnimations = "";
-                        snapToAnimations[] = {
-                            ""
-                        };
-                        // "backupAnimations" are used in lieu of the unit successfully being able to snap to an object
-                        // backupAnimations = "";
-                        backupAnimations[] = {
-                            // both backupAnimations and snapToAnimations can be weighted arrays
-                            "", 1 
-                        };
-                        // "snapToRange" is the radius to search around the unit for potential objects to snap to
-                        // the max radius is 5.
-                        snapToRange = 10;
+                        
+                        
+                        
 
                         // should a unit fail to find a nearby object to snap to and no 
                         // backupAnimations are present this function will be run
                         // see KISKA_fnc_ambientAnim for params
-                        fallbackFunction = "";
                     };
 
-                    // Adjustements to equipment of unit to fit the animation
+                    // Adjustments to equipment of unit to fit the animation
                     // these adjustments are temporary and full equipment will be restored
                     // upon stopping the animation with KISKA_fnc_ambientAnim_stop
                     // - "": no changes
