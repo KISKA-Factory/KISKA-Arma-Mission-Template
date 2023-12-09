@@ -720,70 +720,96 @@ class KISKA_Bases
                             ------------------------------------------------------------------------------- */
                             // fallbackFunction = "";
                         };
+
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - equipmentLevel: <STRING | STRING[]> - Adjustments to equipment of unit to fit the animation
+                                these adjustments are temporary and full equipment will be restored upon
+                                stopping the animation with `KISKA_fnc_ambientAnim_stop` which happens 
+                                when exiting from combat.
+
+                                Options:
+                                    - "": no changes
+                                    - "NONE": no goggles, headgear, vest, weapon, nvgs, backpack
+                                    - "LIGHT": no goggles, headgear, vest, backpack
+                                    - "MEDIUM": no goggles, headgear
+                                    - "FULL": no goggles
+
+                                STRING:
+                                    - All units will be assigned this equipment level.
+
+                                STRING[]:
+                                    - Units will randomly select from the equipment levels provided. Array
+                                    can be weighted or unweighted.
+                                
+                            Required: 
+                                - NO
+
+                            Default:
+                                - `""`
+
+                            Examples:
+                                (begin example)
+                                    equipmentLevel = "MEDIUM";
+                                (end)
+
+                                (begin example)
+                                    // weighted
+                                    equipmentLevel[] = {"NONE",0.5,"",0.5};
+                                (end)
+
+                                (begin example)
+                                    // unweighted
+                                    equipmentLevel[] = {"NONE",""};
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // equipmentLevel = "";
+
+        
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - exitOnCombat: <`0` | `1`> - Adjusts whether or not a unit will exit their
+                                ambient animation upon entering combat or detecting an enemy.
+
+                            Required: 
+                                - NO
+
+                            Default: 
+                                - `0`
+
+                            Examples:
+                                (begin example)
+                                    // will NOT exit on combat
+                                    exitOnCombat = 0;
+                                (end)
+                        ------------------------------------------------------------------------------- */ 
+                        // exitOnCombat = 1;
+
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - fallbackFunction: <STRING> - A function that will be compiled (once) and
+                                called that must return either a CONFIG or HASHMAP. This is for advanced users
+                                that want to add a custom list of animation sets. See `KISKA_fnc_ambientAnim_createMapFromConfig`
+                                to see how configs are parsed or how a HASHMAP should be shaped.
+
+                                Parameters:
+                                    NONE
+
+                            Required: 
+                                - NO
+
+                            Examples:
+                                (begin example)
+                                    // provide default animation map
+                                    getAnimationMapFunction = "configFile >> 'KISKA_AmbientAnimations' >> 'DefaultAnimationMap'";
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // getAnimationMapFunction = "";
                     };
                 };
             };
-            class infantrySpawnSet_1
-            {
-
-                class AmbientAnim
-                {
-                    // The "animationSet" property will determine what animations may play on the unit
-                    // The "animationSet" property can be either a class, string[] (array), or string.
-                    // animationSet refers to a definition of a collection of certain animations
-                    // Default animation sets are defined in the configFile >> "KISKA_AmbientAnimations" class
-
-                    // An array means that an animation set will be randomly selected from the array
-                    /// for each unit in created by infantrySpawnSet_1
-                    /// This array can be weighted or unweighted ({"set1",0.5,"set2",0.5})
-                    // animationSet[] = {};
-
-                    // A string for animationSet will mean that every unit will have this animation applied to them
-                    // animationSet = "";
-
-                    // A class for animationSet is used for snapping animations
-                    // It also enables the use of units that might stand an might not
-                    /// due to it having the ability to detect when a unit can't find
-                    /// something to snap to
-                    class animationSet
-                    {
-                        
-                        
-                        
-
-                        // should a unit fail to find a nearby object to snap to and no 
-                        // backupAnimations are present this function will be run
-                        // see KISKA_fnc_ambientAnim for params
-                    };
-
-                    // Adjustments to equipment of unit to fit the animation
-                    // these adjustments are temporary and full equipment will be restored
-                    // upon stopping the animation with KISKA_fnc_ambientAnim_stop
-                    // - "": no changes
-                    // - "NONE": no goggles, headgear, vest, weapon, nvgs, backpack
-                    // - "LIGHT": no goggles, headgear, vest, backpack
-                    // - "MEDIUM": no goggles, headgear
-                    // - "FULL": no goggles
-                    equipmentLevel = "";
-                    // "equipmentLevel" can also be a weighted or unweighted array to randomly select from
-                    // equipmentLevel[] = {"NONE",1};
-
-                    // Certain animation sets (mostly sitting in chair ones)
-                    // will automatically snap to objects of certain classes
-                    // should they be in this radius
-                    snapToRange = 5;
-
-                    // if units get into combat, they will stop their animations
-                    // and have their loadouts restored
-                    exitOnCombat = ON;
-
-                    // if your animation sets do not fall into the default configFile >> "KISKA_AmbientAnimations" class
-                    // this function can provide a custom animation set map
-                    // see KISKA_fnc_ambientAnim_createMapFromConfig
-                    getAnimationMapFunction = "";
-                };
-            };
-
         };
 
         class patrols
