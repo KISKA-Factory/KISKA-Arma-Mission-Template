@@ -306,21 +306,6 @@ class KISKA_Bases
             };
         };
 
-        // agents use most of the same properties, classes, and structures as infantry
-        // except for unitsPerGroup, stanceses, and canPath
-        // numberOfUnits is instead numberOfAgents
-        // and onUnitsCreated is instead onAgentsCreated
-        class agents
-        {
-            class agentGroup_1
-            {
-                // if -1, number of available positions is used this can only max out at the number of available positions
-                numberOfAgents = -1;
-                // script that is compiled once and called with all units after all are created
-                    // params: 0: <ARRAY> - the created units
-                onAgentsCreated = "";
-            };        
-        };
 
         class infantry
         {
@@ -384,7 +369,7 @@ class KISKA_Bases
 
                                 Parameters:
                                     0: <CONFIG> - The config path of the infantry base set
-                                    1: <OBJECT[] | (PositionATL[] | PositionAGL[])[]> - The possible spawn positions
+                                    1: <NUMBER> - The number of units that will spawn
 
                         Required: 
                             - NO
@@ -406,7 +391,7 @@ class KISKA_Bases
                             (end)
 
                             (begin example)
-                                unitsPerGroup = "params ['_setConfig','_numberOfUnits','_spawnPositions']; (count _numberOfUnits) / 2";
+                                unitsPerGroup = "params ['_setConfig','_numberOfUnits']; (count _numberOfUnits) / 2";
                             (end)
                     ------------------------------------------------------------------------------- */
                     unitsPerGroup = -1;
@@ -533,6 +518,402 @@ class KISKA_Bases
                             (end)
                     ------------------------------------------------------------------------------- */
                     // stances[] = {};
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - AmbientAnim: <class> - Handles automatically animating units that are spawned
+                            for the given set. See KISKA_fnc_ambientAnim for implementation details. 
+                            This is relatively slow to initialize and should really be done at mission start up. 
+                            Dyamic simulation does work with these animations.
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Section Set
+                    ------------------------------------------------------------------------------- */
+                    class AmbientAnim
+                    {
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - animationSet: <STRING | class | STRING[]> - Determines what animation set
+                                the spawned units can use. And animation set is a collection of animations that
+                                a unit will be able to cycle through. Default animation sets are defined in 
+                                the `configFile >> "KISKA_AmbientAnimations"` class.
+
+                                STRING:
+                                    - A string for animationSet will mean that every unit will have this 
+                                    animation set applied to them.
+                                
+                                STRING[]:
+                                    - An array means that an animation set will be randomly selected from 
+                                    the array on a per unit basis. This array can be weighted or unweighted.
+
+                                class:
+                                    - Class provides the most detailed and allows the use of snap-to animation
+                                    sets such as those for sitting animations.
+
+                            Required: 
+                                - YES
+
+                            Examples:
+                                (begin example)
+                                    animationSet[] = {"STAND_ARMED_1","STAND_ARMED_2"};
+                                (end)
+
+                                (begin example)
+                                    // weighted
+                                    animationSet[] = {"STAND_ARMED_1",0.5,"STAND_ARMED_2",0.5};
+                                (end)
+
+                                (begin example)
+                                    // single animation set
+                                    animationSet = "STAND_ARMED_1";
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        class animationSet
+                        {
+                            /* -------------------------------------------------------------------------------
+                                Description: 
+                                    - snapToAnimations: <STRING | STRING[]> - Used specifically assigning snap-to
+                                    animation sets to units. If defined, `snapToAnimations` will be selected over
+                                    other properties. A snap-to animation is one that will automatically orient
+                                    a unit to a compatible object within a given distance, such as a sitting 
+                                    animation for a chair.
+                                    
+                                    !!IMPORTANT!! All `snapToAnimations` will be tried (in a random order) until 
+                                    an object to snap to has been found. Should every provided snap animation 
+                                    be tried and no objects found, the order of precedence is:
+                                        1. `backupAnimations`
+                                        2. `fallbackFunction`
+                                        3. No ambient animation applied
+
+                                    STRING:
+                                        - Every unit will have this snap-to animation set applied to them.
+                                    
+                                    STRING[]:
+                                        - An array of (snap-to) animation sets to randomly play on units in the base
+                                        spawn set. This array can be weighted or unweighted. Each animation is randomly
+                                        selected per unit.
+
+                                Required: 
+                                    - YES
+
+                                Examples:
+                                    (begin example)
+                                        snapToAnimations = "SIT_CHAIR_ARMED_1";
+                                    (end)
+
+                                    (begin example)
+                                        // unweighted
+                                        snapToAnimations[] = {"SIT_CHAIR_ARMED_1","SIT_CHAIR_ARMED_1"};
+                                    (end)
+
+                                    (begin example)
+                                        // weighted
+                                        snapToAnimations[] = {"SIT_CHAIR_ARMED_1",0.5,"SIT_CHAIR_ARMED_1",0.5};
+                                    (end)
+                            ------------------------------------------------------------------------------- */
+                            snapToAnimations[] = {};
+
+
+                            /* -------------------------------------------------------------------------------
+                                Description: 
+                                    - backupAnimations: <STRING | STRING[]> - Backup animations are used when
+                                    no object can be found to snap to for the `snapToAnimations`.
+
+                                    STRING:
+                                        - Any unit that fails to find a suitable snap-to animation will have this
+                                        backup animation applied to them.
+                                    
+                                    STRING[]:
+                                        - An array of non-snap-to animation sets to randomly play on units in the base
+                                        spawn set. This array can be weighted or unweighted. Each animation is randomly
+                                        selected per unit.
+
+                                Required: 
+                                    - NO
+
+                                Examples:
+                                    (begin example)
+                                        backupAnimations[] = {"STAND_ARMED_1","STAND_ARMED_2"};
+                                    (end)
+
+                                    (begin example)
+                                        // weighted
+                                        backupAnimations[] = {"STAND_ARMED_1",0.5,"STAND_ARMED_2",0.5};
+                                    (end)
+
+                                    (begin example)
+                                        // single animation set
+                                        backupAnimations = "STAND_ARMED_1";
+                                    (end)
+                            ------------------------------------------------------------------------------- */
+                            // backupAnimations[] = {};
+
+
+                            /* -------------------------------------------------------------------------------
+                                Description: 
+                                    - snapToRange: <NUMBER> - The radius to search for a compatible object 
+                                    within for every animation set in `snapToAnimations`. The search center is
+                                    the given unit's position. Higher number is more performance intensive. 
+                                    Ultimately the closest compatible object will be used. Max radius is `10`.
+
+                                Required: 
+                                    - NO
+
+                                Default:
+                                    - `5`
+
+                                Examples:
+                                    (begin example)
+                                        snapToRange = 10;
+                                    (end)
+                            ------------------------------------------------------------------------------- */
+                            // snapToRange = 5;
+
+
+                            /* -------------------------------------------------------------------------------
+                                Description: 
+                                    - fallbackFunction: <STRING> - A function that will be compiled (once) and
+                                    called if no `backupAnimations` are present and no suitable `snapToAnimations` 
+                                    can be found. The idea of this funciton is that it gives you all the values you
+                                    would need to make specific adjustments to how you want a unit to be animated
+                                    should no snap animations be found, and therefore allow you to call `KISKA_fnc_ambientAnim`
+                                    manually.
+
+                                    Parameters:
+                                        - 0: _unit <OBJECT> - The unit that was trying to be animated.
+                                        - 1: _animationParams <STRING[], (STRING,NUMBER)[], or STRING> - The parsed
+                                        input value for `KISKA_fnc_ambientAnim`. This will essentially be the `animationSet`
+                                        property.
+                                        - 2: _exitOnCombat <BOOL> - Whether or not units will stop ambient animations
+                                        upon detecting an enemy.
+                                        - 3: _equipmentLevel <STRING[], (STRING,NUMBER)[], or STRING> - The `equipmentLevel` 
+                                        property value.
+                                        - 4: _animationMap <HASHMAP or CONFIG> - This is a hashmap that will searched for 
+                                        information for a specific animation set.
+
+                                Required: 
+                                    - NO
+
+                                Examples:
+                                    (begin example)
+                                        fallbackFunction = "params ["_unit","_animationParams","_exitOnCombat","_equipmentLevel","_animationMap"]; hint str _this;"
+                                    (end)
+                            ------------------------------------------------------------------------------- */
+                            // fallbackFunction = "";
+                        };
+
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - equipmentLevel: <STRING | STRING[]> - Adjustments to equipment of unit to fit the animation
+                                these adjustments are temporary and full equipment will be restored upon
+                                stopping the animation with `KISKA_fnc_ambientAnim_stop` which happens 
+                                when exiting from combat.
+
+                                Options:
+                                    - "": no changes
+                                    - "NONE": no goggles, headgear, vest, weapon, nvgs, backpack
+                                    - "LIGHT": no goggles, headgear, vest, backpack
+                                    - "MEDIUM": no goggles, headgear
+                                    - "FULL": no goggles
+
+                                STRING:
+                                    - All units will be assigned this equipment level.
+
+                                STRING[]:
+                                    - Units will randomly select from the equipment levels provided. Array
+                                    can be weighted or unweighted.
+                                
+                            Required: 
+                                - NO
+
+                            Default:
+                                - `""`
+
+                            Examples:
+                                (begin example)
+                                    equipmentLevel = "MEDIUM";
+                                (end)
+
+                                (begin example)
+                                    // weighted
+                                    equipmentLevel[] = {"NONE",0.5,"",0.5};
+                                (end)
+
+                                (begin example)
+                                    // unweighted
+                                    equipmentLevel[] = {"NONE",""};
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // equipmentLevel = "";
+
+        
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - exitOnCombat: <`0` | `1`> - Adjusts whether or not a unit will exit their
+                                ambient animation upon entering combat or detecting an enemy.
+
+                            Required: 
+                                - NO
+
+                            Default: 
+                                - `0`
+
+                            Examples:
+                                (begin example)
+                                    // will NOT exit on combat
+                                    exitOnCombat = 0;
+                                (end)
+                        ------------------------------------------------------------------------------- */ 
+                        // exitOnCombat = 1;
+
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - fallbackFunction: <STRING> - A function that will be compiled (once) and
+                                called that must return either a CONFIG or HASHMAP. This is for advanced users
+                                that want to add a custom list of animation sets. See `KISKA_fnc_ambientAnim_createMapFromConfig`
+                                to see how configs are parsed or how a HASHMAP should be shaped.
+
+                                Parameters:
+                                    NONE
+
+                            Required: 
+                                - NO
+
+                            Examples:
+                                (begin example)
+                                    // provide default animation map
+                                    getAnimationMapFunction = "configFile >> 'KISKA_AmbientAnimations' >> 'DefaultAnimationMap'";
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // getAnimationMapFunction = "";
+                    };
+                };
+            };
+        };
+
+
+        class agents
+        {
+            class sets
+            {
+                class agentSpawnSet_1
+                {
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - numberOfUnits: <NUMBER | STRING> - The number of units in total to spawn. Can't exceed the
+                            number of `spawnPositions`. If a negative number, all positions will be used.
+
+                            NUMBER:
+                                The number of units.
+                            
+                            STRING:
+                                Uncompiled code that will be compiled and executed. Must return a number.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the agent base set
+                                    1: <OBJECT[] | (PositionATL[] | PositionAGL[])[]> - The possible spawn positions
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Base Root
+                            - agent Section
+                            - Section Set
+
+                        Default:
+                            - `-1`
+
+                        Examples:
+                            (begin example)
+                                numberOfUnits = -1;
+                            (end)
+
+                            (begin example)
+                                numberOfUnits = -1;
+                            (end)
+
+                            (begin example)
+                                numberOfUnits = "params ['_config','_spawnPositions']; count _spawnPositions";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    numberOfUnits = -1;
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - spawnPositions: <STRING | (PositionATL[] | PositionAGL[])[]> - The positions 
+                            that the units can spawn at. Final positions will be randomly selected from the results.
+                            
+                            STRING:
+                                The name of a mission layer that contains objects that will be used as possible 
+                                spawn positions for the units. Units will face the same direction as a given 
+                                object if selected from the layer as a spawn position.
+
+                            ARRAY:
+                                Array must be of positions in the format PositionATL[] or PositionAGL[] 
+                                (if over water). Optionally, a fourth number in the position array may be
+                                added that will designate what direction the turret will face after spawning.
+                                This array can also be weighted or unweighted.
+
+                        Required: 
+                            - YES
+
+                        Definition Levels:
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                spawnPositions = "myLayerWithObjects";
+                            (end)
+                            
+                            (begin example)
+                                // unweighted 
+                                spawnPositions[] = {
+                                    {0,0,0},
+                                    {0,0,0,180} // turret will face 180 degrees
+                                };
+                            (end)
+                            
+                            (begin example)
+                                // weighted 
+                                spawnPositions[] = {
+                                    {0,0,0}, 1
+                                    {0,0,0,180}, 0.5
+                                };
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    spawnPositions = "";
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - onUnitsCreated: <STRING> - Code that will be compiled and run after units
+                            in the set have been initialized.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the agent base set
+                                    1: <OBJECT[]> - The units created for the agent set
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Base Section
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                onUnitsCreated = "params ["_agentSetConfig","_units"]; hint str _this;";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // onUnitsCreated = "";
 
 
                     /* -------------------------------------------------------------------------------
