@@ -20,6 +20,7 @@ class KISKA_Bases
             Sections:
                 - infantry
                 - agents
+                - patrols
                 - turrets
                 - vehicles
 
@@ -63,6 +64,7 @@ class KISKA_Bases
 
             Sections:
                 - infantry
+                - patrols
                 - agents
                 - turrets
 
@@ -106,6 +108,7 @@ class KISKA_Bases
                 - agents
                 - turrets
                 - vehicles
+                - patrols
 
             Default: 
                 - `0`
@@ -1195,31 +1198,289 @@ class KISKA_Bases
 
         class patrols
         {
-            //infantryClasses[] = {};
+            class sets
+            {
+                class patrol_1
+                {
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - spawnPositions: <STRING | (PositionATL[] | PositionAGL[])[]> - The positions 
+                            that the patrol can spawn at. Final position will be randomly selected.
+                            
+                            STRING:
+                                The name of a mission layer that contains objects that will be used as possible 
+                                spawn positions for the units. Units will face the same direction as a given 
+                                object if selected from the layer as a spawn position.
+
+                            ARRAY:
+                                Array must be of positions in the format PositionATL[] or PositionAGL[] 
+                                (if over water). Optionally, a fourth number in the position array may be
+                                added that will designate what direction the turret will face after spawning.
+                                This array can also be weighted or unweighted.
+
+                        Required: 
+                            - YES
+
+                        Definition Levels:
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                spawnPositions = "myLayerWithObjects";
+                            (end)
+                            
+                            (begin example)
+                                // unweighted 
+                                spawnPositions[] = {
+                                    {0,0,0},
+                                    {0,0,0,180} // turret will face 180 degrees
+                                };
+                            (end)
+                            
+                            (begin example)
+                                // weighted 
+                                spawnPositions[] = {
+                                    {0,0,0}, 1
+                                    {0,0,0,180}, 0.5
+                                };
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    spawnPositions = "";
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - numberOfUnits: <NUMBER | STRING> - The number of units in total to spawn. Can't exceed the
+                            number of `spawnPositions`. If a negative number, all positions will be used.
+
+                            NUMBER:
+                                The number of units.
+                            
+                            STRING:
+                                Uncompiled code that will be compiled and executed. Must return a number.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the patrol base set
+                                    1: <OBJECT[] | (PositionATL[] | PositionAGL[])[]> - The possible spawn positions
+
+                        Required: 
+                            - YES
+
+                        Definition Levels:
+                            - Base Root
+                            - Patrol Section
+                            - Section Set
+
+                        Default:
+                            - `-1`
+
+                        Examples:
+                            (begin example)
+                                numberOfUnits = -1;
+                            (end)
+
+                            (begin example)
+                                numberOfUnits = -1;
+                            (end)
+
+                            (begin example)
+                                numberOfUnits = "params ['_config','_spawnPositions']; count _spawnPositions";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    numberOfUnits = -1;
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - onPartrolCreated: <STRING> - Code that will be compiled and run after units
+                            in the partol set have been initialized.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the patrol set
+                                    1: <OBJECT[]> - The units created for the partrol set
+                                    2: <GROUP> - The patrol group to which all the units belong
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Base Section
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                onPartrolCreated = "params ["_patrolSetConfig","_units","_group"]; hint str _this;";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // onPartrolCreated = "";
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - behaviour: <STRING> - Determines the patrol group's waypoint behaviour
+                            setting. Used with `setWaypointBehaviour` command.
+
+                            Options:
+                                - "UNCHANGED"
+                                - "CARELESS"
+                                - "SAFE"
+                                - "AWARE"
+                                - "COMBAT"
+                                - "STEALTH"
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Patrol Section
+                            - Section Set
+
+                        Default:
+                            - `"SAFE"`
+
+                        Examples:
+                            (begin example)
+                                behaviour = "SAFE";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // behaviour = "";
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - speed: <STRING> - Determines the patrol group's waypoint speed setting. 
+                            Used with `setWaypointSpeed` command.
+
+                            Options:
+                                - "UNCHANGED"
+                                - "LIMITED"
+                                - "NORMAL"
+                                - "FULL"
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Patrol Section
+                            - Section Set
+
+                        Default:
+                            - `"LIMITED"`
+
+                        Examples:
+                            (begin example)
+                                behaviour = "LIMITED";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // speed = "";
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - combatMode: <STRING> - Determines the patrol group's waypoint combatMode 
+                            setting. Used with `setWaypointCombatMode` command.
+
+                            Options:
+                                - "NO CHANGE"
+                                - "BLUE"
+                                - "GREEN"
+                                - "WHITE"
+                                - "YELLOW"
+                                - "RED"
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Patrol Section
+                            - Section Set
+
+                        Default:
+                            - `"RED"`
+
+                        Examples:
+                            (begin example)
+                                combatMode = "RED";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // combatMode = "";
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - formation: <STRING> - Determines the patrol group's waypoint formation 
+                            setting. Used with `setWaypointFormation` command.
+
+                            Options:
+                                - "NO CHANGE"
+                                - "COLUMN"
+                                - "STAG COLUMN"
+                                - "WEDGE"
+                                - "ECH LEFT"
+                                - "ECH RIGHT"
+                                - "VEE"
+                                - "LINE"
+                                - "FILE"
+                                - "DIAMOND"
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Patrol Section
+                            - Section Set
+
+                        Default:
+                            - `"STAG COLUMN"`
+
+                        Examples:
+                            (begin example)
+                                formation = "STAG COLUMN";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // formation = "";
+
+                    // TODO: patrol instructions syntax
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - patrolType: <STRING> - Determines how the patrol's waypoints are generated.
+
+                            Options:
+                                - "RANDOM" - Generates
+                                - "DEFINED"
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Patrol Section
+                            - Section Set
+
+                        Default:
+                            - `"RANDOM"`
+
+                        Examples:
+                            (begin example)
+                                patrolType = "RANDOM";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    patrolType = "DEFINED";
+
+                    patrolPoints = "";
+                    patrolPoints[] = {};
+
+                    randomOrder = 1;
+
+                    center[] = {};
+                    numberOfPoints = 3;
+                    radius = 500; 
+                    
+                    waypointType = "MOVE";
+                };
+            };
+
             class patrol_1
             {
-                // side = SIDE_OPFOR;
-                //infantryClasses[] = {};
-
-                // used with object, needs to be object's variable name
-                spawnPosition = ""; 
-
-                // position in ATL format
-                //spawnPosition[] = {}; 
-
-                numberOfUnits = 5;
-
-                // script that is compiled and run on the patrol group after they are spawned and given patrol route
-                // params are 0: <GROUP> - the patrol group
-                onGroupCreated = "";
-
-                // same as strings for corresponding waypoint commands
-                behaviour = "SAFE";
-                speed = "LIMITED";
-                combatMode = "RED";
-                formation = "STAG COLUMN";
-                dynamicSim = ON;
-
                 // SpecificPatrol will be used over RandomPatrol. Remove it if using RandomPatrol
             /*
                 class SpecificPatrol
