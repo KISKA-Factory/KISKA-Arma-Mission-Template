@@ -1440,14 +1440,15 @@ class KISKA_Bases
                     ------------------------------------------------------------------------------- */
                     // formation = "";
 
-                    // TODO: patrol instructions syntax
+
                     /* -------------------------------------------------------------------------------
                         Description: 
-                            - patrolType: <STRING> - Determines how the patrol's waypoints are generated.
+                            - patrolType: <STRING> - Determines how the patrol's waypoints are created.
 
                             Options:
-                                - "RANDOM" - Generates
-                                - "DEFINED"
+                                - "GENERATED" - Generates a random set of waypoints around a given center
+                                position.
+                                - "DEFINED" - Will select from given list of possible partol points.
 
                         Required: 
                             - NO
@@ -1457,25 +1458,139 @@ class KISKA_Bases
                             - Section Set
 
                         Default:
-                            - `"RANDOM"`
+                            - `"GENERATED"`
 
                         Examples:
                             (begin example)
-                                patrolType = "RANDOM";
+                                patrolType = "GENERATED";
                             (end)
                     ------------------------------------------------------------------------------- */
-                    patrolType = "DEFINED";
+                    patrolType = "GENERATED";
 
-                    patrolPoints = "";
-                    patrolPoints[] = {};
-
-                    randomOrder = 1;
-
-                    center[] = {};
-                    numberOfPoints = 3;
-                    radius = 500; 
                     
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - numberOfPoints: <NUMBER> - The number of patrol waypoints that will be created.
+
+                        PatrolType:
+                            - "GENERATED" - The number of random positions generated within the given radius.
+                            - "DEFINED" - The number of waypoint positions that will be selected from
+                            the provided list. `-1` can be used to have every possible positions used.
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Patrol Section
+                            - Section Set
+
+                        Default:
+                            - `-1` for "DEFINED" patrols, `5` for "GENERATED" patrols
+
+                        Examples:
+                            (begin example)
+                                numberOfPoints = 5;
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    numberOfPoints = 5;
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - waypointType: <STRING> - The type of waypoints created to patrol. See
+                            `setWaypointType` command options.
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Patrol Section
+                            - Section Set
+
+                        Default:
+                            - `"MOVE"`
+
+                        Examples:
+                            (begin example)
+                                waypointType = "SAD";
+                            (end)
+                    ------------------------------------------------------------------------------- */
                     waypointType = "MOVE";
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - randomOrder: <`0` | `1`> - Whether or not to randomize the order of the 
+                            provided `patrolPoints` when creating the group's waypoints.
+
+                        Required: 
+                            - NO
+
+                        PatrolType:
+                            - "DEFINED"
+
+                        Definition Levels:
+                            - Patrol Section
+                            - Section Set
+
+                        Default: 
+                            - `0`
+
+                        Examples:
+                            (begin example)
+                                randomOrder = 0;
+                            (end)
+                    ------------------------------------------------------------------------------- */                    
+                    // randomOrder = 1;
+
+                    // TODO:
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - patrolPoints: <STRING | (PositionATL[])[]> - The positions that the patrol 
+                            can select from when using a "DEFINED" `patrolType`.
+                            
+                            STRING:
+                                The name of a mission layer that contains objects that will be used as possible 
+                                spawn positions for the units. Units will face the same direction as a given 
+                                object if selected from the layer as a spawn position.
+
+                            ARRAY:
+                                Array must be of positions in the format PositionATL[]. This array can 
+                                be weighted or unweighted.
+
+                        Required: 
+                            - YES
+
+                        Definition Levels:
+                            - Patrol Section
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                patrolPoints = "myLayerWithObjects";
+                            (end)
+                            
+                            (begin example)
+                                // unweighted 
+                                patrolPoints[] = {
+                                    {0,0,0},
+                                    {1,2,3}
+                                };
+                            (end)
+                            
+                            (begin example)
+                                // weighted 
+                                spawnPositions[] = {
+                                    {0,0,0}, 1
+                                    {1,2,3}, 0.5
+                                };
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // patrolPoints[] = {};
+                    
+                    center[] = {};
+                    center = "";
+                    radius = 500;
                 };
             };
 
