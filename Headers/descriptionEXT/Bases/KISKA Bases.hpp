@@ -257,6 +257,170 @@ class KISKA_Bases
 
                     /* -------------------------------------------------------------------------------
                         Description: 
+                            - minElevation: <NUMBER | STRING> - Used with the `setTurretLimits`, allows
+                            the designer to limit a turret's field of fire.
+
+                            NUMBER:
+                                The exact minimum for the turret's elevation.
+                            
+                            STRING:
+                                Uncompiled code that will be compiled and executed. Must return a number
+                                for the limit.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the turret base set
+                                    1: <OBJECT> - The turret
+                                    2: <OBJECT> - The gunner
+                                    3: <NUMBER[]> - The turret's default limits `[minTurn, maxTurn, minElev, maxElev]`
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
+                        
+                        Default:
+                            - Whatever the default limit is for the specific turret.
+
+                        Examples:
+                            (begin example)
+                                minElevation = -10;
+                            (end)
+
+                            (begin example)
+                                minElevation = "params ['_config','_turret','_gunner','_defaultLimits']; -10";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // minElevation = 0;
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - maxElevation: <NUMBER | STRING> - Used with the `setTurretLimits`, allows
+                            the designer to limit a turret's field of fire.
+
+                            NUMBER:
+                                The exact maximum for the turret's elevation.
+                            
+                            STRING:
+                                Uncompiled code that will be compiled and executed. Must return a number
+                                for the limit.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the turret base set
+                                    1: <OBJECT> - The turret
+                                    2: <OBJECT> - The gunner
+                                    3: <NUMBER[]> - The turret's default limits `[minTurn, maxTurn, minElev, maxElev]`
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
+                        
+                        Default:
+                            - Whatever the default limit is for the specific turret.
+
+                        Examples:
+                            (begin example)
+                                maxElevation = 10;
+                            (end)
+
+                            (begin example)
+                                maxElevation = "params ['_config','_turret','_gunner','_defaultLimits']; 10";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // maxElevation = 0;
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - maxRotation: <NUMBER | STRING> - Used with the `setTurretLimits`, allows
+                            the designer to limit a turret's field of fire.
+
+                            NUMBER:
+                                The exact maximum for the turret's rotation.
+                            
+                            STRING:
+                                Uncompiled code that will be compiled and executed. Must return a number
+                                for the limit.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the turret base set
+                                    1: <OBJECT> - The turret
+                                    2: <OBJECT> - The gunner
+                                    3: <NUMBER[]> - The turret's default limits `[minTurn, maxTurn, minElev, maxElev]`
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
+                        
+                        Default:
+                            - Whatever the default limit is for the specific turret.
+
+                        Examples:
+                            (begin example)
+                                maxRotation = 45;
+                            (end)
+
+                            (begin example)
+                                maxRotation = "params ['_config','_turret','_gunner','_defaultLimits']; 45";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // maxRotation = 0;
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - minRotation: <NUMBER | STRING> - Used with the `setTurretLimits`, allows
+                            the designer to limit a turret's field of fire.
+
+                            NUMBER:
+                                The exact minimum for the turret's rotation.
+                            
+                            STRING:
+                                Uncompiled code that will be compiled and executed. Must return a number
+                                for the limit.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the turret base set
+                                    1: <OBJECT> - The turret
+                                    2: <OBJECT> - The gunner
+                                    3: <NUMBER[]> - The turret's default limits `[minTurn, maxTurn, minElev, maxElev]`
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
+                        
+                        Default:
+                            - Whatever the default limit is for the specific turret.
+
+                        Examples:
+                            (begin example)
+                                minRotation = -45;
+                            (end)
+
+                            (begin example)
+                                minRotation = "params ['_config','_turret','_gunner','_defaultLimits']; -45";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // maxRotation = 0;
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
                             - onGunnerCreated: <STRING> - Uncompiled code that will be compiled and executed
                             immediatley after the gunner is created BEFORE they are moved into the turret.
 
@@ -305,6 +469,9 @@ class KISKA_Bases
                             (end)
                     ------------------------------------------------------------------------------- */
                     // onUnitMovedInGunner = "";
+
+
+                    
                 };
             };
         };
