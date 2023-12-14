@@ -1462,7 +1462,7 @@ class KISKA_Bases
 
                         Examples:
                             (begin example)
-                                patrolType = "GENERATED";
+                                patrolType = "DEFINED";
                             (end)
                     ------------------------------------------------------------------------------- */
                     patrolType = "GENERATED";
@@ -1520,8 +1520,17 @@ class KISKA_Bases
 
                     /* -------------------------------------------------------------------------------
                         Description: 
-                            - randomOrder: <`0` | `1`> - Whether or not to randomize the order of the 
-                            provided `patrolPoints` when creating the group's waypoints.
+                            - patrolPointOrder: <`0` | `1` | `2`> - How to order the patrol points defined
+                            in `patrolPoints` property.
+                        
+                        Options:
+                            - 0: order defined
+                            - 1: randomized order
+                            - 2: order by object name numeric. If a using mission layer syntax for 
+                            `patrolPoints`, the patrol points will be sorted by object name ending numeric.
+                            Each object must end in `_*number*` such as: `patrolPoint_1` and `patrolPoint_2`.
+                            The `_1` point would come before the `_2` point. See `KISKA_fnc_sortStringsNumerically`
+                            for details.
 
                         Required: 
                             - NO
@@ -1538,25 +1547,24 @@ class KISKA_Bases
 
                         Examples:
                             (begin example)
-                                randomOrder = 0;
+                                patrolPointOrder = 0;
                             (end)
                     ------------------------------------------------------------------------------- */                    
-                    // randomOrder = 1;
+                    // patrolPointOrder = -1;
 
-                    // TODO:
+
                     /* -------------------------------------------------------------------------------
                         Description: 
-                            - patrolPoints: <STRING | (PositionATL[])[]> - The positions that the patrol 
+                            - patrolPoints: <STRING | PositionATL[][]> - The positions that the patrol 
                             can select from when using a "DEFINED" `patrolType`.
                             
                             STRING:
-                                The name of a mission layer that contains objects that will be used as possible 
-                                spawn positions for the units. Units will face the same direction as a given 
-                                object if selected from the layer as a spawn position.
+                                The name of a mission layer that contains objects that will be used as 
+                                possible patrol points.
 
                             ARRAY:
-                                Array must be of positions in the format PositionATL[]. This array can 
-                                be weighted or unweighted.
+                                An array of positions that must be in the format PositionATL[]. This 
+                                array can be weighted or unweighted.
 
                         Required: 
                             - YES
@@ -1580,65 +1588,21 @@ class KISKA_Bases
                             
                             (begin example)
                                 // weighted 
-                                spawnPositions[] = {
+                                patrolPoints[] = {
                                     {0,0,0}, 1
                                     {1,2,3}, 0.5
                                 };
                             (end)
                     ------------------------------------------------------------------------------- */
                     // patrolPoints[] = {};
-                    
+
+
+                    // TODO:
                     center[] = {};
                     center = "";
                     radius = 500;
                 };
             };
-
-            class patrol_1
-            {
-                // SpecificPatrol will be used over RandomPatrol. Remove it if using RandomPatrol
-            /*
-                class SpecificPatrol
-                {   
-                    // used with mission layer
-                    patrolPoints = ""; 
-                    //patrolPoints[] = {};
-
-                    // randomly around the points or in order defined
-                    random = 1; // patrol 
-                    // patrol every provided positon if -1
-                    numberOfPoints = -1; 
-                };
-            */
-                // uses CBA_fnc_taskPatrol
-                class RandomPatrol 
-                {
-                    // leave empty or remove to patrol around spawnPosition
-                    //center[] = {}; 
-
-                    // number of waypoints
-                    numberOfPoints = 3;
-
-                    // max radius waypoints will be created around the area
-                    radius = 500; 
-
-                    waypointType = "MOVE";
-                };
-
-                class reinforce
-                {
-                    id = "patrolUnit";
-                    // see KISKA_fnc_bases_triggerReaction
-                    // Must return bool, whether or not to prevent KISKA_fnc_bases_triggerReaction after
-                    // this script completes (e.g. return false to run KISKA_fnc_bases_triggerReaction)
-                    onEnemyDetected = "hint str _this; false";
-                    canCall[] = {
-                        "armorReinforcement"
-                    };
-                };
-
-            };
-
         };
 
         class landVehicles
