@@ -1670,6 +1670,9 @@ class KISKA_Bases
                         Required: 
                             - NO
 
+                        PatrolType:
+                            - "GENERATED"
+
                         Definition Levels:
                             - Patrol Section
                             - Section Set
