@@ -1767,10 +1767,83 @@ class KISKA_Bases
                     // patrolPoints[] = {};
 
 
-                    // TODO:
-                    center[] = {};
-                    center = "";
-                    radius = 500;
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - center: <STRING | PositionATL[][]> - The center around which a given patrol
+                            will have its waypoints generated.
+                            
+                            STRING:
+                                Uncompiled code that will be compiled and run. Must return a PositionATL[].
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the patrol set
+
+                            ARRAY:
+                                An array of positions that must be in the format PositionATL[]. This 
+                                array can be weighted or unweighted.
+
+                        Required: 
+                            - NO
+
+                        PatrolType:
+                            - "GENERATED"
+
+                        Definition Levels:
+                            - Patrol Section
+                            - Section Set
+
+                        Default:
+                            - The spawn position of the patrol.
+
+                        Examples:
+                            (begin example)
+                                center = "params ['_patrolSetConfig']; [0,0,0]";
+                            (end)
+                            
+                            (begin example)
+                                // unweighted 
+                                center[] = {
+                                    {0,0,0},
+                                    {1,2,3}
+                                };
+                            (end)
+                            
+                            (begin example)
+                                // weighted 
+                                center[] = {
+                                    {0,0,0}, 1
+                                    {1,2,3}, 0.5
+                                };
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // center[] = {};
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - center: <STRING | PositionATL[][]> - The furthest radius from the `center` 
+                            that waypoints possibly will be generated for the patrol.
+
+                        Required: 
+                            - NO
+
+                        PatrolType:
+                            - "GENERATED"
+
+                        Definition Levels:
+                            - Patrol Section
+                            - Section Set
+
+                        Default:
+                            - `500`
+
+                        Examples:
+                            (begin example)
+                                radius = 500;
+                            (end)
+
+                    ------------------------------------------------------------------------------- */
+                    // radius = 500;
                 };
             };
         };
