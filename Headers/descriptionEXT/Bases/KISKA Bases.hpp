@@ -522,7 +522,7 @@ class KISKA_Bases
                                 numberOfUnits = "params ['_config','_spawnPositions']; count _spawnPositions";
                             (end)
                     ------------------------------------------------------------------------------- */
-                    numberOfUnits = -1;
+                    // numberOfUnits = -1;
 
 
                     /* -------------------------------------------------------------------------------
@@ -564,7 +564,7 @@ class KISKA_Bases
                                 unitsPerGroup = "params ['_setConfig','_numberOfUnits']; (count _numberOfUnits) / 2";
                             (end)
                     ------------------------------------------------------------------------------- */
-                    unitsPerGroup = -1;
+                    // unitsPerGroup = -1;
 
 
                     /* -------------------------------------------------------------------------------
@@ -1371,19 +1371,52 @@ class KISKA_Bases
                 {
                     /* -------------------------------------------------------------------------------
                         Description: 
-                            - spawnPositions: <STRING | (PositionATL[] | PositionAGL[])[]> - The positions 
-                            that the patrol can spawn at. Final position will be randomly selected.
-                            
+                            - specificSpawn: <STRING | PositionATL[] | PositionAGL[]> - The spawn place
+                            of the patrol, use when only a single spawn position is required. 
+                            Has precedence over `spawnPositions`.
+
                             STRING:
-                                The name of a mission layer that contains objects that will be used as possible 
-                                spawn positions for the units. Units will face the same direction as a given 
-                                object if selected from the layer as a spawn position.
+                                Uncompiled code that will run that must return an object, PositionATL[],
+                                or PositionAGL[] (if over water).
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the patrol set
 
                             ARRAY:
                                 Array must be of positions in the format PositionATL[] or PositionAGL[] 
-                                (if over water). Optionally, a fourth number in the position array may be
-                                added that will designate what direction the turret will face after spawning.
-                                This array can also be weighted or unweighted.
+                                (if over water).
+
+                        Required: 
+                            - YES
+
+                        Definition Levels:
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                specificSpawn = "params ["_patrolSetConfig"]; missionNameSpace getVariable 'myPatrolSpawnObject'";
+                            (end)
+
+                            (begin example)
+                                specificSpawn[] = {0,0,0};
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // specificSpawn = "";
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - spawnPositions: <STRING | (PositionATL[] | PositionAGL[])[]> - The positions 
+                            that the patrol can spawn at. Final position will be randomly selected.
+                            Should `specificSpawn` be defined, it will be used instead.
+                            
+                            STRING:
+                                The name of a mission layer that contains objects that will be used as possible 
+                                spawn positions for the units.
+
+                            ARRAY:
+                                Array must be of positions in the format PositionATL[] or PositionAGL[] 
+                                (if over water). This array can also be weighted or unweighted.
 
                         Required: 
                             - YES
@@ -1400,7 +1433,7 @@ class KISKA_Bases
                                 // unweighted 
                                 spawnPositions[] = {
                                     {0,0,0},
-                                    {0,0,0,180} // turret will face 180 degrees
+                                    {1,2,3}
                                 };
                             (end)
                             
@@ -1408,11 +1441,11 @@ class KISKA_Bases
                                 // weighted 
                                 spawnPositions[] = {
                                     {0,0,0}, 1
-                                    {0,0,0,180}, 0.5
+                                    {1,2,3}, 0.5
                                 };
                             (end)
                     ------------------------------------------------------------------------------- */
-                    spawnPositions = "";
+                    // spawnPositions = "";
 
 
                     /* -------------------------------------------------------------------------------
