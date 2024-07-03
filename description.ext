@@ -1,4 +1,6 @@
-// used for interacting with portable function lib
+// used for interacting with portable function lib from the KISKA Function Library
+// see https://github.com/KISKA-Factory/raid-on-benmair.lythium for a mission example of how to use
+// the portable function lib
 #define KISKA_IS_MISSION_TEMPLATE 1
 
 #if __has_include("Headers\descriptionEXT\descriptionEXT defines.hpp")
