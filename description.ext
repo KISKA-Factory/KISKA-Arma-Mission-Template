@@ -10,7 +10,7 @@
 /* ----------------------------------------------------------------------------
     Strings (image paths and text)
 ---------------------------------------------------------------------------- */
-// IF BRIEFINGNAME IS AN EMPTY STRING MISSION WILL NOT SHOW IN SELECTOR
+// IF BRIEFINGNAME IS AN EMPTY STRING, THE MISSION WILL NOT SHOW IN THE MULTIPLAYER MISSION SELECTOR SCREEN
 // Mission name displayed in the mission selection menu.
 // briefingName = "";
 
