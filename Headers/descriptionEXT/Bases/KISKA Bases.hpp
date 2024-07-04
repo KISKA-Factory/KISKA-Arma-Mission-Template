@@ -6,7 +6,81 @@
 #define OFF 0
 #define ON 1
 
-// TODO: document conditional portions of class
+/* ----------------------------------------------------------------------------
+    Conditional properties
+
+    All properties in a base at any level can be placed in a conditional class that allows 
+    for more dynamic base creation. `KISKA_fnc_getConditionalConfigValue` is what 
+    supports this functionality.
+
+    Let's say that I want my `side` to conditionally change and I define it at the 
+    base root:
+    (begin example)
+        class KISKA_Bases
+        {
+            class MyBase
+            {
+                // classes MUST be titles `conditional`
+                class conditional
+                {
+                    class MyConditionalClass_1
+                    {
+                        condition = "localNamespace getVariable ['KISKA_makeSideIndependent',false]";
+
+                        class properties
+                        {
+                            side = SIDE_INDEP;
+                        };
+                    };
+                };
+            };
+        };
+    (end)
+
+    Since `side` can be defined in any section, we could also specify this conditional property
+    in say an infantry section or set:
+    (begin example)
+        class KISKA_Bases
+        {
+            class MyBase
+            {
+                class infantry
+                {
+                    class sets
+                    {
+                        class InfantrySet_1
+                        {
+                            class conditional
+                            {
+                                class MyConditionalSideClass_1
+                                {
+                                    condition = "localNamespace getVariable ['KISKA_makeInfantrySet1SideIndependent',false]";
+
+                                    class properties
+                                    {
+                                        side = SIDE_INDEP;
+                                    };
+                                };
+                            };
+
+                            spawnPositions = "SomeLayer";
+                            numberOfUnits = 3;
+                            canPath = ON;
+                        };
+                    };
+                };
+            };
+        };
+
+        It's important to understand how `KISKA_fnc_getConditionalConfigValue` works and
+        its limitations. Read the documentation in its file on Github if you intend to use
+        this feature.
+
+        Also of note is that conditional properties are checked BEFORE the level's
+    (end)
+
+---------------------------------------------------------------------------- */
+
 
 class KISKA_Bases
 {
@@ -2018,7 +2092,7 @@ class KISKA_Bases
 
                     /* -------------------------------------------------------------------------------
                         Description: 
-                            - canPath: <`0` | `1`> - Adjusts whether the units spawned have their path
+                            - canPath: <`0` | `1`> - Adjusts whether the DRIVER of the vehicle has its pathing
                             AI enabled.
 
                         Required: 
@@ -2106,55 +2180,24 @@ class KISKA_Bases
                             (end)
                     ------------------------------------------------------------------------------- */
                     crew[] = {};
-                };
-            };
-        };
-
-        // TODO: update documentation comments
-        class landVehicles
-        {
-            class aVehicle
-            {
-                vehicleClass = "some_vehicle_class_name";
-
-                position[] = {0,0,0};
-                // position[] = {0,0,0, 300}; // alternative to give direction to face
-                // position = ""; // alternative for with an object
-
-                // see KISKA_fnc_spawnVehicle _crewInstructions param
-                // used with moveInAny in order of appearance
-                // overflow is deleted
-                crew[] = {
-                    "B_crew_F", // driver class
-                    "B_crew_F", // commander class
-                    "B_crew_F" // gunner class
-                    //... etc.
-                };
 
 
-                onVehicleCreated = ""; // code to compile after vehicle is created and properties set
-                    // params: 0: <OBJECT> - the created vehicle
-                    // params: 1: <ARRAY> - An array containing the vehicle's crew
-                    // params: 2: <GROUP> - The crew's group
+                    class reinforce
+                    {
+                        // id will default to the configName if no present (e.g. this would mean id = "aVehicle")
+                        // id = "armorReinforcement";
 
-                canPath = ON; // PATH ai will be disabled on driver
-                dynamicSim = ON; // vehicle and created groups will be dynamically simmed on all machines
-
-                class reinforce
-                {
-                    // id will default to the configName if no present (e.g. this would mean id = "aVehicle")
-                    // id = "armorReinforcement";
-
-                    // see KISKA_fnc_bases_triggerReaction
-                    // Must return bool, whether or not to prevent KISKA_fnc_bases_triggerReaction after
-                    // this script completes (e.g. return false to run KISKA_fnc_bases_triggerReaction)
-                    onEnemyDetected = "hint str _this; false";
-                    canCall[] = {
-                        "patrolUnit"
+                        // see KISKA_fnc_bases_triggerReaction
+                        // Must return bool, whether or not to prevent KISKA_fnc_bases_triggerReaction after
+                        // this script completes (e.g. return false to run KISKA_fnc_bases_triggerReaction)
+                        onEnemyDetected = "hint str _this; false";
+                        canCall[] = {
+                            "patrolUnit"
+                        };
+                        // mission priority will determine if a canCall unit should break off
+                        // from a lesser priority call in order to support this one
+                        priority = 1;
                     };
-                    // mission priority will determine if a canCall unit should break off
-                    // from a lesser priority call in order to support this one
-                    priority = 1;
                 };
             };
         };
