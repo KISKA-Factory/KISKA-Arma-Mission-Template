@@ -203,6 +203,8 @@ class KISKA_eventHandlers
     #endif
 };
 
+// TODO: add kiska conditional examples
+
 
 #if __has_include("Headers\descriptionEXT\loadouts.hpp")
     #include "Headers\descriptionEXT\loadouts.hpp"

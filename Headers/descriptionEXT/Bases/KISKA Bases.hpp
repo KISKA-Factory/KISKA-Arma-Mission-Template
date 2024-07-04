@@ -181,7 +181,7 @@ class KISKA_Bases
                                 (weighted or unweighted) to choose from.
 
                                 Parameters:
-                                    0: <CONFIG> - The config path of the infantry set
+                                    0: <CONFIG> - The config path of the turrets set
 
                             STRING[]:
                                 An array of classNames to randomly select from. Array can be weighted or
@@ -469,9 +469,6 @@ class KISKA_Bases
                             (end)
                     ------------------------------------------------------------------------------- */
                     // onUnitMovedInGunner = "";
-
-
-                    
                 };
             };
         };
@@ -1881,6 +1878,239 @@ class KISKA_Bases
             };
         };
 
+
+        class landVehicles
+        {
+            class sets
+            {
+                class vehicleSet_1
+                {
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - spawnPositions: <STRING | (PositionATL[] | PositionAGL[])[]> - The positions 
+                            that the vehicles can spawn at. Final positions will be randomly selected from the results.
+                            
+                            STRING:
+                                The name of a mission layer that contains objects that will be used as possible 
+                                spawn positions for the vehicles. Vehicles will face the same direction as a given 
+                                object if selected from the layer as a spawn position.
+
+                            ARRAY:
+                                Array must be of positions in the format PositionATL[] or PositionAGL[] 
+                                (if over water). Optionally, a fourth number in the position array may be
+                                added that will designate what direction the turret will face after spawning.
+                                This array can also be weighted or unweighted.
+
+                        Required: 
+                            - YES
+
+                        Definition Levels:
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                spawnPositions = "myLayerWithObjects";
+                            (end)
+                            
+                            (begin example)
+                                // unweighted 
+                                spawnPositions[] = {
+                                    {0,0,0},
+                                    {0,0,0,180} // vehicle will face 180 degrees
+                                };
+                            (end)
+                            
+                            (begin example)
+                                // weighted 
+                                spawnPositions[] = {
+                                    {0,0,0}, 1
+                                    {0,0,0,180}, 0.5
+                                };
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    spawnPositions = "";
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - vehicleClassNames: <STRING | STRING[]> - The classNames of vehicles that can be spawned.
+
+                            STRING:
+                                A script that is compiled once and must return an array of classNames 
+                                (weighted or unweighted) to choose from.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the vehicles set
+
+                            STRING[]:
+                                An array of classNames to randomly select from. Array can be weighted or
+                                unweighted.
+
+                        Required: 
+                            - YES
+
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                vehicleClassNames = "['B_HMG_01_high_F', 'B_GMG_01_high_F']";
+                            (end)
+
+                            (begin example)
+                                // will select randomly from two classNames
+                                vehicleClassNames[] = {"B_HMG_01_high_F", "B_GMG_01_high_F"};
+                            (end)
+
+                            (begin example)
+                                // weighted
+                                vehicleClassNames[] = {"B_HMG_01_high_F", 1, "B_GMG_01_high_F", 0.5};
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    vehicleClassNames[] = {};
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - numberOfVehicles: <NUMBER | STRING> - The number of vehicles to spawn. Can't exceed the
+                            number of `spawnPositions`. If a negative number, all vehicle spawn positions will be used.
+
+                            NUMBER:
+                                The number of vehicles.
+                            
+                            STRING:
+                                Uncompiled code that will be compiled and executed. Must return a number.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the vehicle base set
+                                    1: <OBJECT[] | (PositionATL[] | PositionAGL[])[]> - The possible spawn positions
+
+                        Required: 
+                            - YES
+
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
+                        
+                        Default:
+                            - `-1`
+
+                        Examples:
+                            (begin example)
+                                numberOfVehicles = -1;
+                            (end)
+
+                            (begin example)
+                                numberOfVehicles = -1;
+                            (end)
+
+                            (begin example)
+                                numberOfVehicles = "params ['_config','_spawnPositions']; count _spawnPositions";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    numberOfVehicles = -1;
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - canPath: <`0` | `1`> - Adjusts whether the units spawned have their path
+                            AI enabled.
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Base Section
+                            - Section Set
+                        
+                        Default: 
+                            - `1`
+
+                        Examples:
+                            (begin example)
+                                // pathing enabled
+                                canPath = 1;
+                            (end)
+                    ------------------------------------------------------------------------------- */ 
+                    // canPath = 1;
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - onVehicleCreated: <STRING> - Uncompiled code that will be compiled and executed
+                            immediatley after vehicle is created.
+
+                            Parameters:
+                                0: <CONFIG> - The config path of the vehicle base set
+                                1: <OBJECT> - the created vehicle
+                                2: <ARRAY> - An array containing the vehicle's crew
+                                4: <GROUP> - The crew's group
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                onVehicleCreated = "params ['_config','_vehicle','_crew','_crewGroup']; hint str _vehicle";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // onVehicleCreated = "";
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - vehicleClassNames: <STRING | STRING[]> - The units that will make up the vehicle's
+                            crew. Units are moved in the order that they appear in the array using `moveInAny`, see 
+                            KISKA_fnc_spawnVehicle for more details.
+
+                            STRING:
+                                A script that is compiled once and must return an array of classNames and/or unit
+                                objects.
+
+                                Parameters:
+                                    0: <CONFIG> - The config path of the vehicles set
+
+                            STRING[]:
+                                An array of unit classNames that will be used to create the vehicles crew.
+
+                        Required: 
+                            - YES
+
+                        Definition Levels:
+                            - Base Root
+                            - Base Section
+                            - Section Set
+
+                        Examples:
+                            (begin example)
+                                crew[] = {
+                                    "B_crew_F", // driver class
+                                    "B_crew_F", // commander class
+                                    "B_crew_F" // gunner class
+                                    //... etc.
+                                };
+                            (end)
+
+                            (begin example)
+                                crew = "params ['_config']; ['B_crew_F',SomeUnitThatIsAlreadyCreated]"
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    crew[] = {};
+
+                    // TODO: reinforce?
+                };
+            };
+        };
+
+        // TODO: update documentation comments
         class landVehicles
         {
             class aVehicle
@@ -1929,6 +2159,7 @@ class KISKA_Bases
             };
         };
 
+        // TODO: update documentation comments
         class simples
         {
             class setOfVehicles
