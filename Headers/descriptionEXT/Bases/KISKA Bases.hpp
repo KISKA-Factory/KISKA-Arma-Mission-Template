@@ -6,6 +6,8 @@
 #define OFF 0
 #define ON 1
 
+// TODO: document conditional portions of class
+
 class KISKA_Bases
 {
     class aBase
@@ -2104,8 +2106,6 @@ class KISKA_Bases
                             (end)
                     ------------------------------------------------------------------------------- */
                     crew[] = {};
-
-                    // TODO: reinforce?
                 };
             };
         };
