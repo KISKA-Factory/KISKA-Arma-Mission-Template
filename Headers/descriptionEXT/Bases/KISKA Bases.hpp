@@ -82,6 +82,107 @@
 ---------------------------------------------------------------------------- */
 
 
+/* ----------------------------------------------------------------------------
+    Reinforce Classes
+
+    A reinforce class can be added to a patrol, infantry, and/or landVehicle set.
+    This provides a configured mechanism of very basic (at the moment) reactivity
+    among units at the base when enemies are spotted. See `KISKA_fnc_bases_triggerReaction`
+    for more details.
+
+class infantry
+{
+    class sets
+    {
+        class MyInfantrySet
+        {
+            class reinforce
+            {
+                Description: 
+                    - id: <NUMBER | STRING> - A GLOBALLY unique identifier for this reinforce class.
+
+                Required: 
+                    - NO
+
+                Default: 
+                    - If left blank, the set `configName` is used (e.g. "MyInfantrySet" in this case)
+
+                Examples:
+                    (begin example)
+                        id = "SomeUniqueId";
+                    (end)
+                    
+                    (begin example)
+                        id = 1;
+                    (end)
+                id = "";
+
+
+                Description: 
+                    - onEnemyDetected: <STRING> - Uncompiled code that will be run once an enemy is detected by the
+                    units in the set.
+
+                    Parameters:
+                        0: <GROUP> - The group that detected the enemy and is the group of the set
+                        1: <OBJECT> - The detected target
+                        2: <GROUP[]> - The groups that can be called to respond to the detecting group
+                        2: <NUMBER> - The priority of the call
+
+                Required: 
+                    - NO
+
+                Default: 
+                    - See `KISKA_fnc_bases_triggerReaction` for default behaviour.
+
+                Examples:
+                    (begin example)
+                        id = "SomeUniqueId";
+                    (end)
+                    
+                    (begin example)
+                        onEnemyDetected = "hint str _this";
+                    (end)
+                onEnemyDetected = "";
+
+
+                Description: 
+                    - canCall: <(STRING | NUMBER)[]> - An array of other reinforce `id`s that can be called 
+                    by the detecting group
+
+                Required: 
+                    - YES
+
+                Examples:
+                    (begin example)
+                        canCall[] = {1, "SomeId"};
+                    (end)
+                canCall[] = {};
+
+
+                Description: 
+                    - priority: <NUMBER> - The priority of the call that this group will have.
+                    With the default behaviour, if a group in the `canCall` is responding to a lower
+                    priority call, they will break off and attempt to respond to the higher one.
+
+                Required: 
+                    - NO
+
+                Default: 
+                    - -1
+
+                Examples:
+                    (begin example)
+                        priority = 100;
+                    (end)
+                priority = -1;
+            };
+        };
+    };
+};
+---------------------------------------------------------------------------- */
+
+
+
 class KISKA_Bases
 {
     class aBase
@@ -2180,24 +2281,6 @@ class KISKA_Bases
                             (end)
                     ------------------------------------------------------------------------------- */
                     crew[] = {};
-
-
-                    class reinforce
-                    {
-                        // id will default to the configName if no present (e.g. this would mean id = "aVehicle")
-                        // id = "armorReinforcement";
-
-                        // see KISKA_fnc_bases_triggerReaction
-                        // Must return bool, whether or not to prevent KISKA_fnc_bases_triggerReaction after
-                        // this script completes (e.g. return false to run KISKA_fnc_bases_triggerReaction)
-                        onEnemyDetected = "hint str _this; false";
-                        canCall[] = {
-                            "patrolUnit"
-                        };
-                        // mission priority will determine if a canCall unit should break off
-                        // from a lesser priority call in order to support this one
-                        priority = 1;
-                    };
                 };
             };
         };
