@@ -9,12 +9,13 @@
 /* ----------------------------------------------------------------------------
     Conditional properties
 
-    All properties in a base at any level can be placed in a conditional class that allows 
-    for more dynamic base creation. `KISKA_fnc_getConditionalConfigValue` is what 
-    supports this functionality.
+    All properties in a base at any level can be placed in a conditional class 
+    that allows for more dynamic base creation. `KISKA_fnc_getConditionalConfigValue` 
+    is what supports this functionality.
 
     Let's say that I want my `side` to conditionally change and I define it at the 
     base root:
+
     (begin example)
         class KISKA_Bases
         {
@@ -39,6 +40,7 @@
 
     Since `side` can be defined in any section, we could also specify this conditional property
     in say an infantry section or set:
+
     (begin example)
         class KISKA_Bases
         {
@@ -71,13 +73,13 @@
                 };
             };
         };
-
-        It's important to understand how `KISKA_fnc_getConditionalConfigValue` works and
-        its limitations. Read the documentation in its file on Github if you intend to use
-        this feature.
-
-        Also of note is that conditional properties are checked BEFORE the level's
     (end)
+
+    It's important to understand how `KISKA_fnc_getConditionalConfigValue` works and
+    its limitations. Read the documentation in its file on Github if you intend to use
+    this feature.
+
+    Also of note is that conditional properties are checked BEFORE the level's
 
 ---------------------------------------------------------------------------- */
 
@@ -89,96 +91,98 @@
     This provides a configured mechanism of very basic (at the moment) reactivity
     among units at the base when enemies are spotted. See `KISKA_fnc_bases_triggerReaction`
     for more details.
-
-class infantry
-{
-    class sets
-    {
-        class MyInfantrySet
+    
+    (begin example)
+        class infantry
         {
-            class reinforce
+            class sets
             {
-                Description: 
-                    - id: <NUMBER | STRING> - A GLOBALLY unique identifier for this reinforce class.
+                class MyInfantrySet
+                {
+                    class reinforce
+                    {
+                        Description: 
+                            - id: <NUMBER | STRING> - A GLOBALLY unique identifier for this reinforce class.
 
-                Required: 
-                    - NO
+                        Required: 
+                            - NO
 
-                Default: 
-                    - If left blank, the set `configName` is used (e.g. "MyInfantrySet" in this case)
+                        Default: 
+                            - If left blank, the set `configName` is used (e.g. "MyInfantrySet" in this case)
 
-                Examples:
-                    (begin example)
-                        id = "SomeUniqueId";
-                    (end)
-                    
-                    (begin example)
-                        id = 1;
-                    (end)
-                id = "";
-
-
-                Description: 
-                    - onEnemyDetected: <STRING> - Uncompiled code that will be run once an enemy is detected by the
-                    units in the set.
-
-                    Parameters:
-                        0: <GROUP> - The group that detected the enemy and is the group of the set
-                        1: <OBJECT> - The detected target
-                        2: <GROUP[]> - The groups that can be called to respond to the detecting group
-                        2: <NUMBER> - The priority of the call
-
-                Required: 
-                    - NO
-
-                Default: 
-                    - See `KISKA_fnc_bases_triggerReaction` for default behaviour.
-
-                Examples:
-                    (begin example)
-                        id = "SomeUniqueId";
-                    (end)
-                    
-                    (begin example)
-                        onEnemyDetected = "hint str _this";
-                    (end)
-                onEnemyDetected = "";
+                        Examples:
+                            (begin example)
+                                id = "SomeUniqueId";
+                            (end)
+                            
+                            (begin example)
+                                id = 1;
+                            (end)
+                        id = "";
 
 
-                Description: 
-                    - canCall: <(STRING | NUMBER)[]> - An array of other reinforce `id`s that can be called 
-                    by the detecting group
+                        Description: 
+                            - onEnemyDetected: <STRING> - Uncompiled code that will be run once an enemy is detected by the
+                            units in the set.
 
-                Required: 
-                    - YES
+                            Parameters:
+                                0: <GROUP> - The group that detected the enemy and is the group of the set
+                                1: <OBJECT> - The detected target
+                                2: <GROUP[]> - The groups that can be called to respond to the detecting group
+                                2: <NUMBER> - The priority of the call
 
-                Examples:
-                    (begin example)
-                        canCall[] = {1, "SomeId"};
-                    (end)
-                canCall[] = {};
+                        Required: 
+                            - NO
+
+                        Default: 
+                            - See `KISKA_fnc_bases_triggerReaction` for default behaviour.
+
+                        Examples:
+                            (begin example)
+                                id = "SomeUniqueId";
+                            (end)
+                            
+                            (begin example)
+                                onEnemyDetected = "hint str _this";
+                            (end)
+                        onEnemyDetected = "";
 
 
-                Description: 
-                    - priority: <NUMBER> - The priority of the call that this group will have.
-                    With the default behaviour, if a group in the `canCall` is responding to a lower
-                    priority call, they will break off and attempt to respond to the higher one.
+                        Description: 
+                            - canCall: <(STRING | NUMBER)[]> - An array of other reinforce `id`s that can be called 
+                            by the detecting group
 
-                Required: 
-                    - NO
+                        Required: 
+                            - YES
 
-                Default: 
-                    - -1
+                        Examples:
+                            (begin example)
+                                canCall[] = {1, "SomeId"};
+                            (end)
+                        canCall[] = {};
 
-                Examples:
-                    (begin example)
-                        priority = 100;
-                    (end)
-                priority = -1;
+
+                        Description: 
+                            - priority: <NUMBER> - The priority of the call that this group will have.
+                            With the default behaviour, if a group in the `canCall` is responding to a lower
+                            priority call, they will break off and attempt to respond to the higher one.
+
+                        Required: 
+                            - NO
+
+                        Default: 
+                            - -1
+
+                        Examples:
+                            (begin example)
+                                priority = 100;
+                            (end)
+                        priority = -1;
+                    };
+                };
             };
         };
-    };
-};
+    (end)
 ---------------------------------------------------------------------------- */
 
 
@@ -203,7 +207,7 @@ class KISKA_Bases
 
             Definition Levels:
                 - Base Root
-                - Base Section
+                - Section Root
                 - Section Set
 
             Examples:
@@ -247,7 +251,7 @@ class KISKA_Bases
 
             Definition Levels:
                 - Base Root
-                - Base Section
+                - Section Root
                 - Section Set
 
             Examples:
@@ -277,7 +281,7 @@ class KISKA_Bases
 
             Definition Levels:
                 - Base Root
-                - Base Section
+                - Section Root
                 - Section Set
             
             Sections:
@@ -369,7 +373,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - Base Section
+                            - Section Root
                             - Section Set
 
                         Examples:
@@ -410,7 +414,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - Base Section
+                            - Section Root
                             - Section Set
                         
                         Default:
@@ -455,7 +459,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - Base Section
+                            - Section Root
                             - Section Set
                         
                         Default:
@@ -496,7 +500,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - Base Section
+                            - Section Root
                             - Section Set
                         
                         Default:
@@ -537,7 +541,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - Base Section
+                            - Section Root
                             - Section Set
                         
                         Default:
@@ -578,7 +582,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - Base Section
+                            - Section Root
                             - Section Set
                         
                         Default:
@@ -611,7 +615,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - Base Section
+                            - Section Root
                             - Section Set
                         
                         Examples:
@@ -637,7 +641,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - Base Section
+                            - Section Root
                             - Section Set
 
                         Examples:
@@ -796,7 +800,7 @@ class KISKA_Bases
                             - NO
 
                         Definition Levels:
-                            - Base Section
+                            - Section Root
                             - Section Set
                         
                         Default: 
@@ -824,7 +828,7 @@ class KISKA_Bases
                             - NO
 
                         Definition Levels:
-                            - Base Section
+                            - Section Root
                             - Section Set
 
                         Examples:
@@ -844,7 +848,7 @@ class KISKA_Bases
                             - NO
 
                         Definition Levels:
-                            - Base Section
+                            - Section Root
                             - Section Set
 
                         Default:
@@ -1249,7 +1253,7 @@ class KISKA_Bases
                             - NO
 
                         Definition Levels:
-                            - Base Section
+                            - Section Root
                             - Section Set
 
                         Examples:
@@ -1678,7 +1682,7 @@ class KISKA_Bases
                             - NO
 
                         Definition Levels:
-                            - Base Section
+                            - Section Root
                             - Section Set
 
                         Examples:
@@ -2128,7 +2132,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - Base Section
+                            - Section Root
                             - Section Set
 
                         Examples:
@@ -2169,7 +2173,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - Base Section
+                            - Section Root
                             - Section Set
                         
                         Default:
@@ -2200,7 +2204,7 @@ class KISKA_Bases
                             - NO
 
                         Definition Levels:
-                            - Base Section
+                            - Section Root
                             - Section Set
                         
                         Default: 
@@ -2231,7 +2235,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - Base Section
+                            - Section Root
                             - Section Set
 
                         Examples:
@@ -2244,7 +2248,7 @@ class KISKA_Bases
 
                     /* -------------------------------------------------------------------------------
                         Description: 
-                            - vehicleClassNames: <STRING | STRING[]> - The units that will make up the vehicle's
+                            - crew: <STRING | STRING[]> - The units that will make up the vehicle's
                             crew. Units are moved in the order that they appear in the array using `moveInAny`, see 
                             KISKA_fnc_spawnVehicle for more details.
 
@@ -2263,7 +2267,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - Base Section
+                            - Section Root
                             - Section Set
 
                         Examples:
@@ -2285,66 +2289,223 @@ class KISKA_Bases
             };
         };
 
-        // TODO: update documentation comments
+
         class simples
         {
-            class setOfVehicles
+            class MySetOfSimples
             {
+                /* -------------------------------------------------------------------------------
+                    Description: 
+                        - spawnPositions: <STRING | PositionWorld[][]> - The positions 
+                        that the simple objects can spawn at. All positions will be used.
+                        
+                        STRING:
+                            The name of a mission layer that contains objects that will be used as possible 
+                            spawn positions for the simple objects.
 
-                positions = ""; // mission layer of objects to get positions from
-                // positions[] = { /* expects array positionWorld positions */ };
-                class vehicleClass_1
+                        ARRAY:
+                            Array must be of positions in the format PositionWorld[].
+
+                    Required: 
+                        - YES
+
+                    Definition Levels:
+                        - Set Root
+
+                    Examples:
+                        (begin example)
+                            spawnPositions = "myLayerWithObjects";
+                        (end)
+                        
+                        (begin example)
+                            spawnPositions[] = {
+                                {0,0,0},
+                                {1,2,3}
+                            };
+                        (end)
+                ------------------------------------------------------------------------------- */
+                spawnPositions = "";
+
+                class MySimpleObjectClass
                 {
-                    // "filterCondition" can be used to dynamically filter out a given 
-                    /// class from being available for random selection; (`true` to include, `false` to exclude)
-                    // an undefined "filterCondition" or empty ("") one will always be available sor selection
-                        // parameters: 0: <CONFIG> - this config class
-                    filterCondition = "";
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - followTerrain: <`0` | `1`> - Determines if simple objects created with this
+                            class should be leveled according to the spawn position's terrain.
 
-                    // followTerrain = ON;  // Should object try to adjust to the terrain angle (ON by default)
-                    // superSimple = ON; // Should object be super simple, which offers slightly more performance for vehicles (ON by default)
-                    // vectorUp[] = {}; // vectorUp to apply to vehicles upon creation
-                    // vectorDir[] = {}; // vectorDir to apply to vehicles upon creation
-                    // offset[] = {0,0,0.1}; // an offset to apply to the spawn position of the object with "vectorAdd" (defaults to {0,0,0.1})
+                        Required: 
+                            - NO
 
-                /*
-                    // an array of animations and their phase to apply to the vehicle upon creation
-                    animations[] = {
-                        {"someAnimation",15}
-                    };
-                */
+                        Definition Levels:
+                            - Simple Object Class
+                        
+                        Default: 
+                            - `1`
 
-                /*
-                    // an array of hidden selection arrays to adjust upon creation with "hideSelection"
-                    // if right number is greater than 0, hideSelection will be given "true"
-                    selections[] = {
-                        // (_simpleObject hideSelection ["hiddenSelectionToHide", true])
-                        {"hiddenSelectionToHide",1},
+                        Examples:
+                            (begin example)
+                                followTerrain = 1;
+                            (end)
+                    ------------------------------------------------------------------------------- */ 
+                    // followTerrain = 1;
 
-                        // (_simpleObject hideSelection ["otherHiddenSelectionToHide", false])
-                        {"otherHiddenSelectionToHide",0}
-                    };
-                */
 
-                    // a function that runs upon creation of each simple object for this class
-                        // parameters: 0: <OBJECT> - the simple object created
-                    // onObjectCreated = "hint str _this";
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - superSimple: <`0` | `1`> - Determines if simple objects created with this
+                            class should be super simple objects.
 
-                    type = "vehicle_1_classname";
+                        Required: 
+                            - NO
 
-                    // A function that when compiled will return the classname to use for this simple object
-                    // If both `type` and `getTypeFunction` properties are present, getTypeFunction's return will be used
-                    /// (e.g. the class this `getTypeFunction` property is defined in)
-                        // parameters: 0: <CONFIG> - this config class
-                    // getTypeFunction = "";
-                };
+                        Definition Levels:
+                            - Simple Object Class
+                        
+                        Default: 
+                            - `1`
 
-                class vehicleClass_2 : vehicleClass_1
-                {
-                    type = "vehicle_2_classname";
+                        Examples:
+                            (begin example)
+                                superSimple = 1;
+                            (end)
+                    ------------------------------------------------------------------------------- */ 
+                    // superSimple = 1;
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - vectorUp: <Vector3D[]> - Adjust the vector up of the simple object after
+                            it is created.
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Simple Object Class
+
+                        Examples:
+                            (begin example)
+                                vectorUp[] = {1,2,3};
+                            (end)
+                    ------------------------------------------------------------------------------- */ 
+                    // vectorUp[] = {};
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - vectorDir: <Vector3D[]> - Adjust the vector direction of the simple object after
+                            it is created.
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Simple Object Class
+
+                        Examples:
+                            (begin example)
+                                vectorDir[] = {1,2,3};
+                            (end)
+                    ------------------------------------------------------------------------------- */ 
+                    // vectorDir[] = {};
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - animations: <[STRING,NUMBER][]> - A list of animations and their the animation
+                            phase to be set to.
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Simple Object Class
+
+                        Examples:
+                            (begin example)
+                                animations[] = {
+                                    {"someAnimation",15} // phase is 15
+                                };
+                            (end)
+                    ------------------------------------------------------------------------------- */ 
+                    // animations[] = {};
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - selections: <[STRING,NUMBER][]> - A list of hidden selections and whether or
+                            not they should be hidden or shown. Any value of more than `0` will show the
+                            hidden selection.
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Simple Object Class
+
+                        Examples:
+                            (begin example)
+                                selections[] = {
+                                    // (SimpleObject hideSelection ["hiddenSelectionToHide", true])
+                                    {"hiddenSelectionToHide",1},
+                                    // (SimpleObject hideSelection ["otherHiddenSelectionToHide", false])
+                                    {"otherHiddenSelectionToHide",0}
+                                };
+                            (end)
+                    ------------------------------------------------------------------------------- */ 
+                    // selections[] = {};
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - onObjectCreated: <STRING> - Uncompiled code that will be compiled and executed.
+                                Parameters:
+                                    0: <OBJECT> - The created simple object
+                                    1: <CONFIG> - This config path of the simple object class
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Simple Object Class
+
+                        Examples:
+                            (begin example)
+                                onObjectCreated = "params ['_simpleObject','_config']; hint str _this";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    // onObjectCreated = "";
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - type: <STRING> - Either a static classname of the simple object to create
+                            or when `TYPE_IS_CODE = 1` uncompiled coe that will be compiled and executed 
+                            that must return a classname.
+
+                                Parameters:
+                                    0: <CONFIG> - This config path of the simple object class
+
+                        Required: 
+                            - YES
+
+                        Definition Levels:
+                            - Simple Object Class
+
+                        Examples:
+                            (begin example)
+                                // TYPE_IS_CODE = 0; // the default, not required
+                                type = "My_Simple_Object_Class";
+                            (end)
+
+                            (begin example)
+                                TYPE_IS_CODE = 1;
+                                type = "params ['_config']; 'My_Simple_Object_Class'";
+                            (end)
+                    ------------------------------------------------------------------------------- */
+                    type = "";
                 };
             };
-
         };
     };
 };
