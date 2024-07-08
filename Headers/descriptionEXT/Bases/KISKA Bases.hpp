@@ -2304,7 +2304,8 @@ class KISKA_Bases
                             spawn positions for the simple objects.
 
                         ARRAY:
-                            Array must be of positions in the format PositionWorld[].
+                            Array must be of positions in the format PositionWorld[]. A fourth entry can be
+                            included that will set the direction of the object.
 
                     Required: 
                         - YES
@@ -2320,7 +2321,7 @@ class KISKA_Bases
                         (begin example)
                             spawnPositions[] = {
                                 {0,0,0},
-                                {1,2,3}
+                                {1,2,3,90} // sets the direction to be 90 degrees
                             };
                         (end)
                 ------------------------------------------------------------------------------- */
