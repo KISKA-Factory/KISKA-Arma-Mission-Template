@@ -2327,8 +2327,36 @@ class KISKA_Bases
                 ------------------------------------------------------------------------------- */
                 spawnPositions = "";
 
+                // FUTURE:
+                // I don't currently have a use for it, but if the need arises to have spawnPositions be
+                // possibly code, make an additional property of SPAWN_POSITIONS_IS_CODE and default
+                // it to false. This can switch between layer and code
+
                 class MySimpleObjectClass
                 {
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - weight: <number> - When selecting a random class to use for a given spawn
+                            position upon base creatation, this will be the weight of this class relative
+                            to the others in the set.
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Simple Object Class
+                        
+                        Default: 
+                            - `1`
+
+                        Examples:
+                            (begin example)
+                                weight = 1;
+                            (end)
+                    ------------------------------------------------------------------------------- */ 
+                    // weight = 1;
+
+
                     /* -------------------------------------------------------------------------------
                         Description: 
                             - followTerrain: <`0` | `1`> - Determines if simple objects created with this
