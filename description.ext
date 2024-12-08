@@ -1,3 +1,8 @@
+// used for interacting with portable function lib from the KISKA Function Library
+// see https://github.com/KISKA-Factory/raid-on-benmair.lythium for a mission example of how to use
+// the portable function lib
+#define KISKA_IS_MISSION_TEMPLATE 1
+
 #if __has_include("Headers\descriptionEXT\descriptionEXT defines.hpp")
     #include "Headers\descriptionEXT\descriptionEXT defines.hpp"
 #endif
@@ -5,7 +10,7 @@
 /* ----------------------------------------------------------------------------
     Strings (image paths and text)
 ---------------------------------------------------------------------------- */
-// IF BRIEFINGNAME IS AN EMPTY STRING MISSION WILL NOT SHOW IN SELECTOR
+// IF BRIEFINGNAME IS AN EMPTY STRING, THE MISSION WILL NOT SHOW IN THE MULTIPLAYER MISSION SELECTOR SCREEN
 // Mission name displayed in the mission selection menu.
 // briefingName = "";
 
@@ -88,9 +93,13 @@ class Header
 
 class CfgFunctions
 {
-    #if __has_include("KISKA Systems\KISKA Functions.hpp")
-        #include "KISKA Systems\KISKA Functions.hpp"
-    #endif
+    class KISKA
+    {
+        #if __has_include("KISKA Systems\Headers\kiska_functions_portable.hpp")
+            #include "KISKA Systems\Headers\kiska_functions_portable.hpp"
+        #endif
+    };
+
     #if __has_include("Headers\descriptionEXT\functions.hpp")
         #include "Headers\descriptionEXT\functions.hpp"
     #endif
@@ -98,6 +107,10 @@ class CfgFunctions
 
 class CfgSounds
 {
+    #if __has_include("KISKA Systems\Headers\Sound\radio ambient sounds.hpp")
+        #include "KISKA Systems\Headers\Sound\radio ambient sounds.hpp"
+    #endif
+
     #if __has_include("Headers\descriptionEXT\sounds.hpp")
         #include "Headers\descriptionEXT\sounds.hpp"
     #endif
@@ -171,6 +184,26 @@ class KISKA_dynamicSimulation
         Prop = 50;
     };
 };
+
+class KISKA_AmbientAnimations
+{
+    #if __has_include("KISKA Systems\Headers\Animations\Ambient Animations.hpp")
+        #include "KISKA Systems\Headers\Animations\Ambient Animations.hpp"
+    #endif
+};
+
+class KISKA_eventHandlers
+{
+    #if __has_include("KISKA Systems\Headers\EventHandlers\KISKA Behaviour EventHandlers.hpp")
+        #include "KISKA Systems\Headers\EventHandlers\KISKA Behaviour EventHandlers.hpp"
+    #endif
+
+    #if __has_include("KISKA Systems\Headers\EventHandlers\KISKA Combat Behaviour EventHandlers.hpp")
+        #include "KISKA Systems\Headers\EventHandlers\KISKA Combat Behaviour EventHandlers.hpp"
+    #endif
+};
+
+// TODO: add kiska conditional examples
 
 
 #if __has_include("Headers\descriptionEXT\loadouts.hpp")
