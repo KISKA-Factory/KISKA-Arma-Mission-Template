@@ -21,7 +21,7 @@
         {
             class MyBase
             {
-                // classes MUST be titles `conditional`
+                // classes MUST be titled `conditional`
                 class conditional
                 {
                     class MyConditionalClass_1
