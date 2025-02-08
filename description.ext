@@ -137,6 +137,20 @@ class CfgTaskDescriptions
     #endif
 };
 
+class CfgRoles
+{
+    #if __has_include("Headers\descriptionEXT\RespawnInventory\CfgRoles.hpp")
+        #include "Headers\descriptionEXT\RespawnInventory\CfgRoles.hpp"
+    #endif
+};
+
+class CfgRespawnInventory
+{
+    #if __has_include("Headers\descriptionEXT\RespawnInventory\CfgRespawnInventory.hpp")
+        #include "Headers\descriptionEXT\RespawnInventory\CfgRespawnInventory.hpp"
+    #endif
+};
+
 class CfgDebriefing
 {
     /*
