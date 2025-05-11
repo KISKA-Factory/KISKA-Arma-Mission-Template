@@ -1,5 +1,23 @@
 INCLUDE_IF_HAS("\Kiska_Functions\Headers\Support Framework\CommonSupportConfigMacros.hpp")
 
+#if __has_include("\Kiska_Functions\Headers\Support Framework\CommonCommMenuSupportTemplates.hpp")
+    // import KISKA_abstract_commMenuArty from KISKA_supports;
+    // import KISKA_support_commMenu_155Arty_template from KISKA_supports;
+    // import KISKA_support_commMenu_120Arty_template from KISKA_supports;
+    // import KISKA_support_commMenu_82Mortar_template from KISKA_supports;
+    // import KISKA_support_commMenu_230Arty_template from KISKA_supports;
+
+    // import KISKA_abstract_commMenuCloseAirSupport from KISKA_supports;
+    // import KISKA_support_commMenu_gunRun_template from KISKA_supports;
+    // import KISKA_support_commMenu_gunsRockets_template from KISKA_supports;
+    // import KISKA_support_commMenu_bombs_template from KISKA_supports;
+    // import KISKA_support_commMenu_napalm_template from KISKA_supports;
+
+    // import KISKA_abstract_commMenuHelicopterCAS from KISKA_supports;
+    
+    // import KISKA_abstract_commMenuSupplyDrop from KISKA_supports;
+#endif
+
 class KISKA_abstract_commMenuSupport
 {
     class KISKA_commMenuDetails
@@ -343,5 +361,116 @@ class KISKA_abstract_commMenuSupport
                 (end)
         ------------------------------------------------------------------------------- */
         // conditionMessage = "";
+    };
+};
+
+
+
+
+
+
+
+
+
+
+
+class KISKA_example_155arty
+{
+    class KISKA_commMenuDetails
+    {
+        text = "Artillery - 155mm";
+        icon = ARTILLERY_ICON;
+        onSupportSelected = "_this call KISKA_fnc_commMenu_openArty";
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - canSelectRounds: <NUMBER> - Determines whether or not a user can select
+                    the number of rounds they would like to fire for the artillery. If
+                    off, all the `numberOfUses` will be expended on one call. `0` means`
+                    no, `1` means yes.
+
+            Required: 
+                - NO
+
+            Default:
+                - `1`
+
+            Examples:
+                (begin example)
+                    canSelectRounds = 0; // cant select
+                (end)
+        ------------------------------------------------------------------------------- */
+        canSelectRounds = ON;
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - draw3dMarker: <NUMBER> - Determines whether or not a user will see
+
+            Required: 
+                - NO
+
+            Default:
+                - `0`
+
+            Examples:
+                (begin example)
+                    draw3dMarker = 0; // No 3d marker
+                (end)
+        ------------------------------------------------------------------------------- */
+        draw3dMarker = ON;
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - radiuses: <NUMBER[]> - Provides the list of selectable radiuses of spread
+                    for the artillery fire.
+
+            Required: 
+                - NO
+
+            Examples:
+                (begin example)
+                    radiuses[] = {100};
+                (end)
+        ------------------------------------------------------------------------------- */
+        radiuses[] = {50,100};
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - ammoTypes: <[STRING,STRING][]> - Provides the list of selectable ammos 
+                    and their labels.
+
+            Required: 
+                - NO
+
+            Examples:
+                (begin example)
+                    ammoTypes[] = {
+                        AMMO_155_HE,
+                        AMMO_155_CLUSTER,
+                        AMMO_155_MINES,
+                        AMMO_155_ATMINES
+                    };
+                (end)
+        ------------------------------------------------------------------------------- */
+        ammoTypes[] = {
+            {"155mm - HE","Sh_155mm_AMOS"},
+            {"155mm - Cluster","Cluster_155mm_AMOS"},
+            AMMO_155_MINES,
+            AMMO_155_ATMINES
+        };
+    };
+    
+    class KISKA_supportDetails
+    {
+        numberOfUses = 10;
+        onSupportAdded = "_this call KISKA_fnc_commMenu_onSupportAdded";
+        onSupportRemoved = "_this call KISKA_fnc_commMenu_onSupportRemoved";
+        onSupportCalled = "_this call KISKA_fnc_supports_onCalledVirtualArty";
+    };
+
+    class KISKA_supportManagerDetails
+    {
+        picture = ARTILLERY_ICON;
+        text = "Artillery - 155mm";
+
     };
 };
