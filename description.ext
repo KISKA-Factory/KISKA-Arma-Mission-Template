@@ -2,10 +2,12 @@
 // see https://github.com/KISKA-Factory/raid-on-benmair.lythium for a mission example of how to use
 // the portable function lib
 #define KISKA_IS_MISSION_TEMPLATE 1
+#define INCLUDE_IF_HAS(file)\
+    #if __has_include(file)
+        #include file
+    #endif
 
-#if __has_include("Headers\descriptionEXT\descriptionEXT defines.hpp")
-    #include "Headers\descriptionEXT\descriptionEXT defines.hpp"
-#endif
+INCLUDE_IF_HAS("Headers\descriptionEXT\descriptionEXT defines.hpp")
 
 /* ----------------------------------------------------------------------------
     Strings (image paths and text)
@@ -95,60 +97,42 @@ class CfgFunctions
 {
     class KISKA
     {
-        #if __has_include("KISKA Systems\Headers\kiska_functions_portable.hpp")
-            #include "KISKA Systems\Headers\kiska_functions_portable.hpp"
-        #endif
+        INCLUDE_IF_HAS("KISKA Systems\Headers\kiska_functions_portable.hpp")
     };
 
-    #if __has_include("Headers\descriptionEXT\functions.hpp")
-        #include "Headers\descriptionEXT\functions.hpp"
-    #endif
+    INCLUDE_IF_HAS("Headers\descriptionEXT\functions.hpp")
 };
 
 class CfgSounds
 {
-    #if __has_include("KISKA Systems\Headers\Sound\radio ambient sounds.hpp")
-        #include "KISKA Systems\Headers\Sound\radio ambient sounds.hpp"
-    #endif
+    INCLUDE_IF_HAS("KISKA Systems\Headers\Sound\radio ambient sounds.hpp")
 
-    #if __has_include("Headers\descriptionEXT\sounds.hpp")
-        #include "Headers\descriptionEXT\sounds.hpp"
-    #endif
+    INCLUDE_IF_HAS("Headers\descriptionEXT\sounds.hpp")
 };
 
 class Params
 {
-    #if __has_include("Headers\descriptionEXT\missionParams.hpp")
-        #include "Headers\descriptionEXT\missionParams.hpp"
-    #endif
+    INCLUDE_IF_HAS("Headers\descriptionEXT\missionParams.hpp")
 };
 
-class CfgCommunicationMenu
+class KISKA_supports
 {
-    #if __has_include("Headers\descriptionEXT\supports.hpp")
-        #include "Headers\descriptionEXT\supports.hpp"
-    #endif
+    INCLUDE_IF_HAS("Headers\descriptionEXT\supports.hpp")
 };
 
 class CfgTaskDescriptions
 {
-    #if __has_include("Headers\descriptionEXT\taskDescriptions.hpp")
-        #include "Headers\descriptionEXT\taskDescriptions.hpp"
-    #endif
+    INCLUDE_IF_HAS("Headers\descriptionEXT\taskDescriptions.hpp")
 };
 
 class CfgRoles
 {
-    #if __has_include("Headers\descriptionEXT\RespawnInventory\CfgRoles.hpp")
-        #include "Headers\descriptionEXT\RespawnInventory\CfgRoles.hpp"
-    #endif
+    INCLUDE_IF_HAS("Headers\descriptionEXT\RespawnInventory\CfgRoles.hpp")
 };
 
 class CfgRespawnInventory
 {
-    #if __has_include("Headers\descriptionEXT\RespawnInventory\CfgRespawnInventory.hpp")
-        #include "Headers\descriptionEXT\RespawnInventory\CfgRespawnInventory.hpp"
-    #endif
+    INCLUDE_IF_HAS("Headers\descriptionEXT\RespawnInventory\CfgRespawnInventory.hpp")
 };
 
 class CfgDebriefing
@@ -201,37 +185,23 @@ class KISKA_dynamicSimulation
 
 class KISKA_AmbientAnimations
 {
-    #if __has_include("KISKA Systems\Headers\Animations\Ambient Animations.hpp")
-        #include "KISKA Systems\Headers\Animations\Ambient Animations.hpp"
-    #endif
+    INCLUDE_IF_HAS("KISKA Systems\Headers\Animations\Ambient Animations.hpp")
 };
 
 class KISKA_eventHandlers
 {
-    #if __has_include("KISKA Systems\Headers\EventHandlers\KISKA Behaviour EventHandlers.hpp")
-        #include "KISKA Systems\Headers\EventHandlers\KISKA Behaviour EventHandlers.hpp"
-    #endif
+    INCLUDE_IF_HAS("KISKA Systems\Headers\EventHandlers\KISKA Behaviour EventHandlers.hpp")
 
-    #if __has_include("KISKA Systems\Headers\EventHandlers\KISKA Combat Behaviour EventHandlers.hpp")
-        #include "KISKA Systems\Headers\EventHandlers\KISKA Combat Behaviour EventHandlers.hpp"
-    #endif
+    INCLUDE_IF_HAS("KISKA Systems\Headers\EventHandlers\KISKA Combat Behaviour EventHandlers.hpp")
 };
 
 // TODO: add kiska conditional examples
 
 
-#if __has_include("Headers\descriptionEXT\loadouts.hpp")
-    #include "Headers\descriptionEXT\loadouts.hpp"
-#endif
+INCLUDE_IF_HAS("Headers\descriptionEXT\loadouts.hpp")
 
-#if __has_include("Headers\descriptionEXT\Tasks\KISKA Tasks.hpp")
-    #include "Headers\descriptionEXT\Tasks\KISKA Tasks.hpp"
-#endif
+INCLUDE_IF_HAS("Headers\descriptionEXT\Tasks\KISKA Tasks.hpp")
 
-#if __has_include("Headers\descriptionEXT\KISKA Traits.hpp")
-    #include "Headers\descriptionEXT\KISKA Traits.hpp"
-#endif
+INCLUDE_IF_HAS("Headers\descriptionEXT\KISKA Traits.hpp")
 
-#if __has_include("Headers\descriptionEXT\Bases\KISKA Bases.hpp")
-    #include "Headers\descriptionEXT\Bases\KISKA Bases.hpp"
-#endif
+INCLUDE_IF_HAS("Headers\descriptionEXT\Bases\KISKA Bases.hpp")
