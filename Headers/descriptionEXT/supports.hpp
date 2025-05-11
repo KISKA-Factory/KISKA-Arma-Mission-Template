@@ -99,13 +99,30 @@ class KISKA_abstract_commMenuSupport
         ------------------------------------------------------------------------------- */
         onSupportCalled = "";
 
-        // TODO:
-        /*
-        class AddedNotifcation
-        {
+        /* -------------------------------------------------------------------------------
+            Description: 
+                The AddedNotifcation class defines a `KISKA_fnc_showNotification` compatible
+                class that will be shown when the given support is added to the player with
+                `KISKA_fnc_supports_add`. See `KISKA_fnc_showNotification` for further details
+                on class implementation.
 
-        };
-        */
+            Required: 
+                - NO
+
+            Examples:
+                (begin example)
+                    class AddedNotifcation
+                    {
+                        title = "Support Added";
+                        duration = 3;
+                        description = "A support has been added to your menu";
+                        iconPicture = CALL_ICON;
+                    };
+                (end)
+        ------------------------------------------------------------------------------- */
+        // class AddedNotifcation
+        // {
+        // };
     };
 
     // Governs interaction with the KISKA support manager
