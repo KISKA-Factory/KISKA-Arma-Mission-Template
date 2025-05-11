@@ -4,6 +4,109 @@ class KISKA_abstract_commMenuSupport
 {
     class KISKA_commMenuDetails
     {
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - text: <STRING> - The text that will appear in the commanding menu selection
+                    when selecting a support.
+
+            Required: 
+                - YES
+
+            Examples:
+                (begin example)
+                    text = "Custom Support";
+                (end)
+        ------------------------------------------------------------------------------- */
+        text = "My Support";
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - icon: <STRING> - A path to an icon that will display in the communication
+                    menu support pane.
+
+            Required: 
+                - NO
+
+            Examples:
+                (begin example)
+                    icon = CALL_ICON;
+                (end)
+        ------------------------------------------------------------------------------- */
+        icon = CALL_ICON;
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - onSupportSelected: <STRING> - Uncompiled code that will be compiled and executed
+                immediatley after the support is added. Only executed on the local machine.
+                Most commonly will be used with `KISKA_fnc_commMenu_onSupportAdded`.
+                See `KISKA_fnc_supports_add` for further detail.
+
+                Parameters:
+                    0: <STRING> - The id of the added support.
+                    1: <CONFIG> - The top level config of the support, meaning the parent of 
+                        this `KISKA_supportDetails` class.
+                    2: <NUMBER> - How many uses the support currently has left.
+                    3: <PositionASL[]> - The targetted position of the support.
+                    4: <NUMBER> - How many uses of the support were used in the call.
+                    5: <BOOL> - Whether or not the support was selected while the player
+                        was in the map (`false`) or outside of it (`true`).
+                    6: <OBJECT> - The player's `cursortTarget` when they selected the support.
+
+            Required: 
+                - YES
+
+            Examples:
+                (begin example)
+                    onSupportSelected = "_this call KISKA_fnc_commMenu_openArty";
+                (end)
+        ------------------------------------------------------------------------------- */
+        onSupportSelected = "";
+        
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - enableExpression: <STRING> - An expression to determine if the support
+                    can be initially selected from the communication menu.
+
+                    see https://community.bistudio.com/wiki/Arma_3:_Communication_Menu#Simple_expressions
+
+            Required: 
+                - NO
+
+            Examples:
+                (begin example)
+                    enableExpression = "cursorOnGround";
+                (end)
+        ------------------------------------------------------------------------------- */
+        // enableExpression = "1";
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - cursor: <STRING> - A path to an icon that will display when the communication
+                    menu is open an a support item is selected.
+
+            Required: 
+                - NO
+
+            Examples:
+                (begin example)
+                    cursor = "\a3\Ui_f\data\IGUI\Cfg\Cursors\iconCursorSupport_ca.paa";
+                (end)
+        ------------------------------------------------------------------------------- */
+        // cursor = "";
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - iconText: <STRING> - Text to appear with the icon.
+
+            Required: 
+                - NO
+
+            Examples:
+                (begin example)
+                    iconText = "something";
+                (end)
+        ------------------------------------------------------------------------------- */
+        // iconText = "";
     };
 
     // Governs the support framework interaction
@@ -157,7 +260,7 @@ class KISKA_abstract_commMenuSupport
                     picture = CALL_ICON;
                 (end)
         ------------------------------------------------------------------------------- */
-        // picture = "";
+        picture = CALL_ICON;
 
         /* -------------------------------------------------------------------------------
             Description: 
