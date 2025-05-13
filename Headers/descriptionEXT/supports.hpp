@@ -378,9 +378,10 @@ class KISKA_example_155arty
 {
     class KISKA_commMenuDetails
     {
-        text = "Artillery - 155mm";
+        text = "Artillery Example";
         icon = ARTILLERY_ICON;
         onSupportSelected = "_this call KISKA_fnc_commMenu_openArty";
+
         /* -------------------------------------------------------------------------------
             Description: 
                 - canSelectRounds: <NUMBER> - Determines whether or not a user can select
@@ -470,7 +471,138 @@ class KISKA_example_155arty
     class KISKA_supportManagerDetails
     {
         picture = ARTILLERY_ICON;
-        text = "Artillery - 155mm";
+        text = "Artillery Example";
+    };
+};
 
+
+
+
+class KISKA_example_CAS
+{
+    class KISKA_commMenuDetails
+    {
+        text = "CAS Example";
+        icon = CAS_ICON;
+        onSupportSelected = "_this call KISKA_fnc_commMenu_openCas";
+        draw3dMarker = ON;
+        
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - canSelectAttackDirection: <NUMBER> - Determines whether or not a user 
+                    can select the bearing that the aircraft will ingress at. The default
+                    behavior will be the the direction the player is currently facing.
+
+            Required: 
+                - NO
+
+            Examples:
+                (begin example)
+                    canSelectAttackDirection = 0; // cant select
+                (end)
+
+                (begin example)
+                    canSelectAttackDirection = 1; // can select
+                (end)
+        ------------------------------------------------------------------------------- */
+        canSelectAttackDirection = ON;
+    };
+
+    class KISKA_supportDetails
+    {
+        numberOfUses = 1;
+        onSupportAdded = "_this call KISKA_fnc_commMenu_onSupportAdded";
+        onSupportRemoved = "_this call KISKA_fnc_commMenu_onSupportRemoved";
+        onSupportCalled = "_this call KISKA_fnc_supports_onCalledCloseAirSupport";
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - aircraftClass: <STRING> - The classname of the aircraft to perform the CAS
+
+            Required: 
+                - YES
+
+            Examples:
+                (begin example)
+                    aircraftClass = "B_Plane_CAS_01_dynamicLoadout_F";
+                (end)
+        ------------------------------------------------------------------------------- */
+        aircraftClass = "B_Plane_CAS_01_dynamicLoadout_F";
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                The AttackTypes class defines an individual set of arguments for how a 
+                given CAS strike could be conducted. Each subclass is expected to contain
+                the possible arguments and will be presented as a selectable option.
+
+            Required: 
+                - YES
+
+            Examples:
+                (begin example)
+                    // User can choose between both attack types
+                    class AttackTypes
+                    {
+                        class GunRun100
+                        {
+                            label = "Gun Run 100 rounds";
+                            allowDamage = OFF;
+                            
+                        };
+
+                        class GunRun200 : GunRun100
+                        {
+                            label = "Gun Run 200 rounds";
+                            
+                        };
+                    };
+                (end)
+        ------------------------------------------------------------------------------- */
+        class AttackTypes
+        {
+            class GunRun
+            {
+                /* -------------------------------------------------------------------------------
+                    Description: 
+                        - label: <STRING> - The selection label for this attack type that will appear
+                            in the commanding menu.
+
+                    Required: 
+                        - YES
+
+                    Examples:
+                        (begin example)
+                            label = "My Attack Type";
+                        (end)
+                ------------------------------------------------------------------------------- */
+                label = "Gun Run";
+
+                /* -------------------------------------------------------------------------------
+                    Description: 
+                        - canSelectAttackDirection: <NUMBER> - Determines whether or not a user 
+                            can select the bearing that the aircraft will ingress at. The default
+                            behavior will be the the direction the player is currently facing.
+
+                    Required: 
+                        - NO
+
+                    Examples:
+                        (begin example)
+                            canSelectAttackDirection = 0; // cant select
+                        (end)
+
+                        (begin example)
+                            canSelectAttackDirection = 1; // can select
+                        (end)
+                ------------------------------------------------------------------------------- */
+                allowDamage = OFF;
+            }; 
+        };
+    };
+
+    class KISKA_supportManagerDetails
+    {
+        text = "CAS Example";
+        picture = CAS_ICON;
     };
 };
