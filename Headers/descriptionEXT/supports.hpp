@@ -547,13 +547,27 @@ class KISKA_example_CAS
                         {
                             label = "Gun Run 100 rounds";
                             allowDamage = OFF;
-                            
+                            class FireOrders
+                            {
+                                class gun
+                                {
+                                    weapon = "Gatling_30mm_Plane_CAS_01_F";
+                                    numberOfTriggerPulls = 100;
+                                    strafeIncrement = 0.1;
+                                };
+                            };
                         };
 
                         class GunRun200 : GunRun100
                         {
                             label = "Gun Run 200 rounds";
-                            
+                            class FireOrders : FireOrders
+                            {
+                                class gun : gun
+                                {
+                                    numberOfTriggerPulls = 200;
+                                };
+                            };
                         };
                     };
                 (end)
@@ -596,6 +610,62 @@ class KISKA_example_CAS
                         (end)
                 ------------------------------------------------------------------------------- */
                 allowDamage = OFF;
+
+                /* -------------------------------------------------------------------------------
+                    Description: 
+                        
+
+                    Required: 
+                        - YES
+
+                    Examples:
+                        (begin example)
+                            // Will fire guns and then rockets
+                            class FireOrders
+                            {
+                                class gun
+                                {
+                                    weapon = "Gatling_30mm_Plane_CAS_01_F";
+                                    numberOfTriggerPulls = 100;
+                                    strafeIncrement = 0.1;
+                                };
+                                class RocketPod
+                                {
+                                    weapon = "pylon";
+                                    mag = "PylonRack_7Rnd_Rocket_04_HE_F";
+                                    numberOfTriggerPulls = 7;
+                                    timeBetweenShots = 0.5;
+                                    weaponProfile = "guide_to_strafe_target";
+                                    strafeIncrement = 0.01;
+                                };
+                            };
+                        (end)
+                ------------------------------------------------------------------------------- */
+                class FireOrders
+                {
+                    class ExampleOrder
+                    {
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - weapon: <STRING> - The classname of the weapon to fire. In the even that
+                                    a pylon weapon is to be added, set the weapon to `"pylon"`.
+
+                            Required: 
+                                - YES
+
+                            Examples:
+                                (begin example)
+                                    weapon = "pylon";
+                                    mag = "PylonRack_7Rnd_Rocket_04_HE_F";
+                                (end)
+
+                                (begin example)
+                                    weapon = "Gatling_30mm_Plane_CAS_01_F";
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        weapon = "Gatling_30mm_Plane_CAS_01_F";
+                    };
+                };
             }; 
         };
     };
