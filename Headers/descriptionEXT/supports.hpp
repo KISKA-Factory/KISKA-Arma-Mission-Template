@@ -664,6 +664,117 @@ class KISKA_example_CAS
                                 (end)
                         ------------------------------------------------------------------------------- */
                         weapon = "Gatling_30mm_Plane_CAS_01_F";
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - mag: <STRING> - The classname of the magazine to use with the provided 
+                                    weapon. If undefined or an empty string, the default magazine for the
+                                    weapon will be used.
+
+                            Required: 
+                                - NO
+
+                            Default:
+                                - `""`
+
+                            Examples:
+                                (begin example)
+                                    weapon = "pylon";
+                                    mag = "PylonRack_7Rnd_Rocket_04_HE_F";
+                                (end)
+
+                                (begin example)
+                                    mag = "";
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // mag = "";
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - numberOfTriggerPulls: <NUMBER> - The number of trigger pulls. If less than 0, 
+                                    the number of pulls will correspond to whatever the magazine's `count` value
+                                    is as defined in the `configFile >> "CfgMagazine" >> {{mag}}`
+
+                            Required: 
+                                - NO
+
+                            Default:
+                                - `-1`
+
+                            Examples:
+                                (begin example)
+                                    numberOfTriggerPulls = 200;
+                                (end)
+
+                                (begin example)
+                                    // use defined amount in CfgMagazine "count" value
+                                    numberOfTriggerPulls = -1; 
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        numberOfTriggerPulls = 200; 
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - timeBetweenShots: <NUMBER> - The time to wait between trigger pulls.
+
+                            Required: 
+                                - NO
+                            
+                            Default:
+                                - `0.05`
+
+                            Examples:
+                                (begin example)
+                                    timeBetweenShots = 1;
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // timeBetweenShots = 0.05;
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - weaponProfile: <STRING> - Either `"guide_to_original_target"`, `"guide_to_strafe_target"`, or `""`.
+                                    `guide_to_original_target` will guide each round of the weapon fired directly to the
+                                    attack position specified. `guide_to_strafe_target` will guide each round onto the
+                                    stafing target giving the illusion of strafing. Leave empty if no guidance is necessary.
+                                    This can be performance intensive.
+
+                            Required: 
+                                - NO
+                            
+                            Default:
+                                - `""`
+
+                            Examples:
+                                (begin example)
+                                    // guides projectiles along the aircraft nose position
+                                    weaponProfile = "guide_to_original_target";
+                                (end)
+
+                                (begin example)
+                                    // guides projectiles along the aircraft nose position
+                                    weaponProfile = "guide_to_strafe_target";
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // weaponProfile = "";
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - strafeIncrement: <STRING> - For every 0.01 seconds the aircraft is firing these munitions,
+                                    how much space should there be added to the aicraft's nose position? This
+                                    will help with strafing a target.
+
+                            Required: 
+                                - NO
+                            
+                            Default:
+                                - `0`
+
+                            Examples:
+                                (begin example)
+                                    strafeIncrement = 0.1;
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // strafeIncrement = 0;
                     };
                 };
             }; 
