@@ -368,12 +368,6 @@ class KISKA_abstract_commMenuSupport
 
 
 
-
-
-
-
-
-
 class KISKA_example_155arty
 {
     class KISKA_commMenuDetails
@@ -489,7 +483,7 @@ class KISKA_example_CAS
         
         /* -------------------------------------------------------------------------------
             Description: 
-                - canSelectAttackDirection: <NUMBER> - Determines whether or not a user 
+                - canSelectIngress: <NUMBER> - Determines whether or not a user 
                     can select the bearing that the aircraft will ingress at. The default
                     behavior will be the the direction the player is currently facing.
 
@@ -498,22 +492,14 @@ class KISKA_example_CAS
 
             Examples:
                 (begin example)
-                    canSelectAttackDirection = 0; // cant select
+                    canSelectIngress = 0; // cant select
                 (end)
 
                 (begin example)
-                    canSelectAttackDirection = 1; // can select
+                    canSelectIngress = 1; // can select
                 (end)
         ------------------------------------------------------------------------------- */
-        canSelectAttackDirection = ON;
-    };
-
-    class KISKA_supportDetails
-    {
-        numberOfUses = 1;
-        onSupportAdded = "_this call KISKA_fnc_commMenu_onSupportAdded";
-        onSupportRemoved = "_this call KISKA_fnc_commMenu_onSupportRemoved";
-        onSupportCalled = "_this call KISKA_fnc_supports_onCalledCloseAirSupport";
+        canSelectIngress = ON;
 
         /* -------------------------------------------------------------------------------
             Description: 
@@ -781,9 +767,62 @@ class KISKA_example_CAS
         };
     };
 
+    class KISKA_supportDetails
+    {
+        numberOfUses = 1;
+        onSupportAdded = "_this call KISKA_fnc_commMenu_onSupportAdded";
+        onSupportRemoved = "_this call KISKA_fnc_commMenu_onSupportRemoved";
+        onSupportCalled = "_this call KISKA_fnc_supports_onCalledCloseAirSupport";
+    };
+
     class KISKA_supportManagerDetails
     {
         text = "CAS Example";
         picture = CAS_ICON;
     };
+};
+
+
+
+
+
+
+class KISKA_example_helicopterCAS
+{
+    class KISKA_commMenuDetails
+    {
+        text = "Helicopter CAS Example";
+        icon = CAS_HELI_ICON;
+        onSupportSelected = "_this call KISKA_fnc_commMenu_openCas";
+        draw3dMarker = ON;
+        canSelectIngress = ON;
+
+        // TODO
+        patrolRadiuses[] = {};
+        patrolAltitudes[] = {};
+    };
+
+    class KISKA_supportDetails
+    {
+        numberOfUses = 1;
+        onSupportAdded = "_this call KISKA_fnc_commMenu_onSupportAdded";
+        onSupportRemoved = "_this call KISKA_fnc_commMenu_onSupportRemoved";
+        onSupportCalled = "_this call KISKA_fnc_supports_onCalledHelicopterGunner";
+    };
+
+    class KISKA_supportManagerDetails
+    {
+        text = "Helicopter CAS Example";
+        picture = CAS_HELI_ICON;
+    };
+};
+
+
+
+
+
+
+class KISKA_example_supplyDrop
+{
+
 };
