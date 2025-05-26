@@ -793,13 +793,59 @@ class KISKA_example_helicopterCAS
     {
         text = "Helicopter CAS Example";
         icon = CAS_HELI_ICON;
-        onSupportSelected = "_this call KISKA_fnc_commMenu_openCas";
+        onSupportSelected = "_this call KISKA_fnc_commMenu_openHelicopterCAS";
         draw3dMarker = ON;
         canSelectIngress = ON;
 
-        // TODO
-        patrolRadiuses[] = {};
-        patrolAltitudes[] = {};
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - aircraftClass: <STRING> - The classname of the aircraft to perform the CAS
+
+            Required: 
+                - YES
+
+            Examples:
+                (begin example)
+                    aircraftClass = "B_Heli_Attack_01_dynamicLoadout_F";
+                (end)
+        ------------------------------------------------------------------------------- */
+        aircraftClass = "B_Heli_Attack_01_dynamicLoadout_F";
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - patrolRadiuses: <NUMBER[]> - A list of options to select the radius that
+                    the helicopter will patrol around.
+
+            Required: 
+                - NO
+
+            Default:
+                - `200`
+
+            Examples:
+                (begin example)
+                    patrolRadiuses[] = { 200 };
+                (end)
+        ------------------------------------------------------------------------------- */
+        // patrolRadiuses[] = {};
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - patrolAltitudes: <NUMBER[]> - A list of options to select the altitude at
+                    which the helicopter will conduct its patrol above ground level.
+
+            Required: 
+                - NO
+
+            Default:
+                - `50`
+
+            Examples:
+                (begin example)
+                    patrolAltitudes[] = { 50 };
+                (end)
+        ------------------------------------------------------------------------------- */
+        // patrolAltitudes[] = {};
     };
 
     class KISKA_supportDetails
@@ -824,5 +870,245 @@ class KISKA_example_helicopterCAS
 
 class KISKA_example_supplyDrop
 {
+    class KISKA_commMenuDetails
+    {
+        text = "Supply Drop Example";
+        icon = SUPPLY_DROP_ICON;
+        onSupportSelected = "_this call KISKA_fnc_commMenu_openSupplyDrop";
+        draw3dMarker = ON;
 
+        // only applies if `aircraftClass` is defined
+        // canSelectIngress = ON;
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - dropAltitudes: <NUMBER[]> - A list of options to select the altitude at
+                    which the aircraft will fly and drop the cargo above ground level.
+
+            Required: 
+                - NO
+
+            Default:
+                - `100`
+
+            Examples:
+                (begin example)
+                    dropAltitudes[] = { 100 };
+                (end)
+        ------------------------------------------------------------------------------- */
+        // dropAltitudes[] = {};
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - aircraftClass: <STRING> - The classname of an aircraft to fly over the
+                    drop zone and perform the simulated drop. If undefined, no aircraft will
+                    be created to flyover the drop zone.
+
+            Required: 
+                - NO
+
+            Examples:
+                (begin example)
+                    aircraftClass = "B_T_VTOL_01_vehicle_F";
+                (end)
+        ------------------------------------------------------------------------------- */
+        // aircraftClass = "";
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - spawnDistance: <NUMBER> - The distance an aircraft will spawn from the drop
+                    zone and fly in. Only applies if `aircraftClass` is defined.
+
+            Required: 
+                - NO
+
+            Default:
+                - `2000`
+
+            Examples:
+                (begin example)
+                    spawnDistance = 1000;
+                (end)
+        ------------------------------------------------------------------------------- */
+        // spawnDistance = 2000;
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - objectClassNames: <STRING[]> - A list of classnames of objects that will
+                    be dropped.
+
+            Required: 
+                - YES
+
+            Examples:
+                (begin example)
+                    // drop two supply crates
+                    objectClassNames[] = {
+                        "B_supplyCrate_F",
+                        "B_supplyCrate_F"
+                    };
+                (end)
+        ------------------------------------------------------------------------------- */
+        objectClassNames[] = {"B_supplyCrate_F"};
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - dropPositionRadius: <NUMBER> - The radius around the drop position that
+                    the crates will be created.
+
+            Required: 
+                - NO
+
+            Default:
+                - `50`
+
+            Examples:
+                (begin example)
+                    dropPositionRadius = 100;
+                (end)
+        ------------------------------------------------------------------------------- */
+        // dropPositionRadius = 50;
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - parachuteClass: <STRING> - The class name of the parachutes that will
+                    be used for the supplies.
+
+            Required: 
+                - NO
+
+            Default:
+                - `"b_parachute_02_F"`
+
+            Examples:
+                (begin example)
+                    parachuteClass = "b_parachute_02_F";
+                (end)
+        ------------------------------------------------------------------------------- */
+        // parachuteClass = "";
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - dropZVelocity: <NUMBER> - The m/s rate of descent that
+                    will be applied to the parachutes while every `velocityUpdateFrequency`
+                    denoted time and if the object is above a surface beneath it as defined
+                    with `distanceToStopVelocityUpdates`.
+
+            Required: 
+                - NO
+
+            Default:
+                - `-15`
+
+            Examples:
+                (begin example)
+                    dropZVelocity = -10;
+                (end)
+        ------------------------------------------------------------------------------- */
+        // dropZVelocity = -15;
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - velocityUpdateFrequency: <NUMBER> - How frequently to update the dropped 
+                    objects' downward velocities.
+
+            Required: 
+                - NO
+
+            Default:
+                - `0.1`
+
+            Examples:
+                (begin example)
+                    velocityUpdateFrequency = -0.1;
+                (end)
+        ------------------------------------------------------------------------------- */
+        // velocityUpdateFrequency = -0.1;
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - distanceToStopVelocityUpdates: <NUMBER> - At what distance to the surface
+                    beneath the objects should the velocity stop being applied.
+
+            Required: 
+                - NO
+
+            Default:
+                - `80`
+
+            Examples:
+                (begin example)
+                    distanceToStopVelocityUpdates = 100;
+                (end)
+        ------------------------------------------------------------------------------- */
+        // distanceToStopVelocityUpdates = 80;
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - allowDamage: <0 | 1> - Can the dropped supplies take damage?
+
+            Required: 
+                - NO
+
+            Default:
+                - `1`
+
+            Examples:
+                (begin example)
+                    // no damage
+                    allowDamage = 0;
+                (end)
+        ------------------------------------------------------------------------------- */
+        // allowDamage = ON;
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - addArsenals: <0 | 1> - If true, arsenals will be added to the supplies
+                    with `KISKA_fnc_addArsenal`
+
+            Required: 
+                - NO
+
+            Default:
+                - `0`
+
+            Examples:
+                (begin example)
+                    addArsenals = 1;
+                (end)
+        ------------------------------------------------------------------------------- */
+        // addArsenals = OFF;
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - clearCargo: <0 | 1> - If true, cargo will be cleared automatically from
+                    the dropped crates using `KISKA_fnc_clearCargoGlobal`
+
+            Required: 
+                - NO
+
+            Default:
+                - `0`
+
+            Examples:
+                (begin example)
+                    clearCargo = 1;
+                (end)
+        ------------------------------------------------------------------------------- */
+        // clearCargo = OFF;
+    };
+
+    class KISKA_supportDetails
+    {
+        numberOfUses = 1;
+        onSupportAdded = "_this call KISKA_fnc_commMenu_onSupportAdded";
+        onSupportRemoved = "_this call KISKA_fnc_commMenu_onSupportRemoved";
+        onSupportCalled = "_this call KISKA_fnc_supports_onCalledSupplyDrop";
+    };
+
+    class KISKA_supportManagerDetails
+    {
+        text = "Supply Drop Example";
+        picture = SUPPLY_DROP_ICON;
+    };
 };
