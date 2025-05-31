@@ -10,7 +10,7 @@
     Conditional properties
 
     All properties in a base at any level can be placed in a conditional class 
-    that allows for more dynamic base creation. `KISKA_fnc_getConditionalConfigValue` 
+    that allows for more dynamic base creation. `KISKA_fnc_getConfigDataConditional` 
     is what supports this functionality.
 
     Let's say that I want my `side` to conditionally change and I define it at the 
@@ -75,7 +75,7 @@
         };
     (end)
 
-    It's important to understand how `KISKA_fnc_getConditionalConfigValue` works and
+    It's important to understand how `KISKA_fnc_getConfigDataConditional` works and
     its limitations. Read the documentation in its file on Github if you intend to use
     this feature.
 
