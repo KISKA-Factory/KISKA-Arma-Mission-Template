@@ -195,8 +195,6 @@ class KISKA_eventHandlers
     INCLUDE_IF_HAS("KISKA Systems\Headers\EventHandlers\KISKA Combat Behaviour EventHandlers.hpp")
 };
 
-// TODO: add kiska conditional examples
-
 
 INCLUDE_IF_HAS("Headers\descriptionEXT\loadouts.hpp")
 

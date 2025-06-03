@@ -1,8 +1,10 @@
 class KISKA_RandomGear
 {
+    /*
+    // can be used with KISKA_fnc_randomGearFromConfig
     class MyRandomGear
     {
-        class conditional
+        class KISKA_conditional
         {
             class ExampleConditional
             {
@@ -11,6 +13,13 @@ class KISKA_RandomGear
                 class properties
                 {
                     uniforms[] = {};
+                    headgear[] = {};
+                    facewear[] = {};
+                    vests[] = {};
+                    backpacks[] = {};
+                    primaryWeapons[] = {};
+                    handguns[] = {};
+                    secondaryWeapons[] = {};
                 };
             };
         };
@@ -24,4 +33,5 @@ class KISKA_RandomGear
         handguns[] = {};
         secondaryWeapons[] = {};
     };
+    */
 };

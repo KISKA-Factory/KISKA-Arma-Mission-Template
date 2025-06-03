@@ -22,7 +22,7 @@
             class MyBase
             {
                 // classes MUST be titled `conditional`
-                class conditional
+                class KISKA_conditional
                 {
                     class MyConditionalClass_1
                     {
@@ -52,7 +52,7 @@
                     {
                         class InfantrySet_1
                         {
-                            class conditional
+                            class KISKA_conditional
                             {
                                 class MyConditionalSideClass_1
                                 {
@@ -79,7 +79,9 @@
     its limitations. Read the documentation in its file on Github if you intend to use
     this feature.
 
-    Also of note is that conditional properties are checked BEFORE the level's
+    Also of note is that conditional properties are PREFERRED over the values defined
+    in the parent config (same level as `spawnPositions` and `canPath` above),
+    should a condition for a conditional class be met.
 
 ---------------------------------------------------------------------------- */
 
@@ -101,16 +103,16 @@
                 {
                     class reinforce
                     {
-                        Description: 
+                        // Description: 
                             - id: <NUMBER | STRING> - A GLOBALLY unique identifier for this reinforce class.
 
-                        Required: 
+                        // Required: 
                             - NO
 
-                        Default: 
+                        // Default: 
                             - If left blank, the set `configName` is used (e.g. "MyInfantrySet" in this case)
 
-                        Examples:
+                        // Examples:
                             (begin example)
                                 id = "SomeUniqueId";
                             (end)
@@ -121,7 +123,7 @@
                         id = "";
 
 
-                        Description: 
+                        // Description: 
                             - onEnemyDetected: <STRING> - Uncompiled code that will be run once an enemy is detected by the
                             units in the set.
 
@@ -131,13 +133,13 @@
                                 2: <GROUP[]> - The groups that can be called to respond to the detecting group
                                 2: <NUMBER> - The priority of the call
 
-                        Required: 
+                        // Required: 
                             - NO
 
-                        Default: 
+                        // Default: 
                             - See `KISKA_fnc_bases_triggerReaction` for default behaviour.
 
-                        Examples:
+                        // Examples:
                             (begin example)
                                 id = "SomeUniqueId";
                             (end)
@@ -148,32 +150,32 @@
                         onEnemyDetected = "";
 
 
-                        Description: 
+                        // Description: 
                             - canCall: <(STRING | NUMBER)[]> - An array of other reinforce `id`s that can be called 
                             by the detecting group
 
-                        Required: 
+                        // Required: 
                             - YES
 
-                        Examples:
+                        // Examples:
                             (begin example)
                                 canCall[] = {1, "SomeId"};
                             (end)
                         canCall[] = {};
 
 
-                        Description: 
+                        // Description: 
                             - priority: <NUMBER> - The priority of the call that this group will have.
                             With the default behaviour, if a group in the `canCall` is responding to a lower
                             priority call, they will break off and attempt to respond to the higher one.
 
-                        Required: 
+                        // Required: 
                             - NO
 
-                        Default: 
+                        // Default: 
                             - -1
 
-                        Examples:
+                        // Examples:
                             (begin example)
                                 priority = 100;
                             (end)
@@ -1172,7 +1174,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - agent Section
+                            - Agent Section
                             - Section Set
 
                         Default:
@@ -1536,6 +1538,217 @@ class KISKA_Bases
                                 (end)
                         ------------------------------------------------------------------------------- */
                         // getAnimationMapFunction = "";
+                    };
+
+
+                    /* -------------------------------------------------------------------------------
+                        Description: 
+                            - KISKA_RandomGear: <class> - Handles automatically assigning random gear
+                            to agents created with `KISKA_fnc_randomGearFromConfig`. Conditional classes
+                            can be used.
+
+                        Required: 
+                            - NO
+
+                        Definition Levels:
+                            - Agent Section
+                            - Section Set
+                    ------------------------------------------------------------------------------- */
+                    class KISKA_RandomGear
+                    {
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - uniforms: <STRING[] | (STRING | NUMBER)[]> - A list of class names of 
+                                uniforms to randomly select from. Array can be weighted or unweighted.
+
+                            Required: 
+                                - NO
+
+                            Default:
+                                - `[]`
+
+                            Examples:
+                                (begin example)
+                                    uniforms[] = {"uniform_1","uniform_2"};
+                                (end)
+
+                                (begin example)
+                                    // weighted
+                                    uniforms[] = {
+                                        "uniform_1", 0.5,
+                                        "uniform_2", 0.5
+                                    };
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // uniforms[] = {};
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - headgear: <STRING[] | (STRING | NUMBER)[]> - A list of class names of 
+                                headgear to randomly select from. Array can be weighted or unweighted.
+
+                            Required: 
+                                - NO
+
+                            Default:
+                                - `[]`
+
+                            Examples:
+                                (begin example)
+                                    headgear[] = {"headgear_1","headgear_2"};
+                                (end)
+
+                                (begin example)
+                                    // weighted
+                                    headgear[] = {
+                                        "headgear_1", 0.5,
+                                        "headgear_2", 0.5
+                                    };
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // headgear[] = {};
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - facewear: <STRING[] | (STRING | NUMBER)[]> - A list of class names of 
+                                facewear to randomly select from. Array can be weighted or unweighted.
+
+                            Required: 
+                                - NO
+
+                            Default:
+                                - `[]`
+
+                            Examples:
+                                (begin example)
+                                    facewear[] = {"facewear_1","facewear_2"};
+                                (end)
+
+                                (begin example)
+                                    // weighted
+                                    facewear[] = {
+                                        "facewear_1", 0.5,
+                                        "facewear_2", 0.5
+                                    };
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // facewear[] = {};
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - vests: <STRING[] | (STRING | NUMBER)[]> - A list of class names of 
+                                vests to randomly select from. Array can be weighted or unweighted.
+
+                            Required: 
+                                - NO
+
+                            Default:
+                                - `[]`
+
+                            Examples:
+                                (begin example)
+                                    vests[] = {"vest_1","vest_2"};
+                                (end)
+
+                                (begin example)
+                                    // weighted
+                                    vests[] = {
+                                        "vest_1", 0.5,
+                                        "vest_2", 0.5
+                                    };
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // vests[] = {};
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - backpacks: <STRING[] | (STRING | NUMBER)[]> - A list of class names of 
+                                backpacks to randomly select from. Array can be weighted or unweighted.
+
+                            Required: 
+                                - NO
+
+                            Default:
+                                - `[]`
+
+                            Examples:
+                                (begin example)
+                                    backpacks[] = {"backpack_1","backpack_2"};
+                                (end)
+
+                                (begin example)
+                                    // weighted
+                                    backpacks[] = {
+                                        "backpack_1", 0.5,
+                                        "backpack_2", 0.5
+                                    };
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // backpacks[] = {};
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - primaryWeapons: <[STRING,(STRING[] | (STRING,NUMBER)[])][]> - An array of 
+                                primary weapons and items to add to them (see example). The items will be
+                                added using `addPrimaryWeaponItem`.
+
+                            Required: 
+                                - NO
+
+                            Default:
+                                - `[]`
+
+                            Examples:
+                                (begin example)
+                                    primaryWeapons[] = {
+                                        // add a mag and optic to rifle
+                                        {"arifle_MXC_F",{"optic_Aco","30Rnd_65x39_caseless_mag"}}
+                                    };
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // primaryWeapons[] = {};
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - handguns: <[STRING,(STRING[] | (STRING,NUMBER)[])][]> - An array of 
+                                handgun weapons and items to add to them (see example). The items will be
+                                added using `addHandgunItem`.
+
+                            Required: 
+                                - NO
+
+                            Default:
+                                - `[]`
+
+                            Examples:
+                                (begin example)
+                                    handguns[] = {
+                                        {"handgun_class",{"handgun_mag","handgun_attachment"}}
+                                    };
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // handguns[] = {};
+
+                        /* -------------------------------------------------------------------------------
+                            Description: 
+                                - secondaryWeapons: <[STRING,(STRING[] | (STRING,NUMBER)[])][]> - An array of 
+                                secondary (launcher) weapons and items to add to them (see example). The items 
+                                will be added using `addSecondaryWeaponItem`.
+
+                            Required: 
+                                - NO
+
+                            Default:
+                                - `[]`
+
+                            Examples:
+                                (begin example)
+                                    secondaryWeapons[] = {
+                                        {"launcher_class",{"launcher_mag","launcher_attachment"}}
+                                    };
+                                (end)
+                        ------------------------------------------------------------------------------- */
+                        // secondaryWeapons[] = {};
                     };
                 };
             };
