@@ -1,4 +1,6 @@
-INCLUDE_IF_HAS("\Kiska_Functions\Headers\Support Framework\CommonSupportConfigMacros.hpp")
+#if __has_include("\Kiska_Functions\Headers\Support Framework\CommonSupportConfigMacros.hpp")
+    #include "\Kiska_Functions\Headers\Support Framework\CommonSupportConfigMacros.hpp"
+#endif
 
 #if __has_include("\Kiska_Functions\Headers\Support Framework\CommonCommMenuSupportTemplates.hpp")
     // import KISKA_abstract_commMenuArty from KISKA_supports;
