@@ -406,7 +406,7 @@ class KISKA_example_155arty
                 - NO
 
             Default:
-                - `0`
+                - `1`
 
             Examples:
                 (begin example)
@@ -489,8 +489,11 @@ class KISKA_example_CAS
                     can select the bearing that the aircraft will ingress at. The default
                     behavior will be the the direction the player is currently facing.
 
-            Required: 
+            Required:
                 - NO
+            
+            Default:
+                - `1`
 
             Examples:
                 (begin example)
