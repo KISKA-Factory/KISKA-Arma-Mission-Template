@@ -1,0 +1,94 @@
+// Lines must be defined in a "Sentences" class
+class Sentences
+{
+    class line_1
+    {
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - text: <STRING> - A default sentence property of the vanilla arma conversation
+                    system. The string defined in `text` will be shown in the chat (radio)
+                    panel. It MUST be defined even when not in use.
+
+            Required:
+                - YES
+            
+            Examples:
+                (begin example)
+                    // Must be defined as an empty string even when not used
+                    text = "";
+                (end)
+
+                (begin example)
+                    text = "Hello.";
+                (end)
+        ------------------------------------------------------------------------------- */
+        text = "";
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - subtitle: <STRING> - Text to display as a subtitle when the line is being
+                    spoken. This is a custom property that is implemented by KISKA. Effectively
+                    fills the same roll as text but is used to avoid the chat box in favor
+                    of a more cinematic appearance.
+
+            Required:
+                - NO
+            
+            Examples:
+                (begin example)
+                    subtitle = "Hello.";
+                (end)
+        ------------------------------------------------------------------------------- */
+        // subtitle = "";
+
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - speech: <STRING[]> - Another default property of vanilla sentences.
+                    Should be an array of a single string that is the file path (relative
+                    to the mission root) to the audio file to play when the line is spoken
+                    with `kbTell`.
+
+            Required:
+                - NO
+            
+            Examples:
+                (begin example)
+                    speech[] = { "\Conversations\ExampleTopic\audio\MyLine.ogg" };
+                (end)
+        ------------------------------------------------------------------------------- */
+        // speech[] = {};
+        
+        /* -------------------------------------------------------------------------------
+            Description: 
+                - speakerName: <STRING> - The name of the speaker to display when showing subtitles.
+                    If undefined, the speaker object's name will be gathered using the
+                    `name` command in SQF.
+
+            Required:
+                - NO
+            
+            Examples:
+                (begin example)
+                    speakerName = "John";
+                (end)
+        ------------------------------------------------------------------------------- */
+        // speakerName = "";
+
+        // "class Arguments" is boilerplate but is REQUIRED
+        class Arguments {};
+    };
+
+    class Goodbye
+    {
+        text = "";
+        subtitle = "Goodbye.";
+        speakerName = "Person";
+        class Arguments {};
+    };
+};
+
+// REQUIRED boilerplate
+class Arguments {};
+class Special {};
+startWithVocal[] = { hour };
+startWithConsonant[] = { europe, university };
