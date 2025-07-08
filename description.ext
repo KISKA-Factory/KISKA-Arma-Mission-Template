@@ -218,7 +218,9 @@ class KISKA_eventHandlers
 
 class KISKA_speech
 {
-    #include "Conversations\KISKA_speech.hpp"
+    #if __has_include("Conversations\KISKA_speech.hpp")
+        #include "Conversations\KISKA_speech.hpp"
+    #endif
 };
 
 
