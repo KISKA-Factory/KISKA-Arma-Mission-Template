@@ -216,6 +216,11 @@ class KISKA_eventHandlers
     #endif
 };
 
+class KISKA_speech
+{
+    #include "Conversations\KISKA_speech.hpp"
+};
+
 
 #if __has_include("Headers\descriptionEXT\loadouts.hpp")
     #include "Headers\descriptionEXT\loadouts.hpp"
