@@ -232,9 +232,12 @@ class KISKA_speech
     #include "Headers\descriptionEXT\Tasks\KISKA Tasks.hpp"
 #endif
 
-#if __has_include("Headers\descriptionEXT\KISKA Traits.hpp")
-    #include "Headers\descriptionEXT\KISKA Traits.hpp"
-#endif
+class KISKA_traits
+{
+    #if __has_include("Headers\descriptionEXT\KISKA Traits.hpp")
+        #include "Headers\descriptionEXT\KISKA Traits.hpp"
+    #endif
+};
 
 #if __has_include("Headers\descriptionEXT\Bases\KISKA Random Gear.hpp")
     #include "Headers\descriptionEXT\Bases\KISKA Random Gear.hpp"
