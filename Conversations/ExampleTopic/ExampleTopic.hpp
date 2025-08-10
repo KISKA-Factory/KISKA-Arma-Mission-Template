@@ -47,13 +47,13 @@ class ExampleTopic
             (begin example)
                 class lines
                 {
-                    #include "ExampleTopic\ExampleTopic.bikb"
+                    #include "ExampleTopic.bikb"
                 };
             (end)
     ------------------------------------------------------------------------------- */
     class lines 
     {
-        #include "ExampleTopic\ExampleTopic.bikb"
+        #include "ExampleTopic.bikb"
     };
 
     class conversations
