@@ -1147,12 +1147,28 @@ class KISKA_Bases
             };
         };
 
-
+        /*
+        // The agents section is the exact same as simpleUnits except for the fact that
+        // they are created with createAgent. When using an extreme number of units
+        // simpleUnits is recommended as the createVehicle syntax yields higher performance
+        // than agents. 
         class agents
         {
             class sets
             {
                 class agentSpawnSet_1
+                {
+                    // Same properties as simpleUnits sets
+                };
+            };
+        };
+        */
+
+        class simpleUnits
+        {
+            class sets
+            {
+                class simpleUnitsSpawnSet_1
                 {
                     /* -------------------------------------------------------------------------------
                         Description: 
@@ -1166,7 +1182,7 @@ class KISKA_Bases
                                 Uncompiled code that will be compiled and executed. Must return a number.
 
                                 Parameters:
-                                    0: <CONFIG> - The config path of the agent base set
+                                    0: <CONFIG> - The config path of the simpleUnits base set
                                     1: <OBJECT[] | (PositionATL[] | PositionAGL[])[]> - The possible spawn positions
 
                         Required: 
@@ -1174,7 +1190,7 @@ class KISKA_Bases
 
                         Definition Levels:
                             - Base Root
-                            - Agent Section
+                            - Simple Units Section
                             - Section Set
 
                         Default:
@@ -1248,8 +1264,8 @@ class KISKA_Bases
                             in the set have been initialized.
 
                                 Parameters:
-                                    0: <CONFIG> - The config path of the agent base set
-                                    1: <OBJECT[]> - The units created for the agent set
+                                    0: <CONFIG> - The config path of the simpleUnits base set
+                                    1: <OBJECT[]> - The units created for the simpleUnits set
 
                         Required: 
                             - NO
@@ -1260,7 +1276,7 @@ class KISKA_Bases
 
                         Examples:
                             (begin example)
-                                onUnitsCreated = "params ["_agentSetConfig","_units"]; hint str _this;";
+                                onUnitsCreated = "params ["_simpleUnitsSetConfig","_units"]; hint str _this;";
                             (end)
                     ------------------------------------------------------------------------------- */
                     // onUnitsCreated = "";
@@ -1544,14 +1560,14 @@ class KISKA_Bases
                     /* -------------------------------------------------------------------------------
                         Description: 
                             - KISKA_RandomGear: <class> - Handles automatically assigning random gear
-                            to agents created with `KISKA_fnc_randomGearFromConfig`. Conditional classes
+                            to simpleUnits created with `KISKA_fnc_randomGearFromConfig`. Conditional classes
                             can be used.
 
                         Required: 
                             - NO
 
                         Definition Levels:
-                            - Agent Section
+                            - Simple Units Section
                             - Section Set
                     ------------------------------------------------------------------------------- */
                     class KISKA_RandomGear
