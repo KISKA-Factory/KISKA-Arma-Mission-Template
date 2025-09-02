@@ -80,6 +80,9 @@ disableChannels[] = {
     DIRECT_CHANNEL_ID
 };
 
+// See KISKA_fnc_invisibleWalls_init
+KiskaReplaceInvisibleWallsAtInit = OFF;
+
 /* ----------------------------------------------------------------------------
     Configs
 ---------------------------------------------------------------------------- */
