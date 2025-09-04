@@ -132,13 +132,6 @@ class KISKA_supports
     #endif
 };
 
-class CfgTaskDescriptions
-{
-    #if __has_include("Headers\descriptionEXT\taskDescriptions.hpp")
-        #include "Headers\descriptionEXT\taskDescriptions.hpp"
-    #endif
-};
-
 class CfgRoles
 {
     #if __has_include("Headers\descriptionEXT\RespawnInventory\CfgRoles.hpp")
