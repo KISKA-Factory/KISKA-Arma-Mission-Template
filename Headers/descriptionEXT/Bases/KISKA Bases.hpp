@@ -1976,7 +1976,7 @@ class KISKA_Bases
 
                         Examples:
                             (begin example)
-                                behaviour = "LIMITED";
+                                speed = "LIMITED";
                             (end)
                     ------------------------------------------------------------------------------- */
                     // speed = "";
