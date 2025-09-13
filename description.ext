@@ -219,6 +219,13 @@ class KISKA_speech
     #endif
 };
 
+class KISKA_cargo
+{
+    #if __has_include("Headers\descriptionEXT\Cargo\KISKA_cargo.hpp")
+        #include "Headers\descriptionEXT\Cargo\KISKA_cargo.hpp"
+    #endif
+};
+
 
 #if __has_include("Headers\descriptionEXT\loadouts.hpp")
     #include "Headers\descriptionEXT\loadouts.hpp"
