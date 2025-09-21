@@ -343,7 +343,7 @@ class KISKA_abstract_commMenuSupport
 
             Examples:
                 (begin example)
-                    managerCondition = "params ["_supportConfig"]; true";
+                    managerCondition = "params ['_supportConfig']; true";
                 (end)
         ------------------------------------------------------------------------------- */
         // managerCondition = "";
